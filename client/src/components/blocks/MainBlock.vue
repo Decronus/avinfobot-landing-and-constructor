@@ -1,24 +1,41 @@
 <template>
     <div class="block main-block">
         <div class="content">
+            <div class="squares-wrap">
+                <AngleElement style="margin-left: auto" />
+            </div>
+
             <h1>Рыбный текст основного заголовка</h1>
             <p>
                 Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat
                 mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque
                 morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh.
             </p>
-            <ButtonUI />
+            <ButtonUI style="margin-bottom: 80px" />
+
+            <div class="squares-wrap">
+                <!-- <FourSquares /> -->
+                <FourSquares style="margin-left: auto" />
+            </div>
+        </div>
+
+        <div class="read-next__wrap">
+            <span>Читать далее</span>
+            <ArrowInCircleIcon />
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import ButtonUI from '@/components/ui/ButtonUI.vue';
+import FourSquares from '@/components/decorative-elements/FourSquares.vue';
+import AngleElement from '@/components/decorative-elements/AngleElement.vue';
+import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'MainBlock',
-    components: { ButtonUI },
+    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon },
 });
 </script>
 
@@ -26,7 +43,9 @@ export default defineComponent({
 @import '@/assets/scss/variables';
 
 .main-block {
+    position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -47,6 +66,36 @@ export default defineComponent({
 
         p {
             margin-bottom: 80px;
+        }
+
+        .squares-wrap {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .read-next__wrap {
+        position: absolute;
+        bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        animation: arrowAnimation 1s infinite alternate;
+        transition: transform 0.2s ease-in-out;
+
+        @keyframes arrowAnimation {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(8px);
+            }
+        }
+
+        span {
+            font-size: 14px;
         }
     }
 }

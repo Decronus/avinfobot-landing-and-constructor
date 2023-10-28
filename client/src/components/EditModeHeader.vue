@@ -49,7 +49,7 @@ export default defineComponent({
             cursor: pointer;
 
             &:hover {
-                color: $mainRed;
+                color: $primary-color;
             }
         }
     }

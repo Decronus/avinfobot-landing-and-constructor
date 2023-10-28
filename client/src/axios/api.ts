@@ -1,6 +1,6 @@
 import axiosInst from './axios';
 import { AxiosResponse } from 'axios';
-import { Page } from '../../../types/pages';
+import { Page } from '@/types/pages';
 
 export function getPages(): Promise<AxiosResponse<Page[], void>> {
     return axiosInst.get('pages');

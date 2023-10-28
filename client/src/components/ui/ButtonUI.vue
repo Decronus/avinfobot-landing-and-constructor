@@ -7,12 +7,6 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'ButtonUI',
-
-    data() {
-        return {};
-    },
-
-    computed: {},
 });
 </script>
 
@@ -21,7 +15,7 @@ export default defineComponent({
 
 .button {
     padding: 18px 40px;
-    background: $mainRed;
+    background: $primary-color;
     outline: none;
     border: none;
     color: #fff;

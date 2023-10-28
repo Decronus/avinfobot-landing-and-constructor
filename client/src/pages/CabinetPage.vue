@@ -61,7 +61,7 @@ export default defineComponent({
 
     h1 {
         font-size: 36px;
-        border-bottom: 8px solid $mainRed;
+        border-bottom: 8px solid $primary-color;
         align-self: flex-start;
         margin-bottom: 32px;
     }

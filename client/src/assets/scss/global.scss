@@ -1,4 +1,5 @@
 @import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 @font-face {
     font-family: 'RoadRadio';
@@ -10,6 +11,14 @@
         url('@/assets/fonts/RoadRadio-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    color: #222222;
 }
 
 h1 {
@@ -38,7 +47,6 @@ p {
 }
 
 .page-card {
-    // width: 100%;
     display: flex;
     gap: 12px;
     cursor: pointer;
@@ -63,6 +71,6 @@ p {
 
     &__date {
         font-size: 12px;
-        color: #929292;
+        color: $secondary-text-color;
     }
 }
