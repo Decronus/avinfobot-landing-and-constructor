@@ -8,12 +8,15 @@
         </template>
 
         <div class="modal-content">
-            <TextareaUI label="Имя страницы" />
-            <TextareaUI label="Ссылка на страницу" />
+            <InputUI v-model="page.name" label="Имя страницы" type="textarea" placeholder="Введите имя страницы" />
+            <InputUI
+                v-model="page.link"
+                label="Ссылка на страницу"
+                placeholder="Введите адрес страницы"
+                @inputEdited="isLinkInputEdited = true"
+            />
         </div>
 
-        <!-- <input v-model="page.name" placeholder="Имя страницы" />
-        <input v-model="page.link" placeholder="Ссылка на страницу" /> -->
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="toggleModal">Cancel</el-button>
@@ -24,21 +27,22 @@
 </template>
 
 <script lang="ts">
-import TextareaUI from '@/components/ui/TextareaUI.vue';
+import InputUI from '@/components/ui/InputUI.vue';
 import CloseIcon from '@/components/icons/CloseIcon.vue';
 import { defineComponent } from 'vue';
 import { createPage } from '@/axios/api';
 
 export default defineComponent({
     name: 'AddPageModal',
-    components: { TextareaUI, CloseIcon },
+    components: { InputUI, CloseIcon },
 
     data() {
         return {
             page: {
                 name: '',
-                link: '',
+                link: 'https://127.0.0.1/',
             },
+            isLinkInputEdited: false,
         };
     },
 
@@ -56,7 +60,68 @@ export default defineComponent({
         },
     },
 
+    watch: {
+        'page.name'() {
+            if (!this.isLinkInputEdited) {
+                this.page.link = 'https://127.0.0.1/' + this.transliterateToLatin(this.page.name);
+            }
+        },
+    },
+
     methods: {
+        transliterateToLatin(text: string): string {
+            const cyrillicToLatinMap: Record<string, string> = {
+                а: 'a',
+                б: 'b',
+                в: 'v',
+                г: 'g',
+                д: 'd',
+                е: 'e',
+                ё: 'yo',
+                ж: 'zh',
+                з: 'z',
+                и: 'i',
+                й: 'y',
+                к: 'k',
+                л: 'l',
+                м: 'm',
+                н: 'n',
+                о: 'o',
+                п: 'p',
+                р: 'r',
+                с: 's',
+                т: 't',
+                у: 'u',
+                ф: 'f',
+                х: 'kh',
+                ц: 'ts',
+                ч: 'ch',
+                ш: 'sh',
+                щ: 'sch',
+                ъ: '',
+                ы: 'y',
+                ь: '',
+                э: 'e',
+                ю: 'yu',
+                я: 'ya',
+                ' ': '-',
+                ',': '',
+                '.': '',
+                '"': '',
+            };
+
+            return text
+                .toLowerCase()
+                .split('')
+                .map((char) => {
+                    if (cyrillicToLatinMap[char] !== undefined) {
+                        return cyrillicToLatinMap[char];
+                    }
+                    return char;
+                })
+                .join('');
+        },
+
         async handleCreatePage() {
             try {
                 const res = await createPage(this.page);
