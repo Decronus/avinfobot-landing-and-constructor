@@ -1,4 +1,4 @@
-const loggerUrl = (request, response, next) => {
+const loggerUrl = (request, _response, next) => {
     console.log(request.url);
     next();
 };

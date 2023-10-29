@@ -5,8 +5,8 @@ import LandingPageEdit from '@/pages/LandingPageEdit.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/lk',
-        name: 'lk',
+        path: '/pages',
+        name: 'pages',
         component: CabinetPage,
     },
 

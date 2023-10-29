@@ -2,10 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const usersRouter = require('./routes/users');
 const pagesRouter = require('./routes/pages');
 const mongoose = require('mongoose');
-const addApiRoute = require('./middlewares/addApiRoute');
 const loggerUrl = require('./middlewares/loggerUrl');
 
 dotenv.config();
@@ -22,9 +20,7 @@ mongoose
     .catch((error) => console.log(error));
 
 app.use(bodyParser.json());
-// app.use(addApiRoute);
 app.use(loggerUrl);
-app.use(usersRouter);
 app.use(pagesRouter);
 
 app.listen(PORT, (error) => {

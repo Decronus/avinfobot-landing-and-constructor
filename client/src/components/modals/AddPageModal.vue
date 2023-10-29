@@ -1,7 +1,19 @@
 <template>
-    <el-dialog v-model="modalVisibility" title="Создание страницы" width="800px">
-        <input v-model="page.name" placeholder="Имя страницы" />
-        <input v-model="page.link" placeholder="Ссылка на страницу" />
+    <el-dialog v-model="modalVisibility" width="800px" :show-close="false">
+        <template #header>
+            <div class="modal-header">
+                <span>Создание страницы</span>
+                <CloseIcon @click="toggleModal" />
+            </div>
+        </template>
+
+        <div class="modal-content">
+            <TextareaUI label="Имя страницы" />
+            <TextareaUI label="Ссылка на страницу" />
+        </div>
+
+        <!-- <input v-model="page.name" placeholder="Имя страницы" />
+        <input v-model="page.link" placeholder="Ссылка на страницу" /> -->
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="toggleModal">Cancel</el-button>
@@ -12,11 +24,14 @@
 </template>
 
 <script lang="ts">
+import TextareaUI from '@/components/ui/TextareaUI.vue';
+import CloseIcon from '@/components/icons/CloseIcon.vue';
 import { defineComponent } from 'vue';
 import { createPage } from '@/axios/api';
 
 export default defineComponent({
     name: 'AddPageModal',
+    components: { TextareaUI, CloseIcon },
 
     data() {
         return {
@@ -57,4 +72,30 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.modal-header {
+    background: #f7f7f7;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+
+    .icon-wrap {
+        cursor: pointer;
+
+        &:hover svg path {
+            fill: #222222;
+        }
+    }
+}
+
+.modal-content {
+    max-width: 572px;
+    margin: 0 auto;
+    padding: 34px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+</style>

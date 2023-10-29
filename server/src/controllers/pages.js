@@ -12,6 +12,7 @@ const createPage = (request, response) => {
     const { body } = request;
     const mainBlock = {
         type: 'main',
+        inverted: false,
         title: body.name,
         description:
             'Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh.',

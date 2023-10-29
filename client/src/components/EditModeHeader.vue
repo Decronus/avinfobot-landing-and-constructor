@@ -2,6 +2,7 @@
     <div class="edit-mode__header">
         <span class="header-element">РЕЖИМ РЕДАКТИРОВАНИЯ</span>
         <div class="header-group">
+            <span class="header-element" @click="$router.push('/pages')">Страницы</span>
             <span class="header-element">Настройки</span>
             <span class="header-element semibold" @click="openPage"> Предпросмотр </span>
         </div>
@@ -40,6 +41,7 @@ export default defineComponent({
     position: sticky;
     top: 0;
     left: 0;
+    z-index: 10;
 
     .header-group {
         display: flex;

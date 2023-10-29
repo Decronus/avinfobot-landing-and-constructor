@@ -1,5 +1,5 @@
 <template>
-    <div class="block main-block">
+    <div class="block main-block" :class="{ 'main-block__inverted': block?.inverted }">
         <div class="content">
             <div class="squares-wrap">
                 <AngleElement style="margin-left: auto" />
@@ -31,11 +31,17 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import FourSquares from '@/components/decorative-elements/FourSquares.vue';
 import AngleElement from '@/components/decorative-elements/AngleElement.vue';
 import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
-import { defineComponent } from 'vue';
+import { MainBlock } from '@/types/pages';
+import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'MainBlock',
     components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon },
+    props: {
+        block: {
+            type: Object as PropType<MainBlock>,
+        },
+    },
 });
 </script>
 
@@ -96,6 +102,24 @@ export default defineComponent({
 
         span {
             font-size: 14px;
+        }
+    }
+}
+
+.main-block__inverted {
+    background-color: rgba(13, 2, 2, 0.5);
+
+    h1,
+    p {
+        color: #ffffff;
+    }
+
+    .read-next__wrap {
+        span {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        svg path {
+            fill: rgba(255, 255, 255, 0.7);
         }
     }
 }
