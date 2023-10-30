@@ -8,6 +8,7 @@
             :type="type"
             :placeholder="placeholder"
             autosize
+            :readonly="readonly"
         />
     </div>
 </template>
@@ -36,6 +37,10 @@ export default defineComponent({
             type: String,
             required: false,
             default: 'Placeholder',
+        },
+        readonly: {
+            type: Boolean,
+            default: false,
         },
     },
 

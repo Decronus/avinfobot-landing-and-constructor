@@ -38,6 +38,12 @@ p {
     font-weight: 600;
 }
 
+.icon-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .block {
     padding: 80px calc(50% - 580px);
 

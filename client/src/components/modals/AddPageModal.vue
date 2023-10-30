@@ -13,28 +13,28 @@
                 v-model="page.link"
                 label="Ссылка на страницу"
                 placeholder="Введите адрес страницы"
+                readonly
                 @inputEdited="isLinkInputEdited = true"
             />
-        </div>
 
-        <template #footer>
-            <span class="dialog-footer">
-                <el-button @click="toggleModal">Cancel</el-button>
-                <el-button type="primary" @click="handleCreatePage"> Confirm </el-button>
-            </span>
-        </template>
+            <div class="modal__buttons-wrap">
+                <ButtonUI text="Отменить" medium secondary rounded border @click="toggleModal" />
+                <ButtonUI text="Создать" medium rounded :disabled="buttonDisabled" @click="handleCreatePage" />
+            </div>
+        </div>
     </el-dialog>
 </template>
 
 <script lang="ts">
 import InputUI from '@/components/ui/InputUI.vue';
 import CloseIcon from '@/components/icons/CloseIcon.vue';
+import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { defineComponent } from 'vue';
 import { createPage } from '@/axios/api';
 
 export default defineComponent({
     name: 'AddPageModal',
-    components: { InputUI, CloseIcon },
+    components: { InputUI, CloseIcon, ButtonUI },
 
     data() {
         return {
@@ -47,6 +47,11 @@ export default defineComponent({
     },
 
     computed: {
+        buttonDisabled(): boolean {
+            const resultLink = this.page.link.replace('https://127.0.0.1/', '');
+            const linkFilled = resultLink.length > 0;
+            return !(this.page.name && linkFilled);
+        },
         modalName(): string {
             return this.$options.name as string;
         },
@@ -114,10 +119,6 @@ export default defineComponent({
                 .toLowerCase()
                 .split('')
                 .map((char) => {
-                    // if (cyrillicToLatinMap[char] !== undefined) {
-                    //     return cyrillicToLatinMap[char];
-                    // }
-                    // return char;
                     return cyrillicToLatinMap[char] ?? char;
                 })
                 .join('');
@@ -126,7 +127,7 @@ export default defineComponent({
         async handleCreatePage() {
             try {
                 const res = await createPage(this.page);
-                console.log('create page res', res.data);
+                this.toggleModal();
             } catch (err) {
                 console.error(err);
             }
@@ -163,5 +164,11 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     gap: 32px;
+
+    .modal__buttons-wrap {
+        align-self: flex-end;
+        display: flex;
+        gap: 16px;
+    }
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-    <button class="button" :class="classList">
+    <button class="button" :class="classList" :disabled="disabled">
         <div class="button-inner">
             <slot v-if="icon || !text"></slot>
-            <span>{{ text }}</span>
+            <span v-if="text">{{ text }}</span>
         </div>
     </button>
 </template>
@@ -39,6 +39,10 @@ export default defineComponent({
             default: false,
         },
         icon: {
+            type: Boolean,
+            default: false,
+        },
+        disabled: {
             type: Boolean,
             default: false,
         },
@@ -92,6 +96,7 @@ export default defineComponent({
 
     &:hover {
         transform: scale(1.025);
+        background: #d13122;
     }
 }
 
@@ -116,6 +121,11 @@ export default defineComponent({
     height: 28px;
     padding: 0 10px;
     background: $primary-edit-color;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+        background: #e98080;
+    }
 
     span {
         color: $primary-text-color;
@@ -132,9 +142,13 @@ export default defineComponent({
 
 .button-medium {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 400;
     height: 40px;
     padding: 0 32px;
+
+    &:hover {
+        transform: none;
+    }
 }
 
 .button-border {
@@ -143,6 +157,10 @@ export default defineComponent({
 
 .button-secondary {
     background: #ffffff;
+
+    &:hover {
+        background: #f5f5f5;
+    }
 
     span {
         color: $primary-text-color;
@@ -155,5 +173,9 @@ export default defineComponent({
 
 .button-only-icon {
     width: 28px;
+}
+
+.button[disabled] {
+    background: #c7c7c7;
 }
 </style>
