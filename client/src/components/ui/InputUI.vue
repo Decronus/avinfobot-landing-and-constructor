@@ -65,7 +65,7 @@ export default defineComponent({
 .input-wrap {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 
     .input-label {
         color: $secondary-text-color;

@@ -1,6 +1,6 @@
 <template>
     <div class="edit-mode__header">
-        <span class="header-element">РЕЖИМ РЕДАКТИРОВАНИЯ</span>
+        <span class="header-element header-element__edit-mode">РЕЖИМ РЕДАКТИРОВАНИЯ</span>
         <div class="header-group">
             <span class="header-element" @click="$router.push('/pages')">Страницы</span>
             <span class="header-element" @click="openCreatePageModal">Настройки</span>
@@ -51,6 +51,10 @@ export default defineComponent({
     top: 0;
     left: 0;
     z-index: 10;
+
+    .header-element__edit-mode {
+        pointer-events: none;
+    }
 
     .header-group {
         display: flex;

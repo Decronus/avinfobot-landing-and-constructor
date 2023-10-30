@@ -8,14 +8,22 @@
 <script lang="ts">
 import EditContentButton from '@/components/blocks/edit-elements/EditContentButton.vue';
 import DeleteContentButton from '@/components/blocks/edit-elements/DeleteBlockButton.vue';
-import { defineComponent } from 'vue';
+import { PropType, defineComponent } from 'vue';
+import { BlockType } from '@/types/pages';
 
 export default defineComponent({
     name: 'EditRow',
     components: { EditContentButton, DeleteContentButton },
+    props: {
+        blockType: {
+            type: String as PropType<BlockType>,
+            required: true,
+        },
+    },
 
     methods: {
-        openEditContentDrawer() {
+        openEditContentDrawer(): void {
+            this.$store.commit('drawers/setCurrentEditContentDrawerBlock', this.blockType);
             this.$store.commit('drawers/toggleDrawer', 'EditContentDrawer');
         },
     },

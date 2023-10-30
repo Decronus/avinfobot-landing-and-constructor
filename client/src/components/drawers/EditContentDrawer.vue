@@ -13,13 +13,7 @@
         </div>
 
         <div class="edit-drawer__body">
-            <InputUI label="Имя страницы" type="textarea" placeholder="Введите имя страницы" />
-            <InputUI
-                label="Ссылка на страницу"
-                placeholder="Введите адрес страницы"
-                readonly
-                @inputEdited="isLinkInputEdited = true"
-            />
+            <component :is="drawerBody" />
         </div>
     </el-drawer>
 </template>
@@ -27,15 +21,26 @@
 <script lang="ts">
 import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
-import { defineComponent } from 'vue';
+import MainBlockDrawerBody from './edit-content-drawer-bodies/MainBlockDrawerBody.vue';
+import { Component, defineComponent } from 'vue';
+import { BlockType } from '@/types/pages';
 
 export default defineComponent({
     name: 'EditContentDrawer',
-    components: { InputUI, ButtonUI },
+    components: { InputUI, ButtonUI, MainBlockDrawerBody },
 
     computed: {
         drawerName(): string {
             return this.$options.name as string;
+        },
+        drawerBody(): Component {
+            const drawerBodies: Record<BlockType, Component> = {
+                main: MainBlockDrawerBody,
+                title: MainBlockDrawerBody,
+                twoColumns: MainBlockDrawerBody,
+            };
+            const currentBlockType: BlockType = this.$store.getters['drawers/getCurrentEditContentDrawerBlock'];
+            return drawerBodies[currentBlockType];
         },
         drawerVisibility: {
             get(): boolean {

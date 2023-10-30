@@ -1,6 +1,6 @@
 <template>
     <div class="block main-block" :class="{ 'main-block__inverted': block?.inverted }">
-        <EditRow v-if="editMode" />
+        <EditRow v-if="editMode" blockType="main" />
 
         <div class="content">
             <div class="squares-wrap">
