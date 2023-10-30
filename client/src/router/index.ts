@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import CabinetPage from '@/pages/CabinetPage.vue';
 import LandingPage from '@/pages/LandingPage.vue';
-import LandingPageEdit from '@/pages/LandingPageEdit.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -19,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/:pageName/edit',
         name: 'landing-page-edit',
-        component: LandingPageEdit,
+        component: LandingPage,
     },
 ];
 

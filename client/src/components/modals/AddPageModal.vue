@@ -114,10 +114,11 @@ export default defineComponent({
                 .toLowerCase()
                 .split('')
                 .map((char) => {
-                    if (cyrillicToLatinMap[char] !== undefined) {
-                        return cyrillicToLatinMap[char];
-                    }
-                    return char;
+                    // if (cyrillicToLatinMap[char] !== undefined) {
+                    //     return cyrillicToLatinMap[char];
+                    // }
+                    // return char;
+                    return cyrillicToLatinMap[char] ?? char;
                 })
                 .join('');
         },

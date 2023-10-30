@@ -1,5 +1,6 @@
 <template>
-    <MainBlock />
+    <EditModeHeader v-if="isEditMode" />
+    <MainBlock :editMode="isEditMode" />
 </template>
 
 <script lang="ts">
@@ -10,6 +11,12 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'LandingPage',
     components: { MainBlock, EditModeHeader },
+
+    computed: {
+        isEditMode(): boolean {
+            return this.$route.name === 'landing-page-edit';
+        },
+    },
 });
 </script>
 

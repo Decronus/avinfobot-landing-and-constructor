@@ -1,5 +1,7 @@
 <template>
     <div class="block main-block" :class="{ 'main-block__inverted': block?.inverted }">
+        <EditRow />
+
         <div class="content">
             <div class="squares-wrap">
                 <AngleElement style="margin-left: auto" />
@@ -11,7 +13,7 @@
                 mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque
                 morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh.
             </p>
-            <ButtonUI style="margin-bottom: 80px" />
+            <ButtonUI style="margin-bottom: 80px" text="Призыв к действию" />
 
             <div class="squares-wrap">
                 <!-- <FourSquares /> -->
@@ -27,6 +29,7 @@
 </template>
 
 <script lang="ts">
+import EditRow from '@/components/blocks/edit-elements/EditRow.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import FourSquares from '@/components/decorative-elements/FourSquares.vue';
 import AngleElement from '@/components/decorative-elements/AngleElement.vue';
@@ -36,8 +39,13 @@ import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'MainBlock',
-    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon },
+    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow },
     props: {
+        editMode: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
         block: {
             type: Object as PropType<MainBlock>,
         },
