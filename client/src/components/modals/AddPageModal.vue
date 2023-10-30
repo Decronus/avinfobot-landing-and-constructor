@@ -71,9 +71,16 @@ export default defineComponent({
                 this.page.link = 'https://127.0.0.1/' + this.transliterateToLatin(this.page.name);
             }
         },
+        modalVisibility(value: boolean) {
+            if (value) this.clearForm();
+        },
     },
 
     methods: {
+        clearForm(): void {
+            this.page.name = '';
+            this.page.link = 'https://127.0.0.1/';
+        },
         transliterateToLatin(text: string): string {
             const cyrillicToLatinMap: Record<string, string> = {
                 а: 'a',
@@ -123,7 +130,6 @@ export default defineComponent({
                 })
                 .join('');
         },
-
         async handleCreatePage() {
             try {
                 const res = await createPage(this.page);

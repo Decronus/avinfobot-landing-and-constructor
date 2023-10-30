@@ -1,6 +1,6 @@
 <template>
     <div class="edit-row">
-        <EditContentButton />
+        <EditContentButton @click="openEditContentDrawer" />
         <DeleteContentButton />
     </div>
 </template>
@@ -13,12 +13,10 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'EditRow',
     components: { EditContentButton, DeleteContentButton },
-    props: {
-        openEditDrawer: {
-            type: Function,
-        },
-        deleteBlock: {
-            type: Function,
+
+    methods: {
+        openEditContentDrawer() {
+            this.$store.commit('drawers/toggleDrawer', 'EditContentDrawer');
         },
     },
 });

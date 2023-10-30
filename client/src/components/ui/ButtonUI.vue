@@ -107,7 +107,7 @@ export default defineComponent({
 .button-drawer {
     font-size: 14px;
     font-weight: 400;
-    height: 72px;
+    height: 64px;
     width: 50%;
 
     &:hover {
@@ -177,5 +177,17 @@ export default defineComponent({
 
 .button[disabled] {
     background: #c7c7c7;
+}
+
+.button-drawer.button-secondary {
+    background: $primary-text-color;
+
+    &:hover {
+        background: #2a2a2a;
+    }
+
+    span {
+        color: #ffffff;
+    }
 }
 </style>

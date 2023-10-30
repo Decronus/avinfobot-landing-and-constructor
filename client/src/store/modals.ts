@@ -1,9 +1,9 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
 
-type Modals = 'AddPageModal' | 'PageSettingsModal';
+type Modal = 'AddPageModal' | 'PageSettingsModal';
 
 interface State {
-    openedModals: Modals[];
+    openedModals: Modal[];
 }
 
 const state: State = {
@@ -11,13 +11,13 @@ const state: State = {
 };
 
 const getters: GetterTree<State, any> = {
-    getModalVisibility: (state) => (modalName: Modals) => {
+    getModalVisibility: (state) => (modalName: Modal) => {
         return state.openedModals.includes(modalName);
     },
 };
 
 const mutations: MutationTree<State> = {
-    toggleModal(state, modalName: Modals) {
+    toggleModal(state, modalName: Modal) {
         if (state.openedModals.includes(modalName)) {
             state.openedModals = state.openedModals.filter((name) => name !== modalName);
         } else {
