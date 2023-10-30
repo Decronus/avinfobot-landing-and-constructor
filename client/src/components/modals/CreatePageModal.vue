@@ -33,7 +33,7 @@ import { defineComponent } from 'vue';
 import { createPage } from '@/axios/api';
 
 export default defineComponent({
-    name: 'AddPageModal',
+    name: 'CreatePageModal',
     components: { InputUI, CloseIcon, ButtonUI },
 
     data() {
@@ -166,7 +166,7 @@ export default defineComponent({
 .modal-content {
     max-width: 572px;
     margin: 0 auto;
-    padding: 34px 24px;
+    padding: 34px 20px;
     display: flex;
     flex-direction: column;
     gap: 32px;

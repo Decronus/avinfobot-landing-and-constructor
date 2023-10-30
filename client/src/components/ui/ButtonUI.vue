@@ -177,6 +177,7 @@ export default defineComponent({
 
 .button[disabled] {
     background: #c7c7c7;
+    cursor: not-allowed;
 }
 
 .button-drawer.button-secondary {

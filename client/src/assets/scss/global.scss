@@ -47,6 +47,10 @@ p {
 .block {
     padding: 80px calc(50% - 580px);
 
+    &:hover .edit-row {
+        opacity: 1;
+    }
+
     @media (max-width: 1200px) {
         padding-left: 20px;
         padding-right: 20px;
@@ -67,8 +71,11 @@ p {
     &__image {
         width: 82px;
         height: 47px;
-        background: #ccc;
         flex-shrink: 0;
+        border-radius: 6px;
+        background-image: url('https://a.d-cd.net/6f3caees-1920.jpg');
+        background-size: cover;
+        background-position: center;
     }
 
     &__name {

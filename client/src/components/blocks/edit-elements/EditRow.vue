@@ -32,5 +32,6 @@ export default defineComponent({
     width: 100%;
     top: 15px;
     padding: 0 15px;
+    opacity: 0;
 }
 </style>

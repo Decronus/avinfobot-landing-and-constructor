@@ -70,6 +70,7 @@ export default defineComponent({
     .input-label {
         color: $secondary-text-color;
         font-size: 16px;
+        text-transform: uppercase;
     }
 
     .el-textarea__inner,

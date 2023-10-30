@@ -11,12 +11,21 @@
             <ButtonUI text="Сохранить" drawer secondary @click="toggleDrawer" />
             <ButtonUI text="Сохранить и закрыть" drawer @click="toggleDrawer" />
         </div>
+
+        <div class="edit-drawer__body">
+            <InputUI label="Имя страницы" type="textarea" placeholder="Введите имя страницы" />
+            <InputUI
+                label="Ссылка на страницу"
+                placeholder="Введите адрес страницы"
+                readonly
+                @inputEdited="isLinkInputEdited = true"
+            />
+        </div>
     </el-drawer>
 </template>
 
 <script lang="ts">
 import InputUI from '@/components/ui/InputUI.vue';
-// import CloseIcon from '@/components/icons/CloseIcon.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { defineComponent } from 'vue';
 
@@ -52,6 +61,15 @@ export default defineComponent({
         .el-drawer__body {
             width: 100vw;
         }
+    }
+
+    .edit-drawer__body {
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 48px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
     }
 
     .drawer__buttons-wrap {
