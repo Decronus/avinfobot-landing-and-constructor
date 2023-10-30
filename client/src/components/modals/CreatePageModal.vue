@@ -2,7 +2,7 @@
     <el-dialog v-model="modalVisibility" width="800px" :show-close="false">
         <template #header>
             <div class="modal-header">
-                <span>Создание страницы</span>
+                <span>{{ isEditMode ? 'Настройки страницы' : 'Создание страницы' }}</span>
                 <CloseIcon @click="toggleModal" />
             </div>
         </template>
@@ -47,6 +47,9 @@ export default defineComponent({
     },
 
     computed: {
+        isEditMode(): boolean {
+            return this.$route.name === 'landing-page-edit';
+        },
         buttonDisabled(): boolean {
             const resultLink = this.page.link.replace('https://127.0.0.1/', '');
             const linkFilled = resultLink.length > 0;

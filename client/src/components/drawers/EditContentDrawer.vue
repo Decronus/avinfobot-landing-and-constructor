@@ -76,35 +76,4 @@ export default defineComponent({
         display: flex;
     }
 }
-/* .modal-header {
-    background: #f7f7f7;
-    height: 72px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 24px;
-
-    .icon-wrap {
-        cursor: pointer;
-
-        &:hover svg path {
-            fill: #222222;
-        }
-    }
-}
-
-.modal-content {
-    max-width: 572px;
-    margin: 0 auto;
-    padding: 34px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-
-    .modal__buttons-wrap {
-        align-self: flex-end;
-        display: flex;
-        gap: 16px;
-    }
-} */
 </style>

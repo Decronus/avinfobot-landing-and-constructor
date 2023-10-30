@@ -3,23 +3,30 @@
         <span class="header-element">РЕЖИМ РЕДАКТИРОВАНИЯ</span>
         <div class="header-group">
             <span class="header-element" @click="$router.push('/pages')">Страницы</span>
-            <span class="header-element">Настройки</span>
+            <span class="header-element" @click="openCreatePageModal">Настройки</span>
             <span class="header-element semibold" @click="openPage"> Предпросмотр </span>
         </div>
     </div>
+
+    <CreatePageModal />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import CreatePageModal from '@/components/modals/CreatePageModal.vue';
 
 export default defineComponent({
     name: 'EditModeHeader',
+    components: { CreatePageModal },
 
     data() {
         return {};
     },
 
     methods: {
+        openCreatePageModal(): void {
+            this.$store.commit('modals/toggleModal', 'CreatePageModal');
+        },
         openPage(): void {
             window.open('/' + this.$route.params.pageName, '_blank');
         },
