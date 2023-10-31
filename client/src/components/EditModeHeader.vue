@@ -6,6 +6,10 @@
             <span class="header-element" @click="openCreatePageModal">Настройки</span>
             <span class="header-element semibold" @click="openPage"> Предпросмотр </span>
         </div>
+
+        <div class="header__dropdown">
+            <ThreeDotsIcon />
+        </div>
     </div>
 
     <CreatePageModal />
@@ -14,10 +18,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import CreatePageModal from '@/components/modals/CreatePageModal.vue';
+import ThreeDotsIcon from '@/components/icons/ThreeDotsIcon.vue';
 
 export default defineComponent({
     name: 'EditModeHeader',
-    components: { CreatePageModal },
+    components: { CreatePageModal, ThreeDotsIcon },
 
     data() {
         return {};
@@ -60,12 +65,25 @@ export default defineComponent({
         display: flex;
         gap: 32px;
 
+        @media (max-width: 768px) {
+            display: none;
+        }
+
         .header-element {
             cursor: pointer;
 
             &:hover {
                 color: $primary-color;
             }
+        }
+    }
+
+    .header__dropdown {
+        display: none;
+        cursor: pointer;
+
+        @media (max-width: 768px) {
+            display: block;
         }
     }
 }

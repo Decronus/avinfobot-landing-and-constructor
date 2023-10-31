@@ -1,5 +1,5 @@
 <template>
-    <div class="block main-block" :class="{ 'main-block__inverted': block?.inverted }">
+    <div class="block main-block" :class="{ 'main-block__inverted': block?.inverted, 'block-hover': editMode }">
         <EditRow v-if="editMode" blockType="main" />
 
         <div class="content">
@@ -76,6 +76,10 @@ export default defineComponent({
         h1 {
             font-size: 72px;
             margin-bottom: 24px;
+
+            @media (max-width: 768px) {
+                font-size: 48px;
+            }
         }
 
         p {

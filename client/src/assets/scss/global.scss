@@ -47,14 +47,21 @@ p {
 .block {
     padding: 80px calc(50% - 580px);
 
-    &:hover .edit-row {
-        opacity: 1;
+    &:hover {
+        .edit-row {
+            opacity: 1;
+        }
     }
 
     @media (max-width: 1200px) {
         padding-left: 20px;
         padding-right: 20px;
     }
+}
+
+.block-hover:hover {
+    border-top: 2px dashed #c3c3c3;
+    border-bottom: 2px dashed #c3c3c3;
 }
 
 .page-card {

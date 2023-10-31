@@ -118,8 +118,8 @@ export default defineComponent({
 .button-edit {
     font-size: 12px;
     font-weight: 400;
-    height: 28px;
-    padding: 0 10px;
+    height: 32px;
+    padding: 0 14px;
     background: $primary-edit-color;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
 
@@ -172,7 +172,7 @@ export default defineComponent({
 }
 
 .button-only-icon {
-    width: 28px;
+    width: 32px;
 }
 
 .button[disabled] {
