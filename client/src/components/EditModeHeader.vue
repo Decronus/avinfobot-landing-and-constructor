@@ -33,7 +33,7 @@ export default defineComponent({
             this.$store.commit('modals/toggleModal', 'CreatePageModal');
         },
         openPage(): void {
-            window.open('/' + this.$route.params.pageName, '_blank');
+            window.open('/' + this.$route.params.pageLink, '_blank');
         },
     },
 });

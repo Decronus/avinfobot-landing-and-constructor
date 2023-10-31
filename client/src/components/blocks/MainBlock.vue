@@ -1,9 +1,9 @@
 <template>
     <div
         class="block main-block"
-        :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': editMode }"
+        :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
     >
-        <EditRow v-if="editMode" blockType="main" />
+        <EditRow v-if="isEditMode" blockType="main" />
 
         <div class="content">
             <div class="squares-wrap">
@@ -31,7 +31,7 @@
             <ArrowInCircleIcon />
         </div>
 
-        <AddBlockIcon />
+        <AddBlockIcon v-if="isEditMode" />
     </div>
 </template>
 
@@ -43,13 +43,13 @@ import AngleElement from '@/components/decorative-elements/AngleElement.vue';
 import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
 import AddBlockIcon from '@/components/icons/AddBlockIcon.vue';
 import { MainBlock } from '@/types/pages';
-import { PropType, defineComponent } from 'vue';
+import { PropType, defineComponent, markRaw, shallowRef } from 'vue';
 
 export default defineComponent({
     name: 'MainBlock',
     components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockIcon },
     props: {
-        editMode: {
+        isEditMode: {
             type: Boolean,
             required: false,
             default: false,

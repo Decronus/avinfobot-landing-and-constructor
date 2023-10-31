@@ -5,23 +5,18 @@
         v-for="block in pageData?.blocks"
         :key="block._id"
         :block="block"
-        :editMode="isEditMode"
+        :isEditMode="isEditMode"
         :is="getCurrentBlock(block.type)"
     />
 
-    <component
-        v-for="block in pageData?.blocks"
-        :key="block._id"
-        :block="block"
-        :editMode="isEditMode"
-        :is="getCurrentBlock(block.type)"
-    />
-
-    <div class="all-blocks-button__wrap">
+    <div v-if="isEditMode" class="all-blocks-button__wrap">
         <ButtonUI text="ВСЕ БЛОКИ" medium rounded />
     </div>
 
-    <EditContentDrawer />
+    <div v-if="isEditMode">
+        <EditContentDrawer />
+        <SettingsDrawer />
+    </div>
 </template>
 
 <script lang="ts">
@@ -30,6 +25,7 @@ import TwoColumnsBlock from '@/components/blocks/TwoColumnsBlock.vue';
 import TitleBlock from '@/components/blocks/TitleBlock.vue';
 import EditModeHeader from '@/components/EditModeHeader.vue';
 import EditContentDrawer from '@/components/drawers/EditContentDrawer.vue';
+import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { Component, defineComponent } from 'vue';
 import { getPageByLink } from '@/axios/api';
@@ -42,7 +38,7 @@ interface Data {
 
 export default defineComponent({
     name: 'LandingPage',
-    components: { MainBlock, EditModeHeader, EditContentDrawer, ButtonUI },
+    components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, ButtonUI },
 
     data(): Data {
         return {
