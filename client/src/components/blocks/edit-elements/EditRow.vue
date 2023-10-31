@@ -1,6 +1,9 @@
 <template>
     <div class="edit-row">
-        <EditContentButton @click="openEditContentDrawer" />
+        <div class="edit-row__left">
+            <EditContentButton @click="openEditContentDrawer" />
+            <p class="edit-row__block-name">{{ blockName }}</p>
+        </div>
         <DeleteContentButton />
     </div>
 </template>
@@ -18,6 +21,17 @@ export default defineComponent({
         blockType: {
             type: String as PropType<BlockType>,
             required: true,
+        },
+    },
+
+    computed: {
+        blockName(): string {
+            const blockNames: Record<BlockType, string> = {
+                main: 'Главная страница: заголовок, описание, призыв к действию',
+                twoColumns: 'Две колонки: заголовок, подзаголовок, два абзаца',
+                title: 'Одиночный заголовок',
+            };
+            return blockNames[this.blockType];
         },
     },
 
@@ -41,5 +55,21 @@ export default defineComponent({
     top: 15px;
     padding: 0 15px;
     opacity: 0;
+
+    .edit-row__left {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        .edit-row__block-name {
+            font-size: 10px;
+            color: #959595;
+            width: 160px;
+        }
+
+        .button {
+            align-self: flex-start;
+        }
+    }
 }
 </style>
