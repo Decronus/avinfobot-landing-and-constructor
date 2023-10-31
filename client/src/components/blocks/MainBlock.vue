@@ -31,7 +31,7 @@
             <ArrowInCircleIcon />
         </div>
 
-        <AddBlockIcon style="position: absolute; bottom: -15px" />
+        <AddBlockIcon />
     </div>
 </template>
 

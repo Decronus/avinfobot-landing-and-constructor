@@ -67,6 +67,31 @@ p {
 //     border-bottom: 2px dashed #c3c3c3;
 // }
 
+.block-hover::before,
+.block-hover::after {
+    content: '';
+    z-index: 3;
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed #adadad;
+    border-bottom: 1px dashed #adadad;
+    opacity: 0;
+}
+
+.block-hover::before {
+    top: -1px;
+}
+
+.block-hover::after {
+    bottom: -1px;
+}
+
+.block-hover:hover::before,
+.block-hover:hover::after {
+    opacity: 1; /* При наведении рамки становятся видимыми */
+}
+
 .page-card {
     display: flex;
     gap: 12px;

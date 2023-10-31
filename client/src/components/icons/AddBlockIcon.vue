@@ -1,6 +1,6 @@
 <template>
     <div class="add-block-icon">
-        <div class="icon-wrap" style="cursor: pointer; z-index: 20">
+        <div class="icon-wrap">
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="15" cy="15" r="15" fill="#222222" />
                 <path
@@ -26,7 +26,11 @@ export default defineComponent({
 @import '@/assets/scss/variables';
 
 .add-block-icon {
+    position: absolute;
+    bottom: -15px;
     opacity: 0;
     z-index: 20;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
 }
 </style>
