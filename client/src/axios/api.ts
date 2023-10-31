@@ -13,3 +13,11 @@ interface CreatePageBody {
 export function createPage(body: CreatePageBody): Promise<AxiosResponse<Page, CreatePageBody>> {
     return axiosInst.post('pages', body);
 }
+
+export function getPageByLink(link: string): Promise<AxiosResponse<Page, string>> {
+    return axiosInst.get(`pages/${link}`);
+}
+
+export function deletePage(link: string): Promise<AxiosResponse<string, string>> {
+    return axiosInst.delete(`pages/${link}`);
+}

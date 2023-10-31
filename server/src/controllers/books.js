@@ -1,6 +1,4 @@
-const book = require("../models/book");
-const Book = require("../models/book");
-const User = require("../models/user");
+const Book = require('../models/book');
 
 const getAllBooks = (request, response) => {
     return Book.find().then((data) => {
@@ -17,7 +15,7 @@ const getBookById = (request, response) => {
 
 const createBook = (request, response) => {
     if (!request.body.header || !request.body.author) {
-        response.status(500).send("Указаны не все обязательные свойства");
+        response.status(500).send('Указаны не все обязательные свойства');
         return;
     }
 
@@ -25,11 +23,7 @@ const createBook = (request, response) => {
         .then((book) => {
             response.status(201).send(book);
         })
-        .catch((error) =>
-            response
-                .status(500)
-                .send("Произошла ошибка сервера при выполнении запроса")
-        );
+        .catch((error) => response.status(500).send('Произошла ошибка сервера при выполнении запроса'));
 };
 
 const updateBook = (request, response) => {
@@ -45,14 +39,10 @@ const updateBook = (request, response) => {
                 }
                 response.status(200).send(updatedBook);
             } else {
-                response.status(404).send("Книга с таким ID не найдена");
+                response.status(404).send('Книга с таким ID не найдена');
             }
         })
-        .catch((error) =>
-            response
-                .status(500)
-                .send("Произошла ошибка сервера при выполнении запроса")
-        );
+        .catch((error) => response.status(500).send('Произошла ошибка сервера при выполнении запроса'));
 };
 
 const deleteBook = (request, response) => {
@@ -63,14 +53,10 @@ const deleteBook = (request, response) => {
             if (book) {
                 response.status(200).send(book);
             } else {
-                response.status(404).send("Книга с таким ID не найдена");
+                response.status(404).send('Книга с таким ID не найдена');
             }
         })
-        .catch((error) =>
-            response
-                .status(500)
-                .send("Произошла ошибка сервера при выполнении запроса")
-        );
+        .catch((error) => response.status(500).send('Произошла ошибка сервера при выполнении запроса'));
 };
 
 module.exports = {

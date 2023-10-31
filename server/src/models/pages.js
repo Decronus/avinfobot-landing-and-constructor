@@ -7,31 +7,42 @@ const blockSchema = new mongoose.Schema({
         required: true,
         minLength: 2,
     },
-    title: {
-        type: String,
-        required: false,
-        minLength: 2,
-    },
-    subtitle: {
-        type: String,
-        required: false,
-        minLength: 2,
-    },
-    description: {
-        type: String,
-        required: false,
-        minLength: 2,
-    },
-    action: {
-        active: {
+
+    settings: {
+        inverted: {
             type: Boolean,
             required: true,
-            default: true,
+            default: false,
         },
-        text: {
+    },
+
+    content: {
+        title: {
             type: String,
             required: false,
-            default: 'Призыв к действию',
+            minLength: 2,
+        },
+        subtitle: {
+            type: String,
+            required: false,
+            minLength: 2,
+        },
+        description: {
+            type: String,
+            required: false,
+            minLength: 2,
+        },
+        action: {
+            active: {
+                type: Boolean,
+                required: true,
+                default: true,
+            },
+            text: {
+                type: String,
+                required: false,
+                default: 'Призыв к действию',
+            },
         },
     },
 });

@@ -8,7 +8,7 @@
         :close-on-click-modal="false"
     >
         <div class="drawer__buttons-wrap">
-            <ButtonUI text="Сохранить" drawer secondary @click="toggleDrawer" />
+            <ButtonUI text="Отмена" drawer secondary @click="toggleDrawer" />
             <ButtonUI text="Сохранить и закрыть" drawer @click="toggleDrawer" />
         </div>
 

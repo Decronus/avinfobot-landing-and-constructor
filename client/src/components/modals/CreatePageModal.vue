@@ -19,7 +19,7 @@
 
             <div class="modal__buttons-wrap">
                 <ButtonUI text="Отменить" medium secondary rounded border @click="toggleModal" />
-                <ButtonUI text="Создать" medium rounded :disabled="buttonDisabled" @click="handleCreatePage" />
+                <ButtonUI text="Создать" medium rounded :disabled="!page.name" @click="handleCreatePage" />
             </div>
         </div>
     </el-dialog>
@@ -47,13 +47,11 @@ export default defineComponent({
     },
 
     computed: {
+        clearLink(): string {
+            return this.page.link.replace('https://127.0.0.1/', '');
+        },
         isEditMode(): boolean {
             return this.$route.name === 'landing-page-edit';
-        },
-        buttonDisabled(): boolean {
-            const resultLink = this.page.link.replace('https://127.0.0.1/', '');
-            const linkFilled = resultLink.length > 0;
-            return !(this.page.name && linkFilled);
         },
         modalName(): string {
             return this.$options.name as string;
@@ -135,7 +133,7 @@ export default defineComponent({
         },
         async handleCreatePage() {
             try {
-                const res = await createPage(this.page);
+                const res = await createPage({ ...this.page, link: this.clearLink });
                 this.toggleModal();
             } catch (err) {
                 console.error(err);

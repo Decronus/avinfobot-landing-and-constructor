@@ -6,32 +6,8 @@
         <EditRow v-if="editMode" blockType="main" />
 
         <div class="content">
-            <div class="squares-wrap">
-                <AngleElement style="margin-left: auto" />
-            </div>
-
-            <h1>{{ block?.content.title }}</h1>
-            <p>
-                {{ block?.content.description }}
-            </p>
-            <ButtonUI
-                v-if="block?.content.action.active"
-                :text="block?.content.action.text"
-                style="margin-bottom: 80px"
-            />
-
-            <div class="squares-wrap">
-                <FourSquares v-if="!block?.content.action.active" />
-                <FourSquares style="margin-left: auto" />
-            </div>
+            <h1>Две колонки</h1>
         </div>
-
-        <div class="read-next__wrap">
-            <span>Читать далее</span>
-            <ArrowInCircleIcon />
-        </div>
-
-        <AddBlockIcon style="position: absolute; bottom: -15px" />
     </div>
 </template>
 
@@ -41,13 +17,12 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import FourSquares from '@/components/decorative-elements/FourSquares.vue';
 import AngleElement from '@/components/decorative-elements/AngleElement.vue';
 import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
-import AddBlockIcon from '@/components/icons/AddBlockIcon.vue';
 import { MainBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'MainBlock',
-    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockIcon },
+    name: 'TwoColumnsBlock',
+    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow },
     props: {
         editMode: {
             type: Boolean,
@@ -80,7 +55,6 @@ export default defineComponent({
 
     .content {
         max-width: 964px;
-        width: 100%;
 
         h1 {
             font-size: 72px;

@@ -51,6 +51,9 @@ p {
         .edit-row {
             opacity: 1;
         }
+        .add-block-icon {
+            opacity: 1;
+        }
     }
 
     @media (max-width: 1200px) {
@@ -59,10 +62,10 @@ p {
     }
 }
 
-.block-hover:hover {
-    border-top: 2px dashed #c3c3c3;
-    border-bottom: 2px dashed #c3c3c3;
-}
+// .block-hover:hover {
+//     border-top: 2px dashed #c3c3c3;
+//     border-bottom: 2px dashed #c3c3c3;
+// }
 
 .page-card {
     display: flex;

@@ -10,13 +10,13 @@ const routes: Array<RouteRecordRaw> = [
     },
 
     {
-        path: '/:pageName',
+        path: '/:pageLink',
         name: 'landing-page',
         component: LandingPage,
     },
 
     {
-        path: '/:pageName/edit',
+        path: '/:pageLink/edit',
         name: 'landing-page-edit',
         component: LandingPage,
     },
