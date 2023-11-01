@@ -31,7 +31,7 @@
             <ArrowInCircleIcon />
         </div>
 
-        <AddBlockButton v-if="isEditMode" />
+        <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />
     </div>
 </template>
 
@@ -42,8 +42,9 @@ import FourSquares from '@/components/decorative-elements/FourSquares.vue';
 import AngleElement from '@/components/decorative-elements/AngleElement.vue';
 import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
-import { MainBlock } from '@/types/pages';
+import { MainBlock, Block } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
+import { addBlockToPage } from '@/axios/api';
 
 export default defineComponent({
     name: 'MainBlock',
@@ -56,6 +57,21 @@ export default defineComponent({
         },
         block: {
             type: Object as PropType<MainBlock>,
+        },
+        blockIndex: {
+            type: Number,
+            required: true,
+        },
+    },
+
+    methods: {
+        openBlocksDrawer(): void {
+            this.$store.commit('drawers/setCurrentBlock', this.block?.type);
+            this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
+        },
+        async handleAddBlock(): Promise<void> {
+            const page = await addBlockToPage(this.$route.params.pageLink as string, 'twoColumns', 1);
+            console.log('page', page);
         },
     },
 });

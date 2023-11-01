@@ -35,7 +35,7 @@ export interface TitleBlock extends BaseBlock {
     };
 }
 
-type Block = MainBlock | TwoColumnsBlock | TitleBlock;
+export type Block = MainBlock | TwoColumnsBlock | TitleBlock;
 
 export interface Page {
     _id?: string;

@@ -1,13 +1,15 @@
 <template>
     <div
         class="block main-block"
-        :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': editMode }"
+        :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
     >
-        <EditRow v-if="editMode" blockType="main" />
+        <EditRow v-if="isEditMode" blockType="title" />
 
         <div class="content">
             <h1>Заголовок</h1>
         </div>
+
+        <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />
     </div>
 </template>
 
@@ -17,20 +19,25 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import FourSquares from '@/components/decorative-elements/FourSquares.vue';
 import AngleElement from '@/components/decorative-elements/AngleElement.vue';
 import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
-import { MainBlock } from '@/types/pages';
+import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
+import { TitleBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'TitleBlock',
-    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow },
+    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockButton },
     props: {
-        editMode: {
+        isEditMode: {
             type: Boolean,
             required: false,
             default: false,
         },
         block: {
-            type: Object as PropType<MainBlock>,
+            type: Object as PropType<TitleBlock>,
+        },
+        blockIndex: {
+            type: Number,
+            required: true,
         },
     },
 });

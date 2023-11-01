@@ -93,7 +93,6 @@ p {
 }
 
 .page-card {
-    width: 100%;
     display: flex;
     gap: 12px;
     cursor: pointer;
@@ -140,7 +139,6 @@ p {
     }
 
     &__content {
-        width: 100%;
         display: flex;
         justify-content: space-between;
         gap: 24px;

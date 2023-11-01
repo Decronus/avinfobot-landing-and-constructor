@@ -37,6 +37,16 @@ const blockSchema = new mongoose.Schema({
             required: false,
             minLength: 2,
         },
+        firstColumnText: {
+            type: String,
+            required: false,
+            minLength: 2,
+        },
+        secondColumnText: {
+            type: String,
+            required: false,
+            minLength: 2,
+        },
         action: {
             active: {
                 type: Boolean,

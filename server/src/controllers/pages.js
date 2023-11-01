@@ -2,7 +2,6 @@ const Page = require('../models/pages');
 
 async function checkPageLinkExists(link) {
     const linkExists = await Page.findOne({ link });
-    console.log('nameExists', !!linkExists);
     return !!linkExists;
 }
 
@@ -14,7 +13,7 @@ function mainBlockConstructor(body) {
             readNext: true,
         },
         content: {
-            title: body.name,
+            title: body?.name || 'asdfasdfasdf',
             description:
                 'Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh.',
             action: {
@@ -24,6 +23,41 @@ function mainBlockConstructor(body) {
         },
     };
 }
+
+function twoColumnsBlockConstructor() {
+    return {
+        type: 'twoColumns',
+        settings: {
+            inverted: false,
+        },
+        content: {
+            title: 'Lorem ipsum.',
+            subtitle: 'Lorem ipsum dolor sit amet consectetur.',
+            firstColumnText:
+                'Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh.',
+            secondColumnText:
+                'Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh.',
+        },
+    };
+}
+
+function titleBlockConstructor() {
+    return {
+        type: 'title',
+        settings: {
+            inverted: false,
+        },
+        content: {
+            title: 'Lorem ipsum.',
+        },
+    };
+}
+
+const blocksMap = {
+    main: mainBlockConstructor(),
+    twoColumns: twoColumnsBlockConstructor(),
+    title: titleBlockConstructor(),
+};
 
 async function getPages(request, response) {
     try {
@@ -76,9 +110,24 @@ const deletePageByLink = async (request, response) => {
     }
 };
 
+async function addBlockToPage(request, response) {
+    const { link, type, index } = request.params;
+    try {
+        const page = await Page.findOneAndUpdate(
+            { link },
+            { $push: { blocks: { $each: [blocksMap[type]], $position: index } } },
+            { new: true }
+        );
+        return response.status(200).send(page);
+    } catch (error) {
+        return response.status(500).send('Ошибка при обработке запроса');
+    }
+}
+
 module.exports = {
     getPages,
     createPage,
     getPageByLink,
     deletePageByLink,
+    addBlockToPage,
 };

@@ -2,7 +2,8 @@
     <EditModeHeader v-if="isEditMode" />
 
     <component
-        v-for="block in pageData?.blocks"
+        v-for="(block, index) in pageData?.blocks"
+        :blockIndex="index"
         :key="block._id"
         :block="block"
         :isEditMode="isEditMode"
@@ -16,6 +17,7 @@
     <div v-if="isEditMode">
         <EditContentDrawer />
         <SettingsDrawer />
+        <BlocksDrawer />
     </div>
 </template>
 
@@ -26,6 +28,7 @@ import TitleBlock from '@/components/blocks/TitleBlock.vue';
 import EditModeHeader from '@/components/EditModeHeader.vue';
 import EditContentDrawer from '@/components/drawers/EditContentDrawer.vue';
 import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
+import BlocksDrawer from '@/components/drawers/BlocksDrawer.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { Component, defineComponent } from 'vue';
 import { getPageByLink } from '@/axios/api';
@@ -37,7 +40,7 @@ interface Data {
 
 export default defineComponent({
     name: 'LandingPage',
-    components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, ButtonUI },
+    components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, BlocksDrawer, ButtonUI },
 
     data(): Data {
         return {
@@ -56,6 +59,10 @@ export default defineComponent({
     },
 
     methods: {
+        openBlocksDrawer(): void {
+            this.$store.commit('drawers/setCurrentBlockIndex', this.pageData?.blocks - 1);
+            this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
+        },
         getCurrentBlock(blockType: BlockType): Component {
             const blocksMap: Record<BlockType, Component> = {
                 main: MainBlock,

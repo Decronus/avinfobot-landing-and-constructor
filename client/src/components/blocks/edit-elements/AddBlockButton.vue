@@ -1,5 +1,5 @@
 <template>
-    <div class="add-block-button">
+    <div class="add-block-button" @click="openBlocksDrawer">
         <div class="icon-wrap">
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="15" cy="15" r="15" fill="#222222" />
@@ -15,10 +15,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { BlockType } from '@/types/pages';
+import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'AddBlockButton',
+    props: {
+        blockIndex: {
+            type: Number,
+        },
+    },
+    methods: {
+        openBlocksDrawer(): void {
+            this.$store.commit('drawers/setCurrentBlockIndex', this.blockIndex);
+            this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
+        },
+    },
 });
 </script>
 

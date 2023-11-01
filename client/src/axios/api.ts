@@ -1,6 +1,6 @@
 import axiosInst from './axios';
 import { AxiosResponse } from 'axios';
-import { Page } from '@/types/pages';
+import { Block, BlockType, Page } from '@/types/pages';
 
 export function getPages(): Promise<AxiosResponse<Page[], void>> {
     return axiosInst.get('pages');
@@ -20,4 +20,8 @@ export function getPageByLink(link: string): Promise<AxiosResponse<Page, string>
 
 export function deletePage(link: string): Promise<AxiosResponse<string, string>> {
     return axiosInst.delete(`pages/${link}`);
+}
+
+export function addBlockToPage(link: string, type: BlockType, index: number): Promise<AxiosResponse<string, string>> {
+    return axiosInst.post(`pages/${link}/block/${type}/${index}`);
 }
