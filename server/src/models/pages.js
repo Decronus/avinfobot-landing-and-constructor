@@ -14,6 +14,11 @@ const blockSchema = new mongoose.Schema({
             required: true,
             default: false,
         },
+        readNext: {
+            type: Boolean,
+            required: true,
+            default: true,
+        },
     },
 
     content: {

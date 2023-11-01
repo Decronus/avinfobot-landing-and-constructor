@@ -26,12 +26,12 @@
             </div>
         </div>
 
-        <div class="read-next__wrap">
+        <div class="read-next__wrap" v-if="block?.settings.readNext">
             <span>Читать далее</span>
             <ArrowInCircleIcon />
         </div>
 
-        <AddBlockIcon v-if="isEditMode" />
+        <AddBlockButton v-if="isEditMode" />
     </div>
 </template>
 
@@ -41,13 +41,13 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import FourSquares from '@/components/decorative-elements/FourSquares.vue';
 import AngleElement from '@/components/decorative-elements/AngleElement.vue';
 import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
-import AddBlockIcon from '@/components/icons/AddBlockIcon.vue';
+import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { MainBlock } from '@/types/pages';
-import { PropType, defineComponent, markRaw, shallowRef } from 'vue';
+import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'MainBlock',
-    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockIcon },
+    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockButton },
     props: {
         isEditMode: {
             type: Boolean,

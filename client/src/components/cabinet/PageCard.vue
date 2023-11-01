@@ -1,10 +1,15 @@
 <template>
     <div class="page-card" @click="$router.push(`${page.link}/edit`)">
-        <img class="page-card__image" />
+        <div class="page-card__image-block">
+            <img class="page-card__image" />
+            <span class="page-card__delete" @click.stop="handleDeletePage(page.link)">Удалить</span>
+        </div>
 
         <div class="page-card__content">
-            <p class="page-card__name">{{ page.name }}</p>
-            <p class="page-card__date">{{ page.createdAt }}</p>
+            <div>
+                <p class="page-card__name">{{ page.name }}</p>
+                <p class="page-card__date">{{ page.createdAt }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -13,6 +18,7 @@
 import { defineComponent } from 'vue';
 import { PropType } from 'vue';
 import { Page } from '@/types/pages';
+import { deletePage } from '@/axios/api';
 
 export default defineComponent({
     name: 'PageCard',
@@ -20,6 +26,16 @@ export default defineComponent({
         page: {
             type: Object as PropType<Page>,
             required: true,
+        },
+    },
+
+    methods: {
+        handleDeletePage(pageLink: string): void {
+            try {
+                deletePage(pageLink);
+            } catch (error: any) {
+                console.error(error.response.data);
+            }
         },
     },
 });

@@ -16,7 +16,7 @@ const { PORT, MONGO_URL } = process.env;
 mongoose
     .set('strictQuery', false)
     .connect(MONGO_URL)
-    .then((res) => console.log('Connected to MongoDB'))
+    .then(() => console.log('Connected to MongoDB'))
     .catch((error) => console.log(error));
 
 app.use(bodyParser.json());

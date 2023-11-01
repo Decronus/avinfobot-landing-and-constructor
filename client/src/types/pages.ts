@@ -5,6 +5,7 @@ interface BaseBlock {
     type: BlockType;
     settings: {
         inverted: boolean;
+        readNext: boolean;
     };
 }
 
