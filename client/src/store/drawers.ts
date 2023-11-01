@@ -5,17 +5,17 @@ type Drawer = 'EditContentDrawer' | 'BlockSettingsDrawer';
 
 interface State {
     openedDrawers: Drawer[];
-    currentEditContentDrawerBlock: BlockType | undefined;
+    currentBlock: BlockType | undefined;
 }
 
 const state: State = {
     openedDrawers: [],
-    currentEditContentDrawerBlock: undefined,
+    currentBlock: undefined,
 };
 
 const getters: GetterTree<State, any> = {
-    getCurrentEditContentDrawerBlock(state) {
-        return state.currentEditContentDrawerBlock;
+    getCurrentBlock(state) {
+        return state.currentBlock;
     },
     getDrawerVisibility: (state) => (modalName: Drawer) => {
         return state.openedDrawers.includes(modalName);
@@ -23,8 +23,8 @@ const getters: GetterTree<State, any> = {
 };
 
 const mutations: MutationTree<State> = {
-    setCurrentEditContentDrawerBlock(state, blockType: BlockType) {
-        state.currentEditContentDrawerBlock = blockType;
+    setCurrentBlock(state, blockType: BlockType) {
+        state.currentBlock = blockType;
     },
     toggleDrawer(state, modalName: Drawer) {
         if (state.openedDrawers.includes(modalName)) {

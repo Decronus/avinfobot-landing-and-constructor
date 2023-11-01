@@ -39,7 +39,7 @@ export default defineComponent({
                 title: MainBlockDrawerBody,
                 twoColumns: MainBlockDrawerBody,
             };
-            const currentBlockType: BlockType = this.$store.getters['drawers/getCurrentEditContentDrawerBlock'];
+            const currentBlockType: BlockType = this.$store.getters['drawers/getCurrentBlock'];
             return drawerBodies[currentBlockType];
         },
         drawerVisibility: {

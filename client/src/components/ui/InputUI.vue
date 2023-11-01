@@ -21,7 +21,7 @@ export default defineComponent({
     props: {
         modelValue: {
             type: String,
-            required: true,
+            required: false,
         },
         label: {
             type: String,
@@ -44,12 +44,6 @@ export default defineComponent({
         },
     },
 
-    data() {
-        return {
-            textarea: 'asdfasdf',
-        };
-    },
-
     methods: {
         handleInput(value: string) {
             this.$emit('update:modelValue', value);
@@ -69,7 +63,7 @@ export default defineComponent({
 
     .input-label {
         color: $secondary-text-color;
-        font-size: 16px;
+        font-size: 12px;
         text-transform: uppercase;
     }
 

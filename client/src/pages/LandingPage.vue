@@ -33,7 +33,6 @@ import { BlockType, Page } from '@/types/pages';
 
 interface Data {
     pageData: Page | undefined;
-    blocksMap: Record<BlockType, Component>;
 }
 
 export default defineComponent({
@@ -43,11 +42,6 @@ export default defineComponent({
     data(): Data {
         return {
             pageData: undefined,
-            blocksMap: {
-                main: MainBlock,
-                twoColumns: TwoColumnsBlock,
-                title: TitleBlock,
-            },
         };
     },
 
@@ -63,7 +57,12 @@ export default defineComponent({
 
     methods: {
         getCurrentBlock(blockType: BlockType): Component {
-            return this.blocksMap[blockType];
+            const blocksMap: Record<BlockType, Component> = {
+                main: MainBlock,
+                twoColumns: TwoColumnsBlock,
+                title: TitleBlock,
+            };
+            return blocksMap[blockType];
         },
         async initPageData(): Promise<void> {
             try {

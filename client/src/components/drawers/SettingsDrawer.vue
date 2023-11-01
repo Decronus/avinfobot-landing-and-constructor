@@ -12,14 +12,16 @@
             <ButtonUI text="Сохранить и закрыть" drawer @click="toggleDrawer" />
         </div>
 
-        <div class="edit-drawer__body"></div>
+        <div class="edit-drawer__body">
+            <component :is="drawerBody" />
+        </div>
     </el-drawer>
 </template>
 
 <script lang="ts">
 import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
-import MainBlockDrawerBody from './edit-content-drawer-bodies/MainBlockDrawerBody.vue';
+import MainBlockDrawerBody from './settings-drawer-bodies/MainBlockDrawerBody.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
@@ -30,6 +32,16 @@ export default defineComponent({
     computed: {
         drawerName(): string {
             return this.$options.name as string;
+        },
+        drawerBody(): Component {
+            const drawerBodies: Record<BlockType, Component> = {
+                main: MainBlockDrawerBody,
+                title: MainBlockDrawerBody,
+                twoColumns: MainBlockDrawerBody,
+            };
+            const currentBlockType: BlockType = this.$store.getters['drawers/getCurrentBlock'];
+            console.log('drawerBody', drawerBodies[currentBlockType]);
+            return drawerBodies[currentBlockType];
         },
         drawerVisibility: {
             get(): boolean {

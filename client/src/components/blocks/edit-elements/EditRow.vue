@@ -41,10 +41,11 @@ export default defineComponent({
 
     methods: {
         openEditContentDrawer(): void {
-            this.$store.commit('drawers/setCurrentEditContentDrawerBlock', this.blockType);
+            this.$store.commit('drawers/setCurrentBlock', this.blockType);
             this.$store.commit('drawers/toggleDrawer', 'EditContentDrawer');
         },
         openSettingsDrawer(): void {
+            this.$store.commit('drawers/setCurrentBlock', this.blockType);
             this.$store.commit('drawers/toggleDrawer', 'SettingsDrawer');
         },
     },
