@@ -25,16 +25,14 @@ export default defineComponent({
     name: 'CabinetPage',
     components: { PageCard, AddPageCard, CreatePageModal },
 
-    data(): Data {
-        return {
-            pages: [],
-        };
+    computed: {
+        pages(): Page[] {
+            return this.$store.state.pages.pages;
+        },
     },
 
     async mounted() {
-        const res = await getPages();
-        console.log('res', res.data);
-        if (res) this.pages = res.data;
+        this.$store.dispatch('pages/getPages');
     },
 
     methods: {

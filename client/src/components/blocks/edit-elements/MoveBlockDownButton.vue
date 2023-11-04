@@ -1,17 +1,17 @@
 <template>
     <ButtonUI edit secondary>
-        <DeleteIcon />
+        <ArrowIcon style="transform: rotate(180deg)" />
     </ButtonUI>
 </template>
 
 <script lang="ts">
 import ButtonUI from '@/components/ui/ButtonUI.vue';
-import DeleteIcon from '@/components/icons/DeleteIcon.vue';
+import ArrowIcon from '@/components/icons/ArrowIcon.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'DeleteBlockButton',
-    components: { ButtonUI, DeleteIcon },
+    name: 'MoveBlockDownButton',
+    components: { ButtonUI, ArrowIcon },
 });
 </script>
 

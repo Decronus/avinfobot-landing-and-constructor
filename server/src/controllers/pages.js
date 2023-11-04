@@ -115,7 +115,7 @@ async function addBlockToPage(request, response) {
     try {
         const page = await Page.findOneAndUpdate(
             { link },
-            { $push: { blocks: { $each: [blocksMap[type]], $position: index } } },
+            { $push: { blocks: { $each: [blocksMap[type]], $position: index >= 0 ? index : undefined } } },
             { new: true }
         );
         return response.status(200).send(page);
@@ -123,6 +123,20 @@ async function addBlockToPage(request, response) {
         return response.status(500).send('Ошибка при обработке запроса');
     }
 }
+
+// async function updateBlockContent(request, response) {
+//     const { link, blockId } = request.params;
+//     try {
+//         const page = await Page.findOneAndUpdate(
+//             { link },
+//             { $push: { blocks: { $each: [blocksMap[type]], $position: index >= 0 ? index : undefined } } },
+//             { new: true }
+//         );
+//         return response.status(200).send(page);
+//     } catch (error) {
+//         return response.status(500).send('Ошибка при обработке запроса');
+//     }
+// }
 
 module.exports = {
     getPages,

@@ -15,7 +15,7 @@ import InputUI from '@/components/ui/InputUI.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'MainBlockDrawerBody',
+    name: 'MainBlockEditContentDrawerBody',
     components: { InputUI },
 
     data() {

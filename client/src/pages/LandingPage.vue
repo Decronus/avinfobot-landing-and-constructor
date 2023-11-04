@@ -10,7 +10,7 @@
         :is="getCurrentBlock(block.type)"
     />
 
-    <div v-if="isEditMode" class="all-blocks-button__wrap">
+    <div v-if="isEditMode" class="all-blocks-button__wrap" @click="openBlocksDrawer">
         <ButtonUI text="ВСЕ БЛОКИ" medium rounded />
     </div>
 
@@ -31,7 +31,6 @@ import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
 import BlocksDrawer from '@/components/drawers/BlocksDrawer.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { Component, defineComponent } from 'vue';
-import { getPageByLink } from '@/axios/api';
 import { BlockType, Page } from '@/types/pages';
 
 interface Data {
@@ -42,13 +41,10 @@ export default defineComponent({
     name: 'LandingPage',
     components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, BlocksDrawer, ButtonUI },
 
-    data(): Data {
-        return {
-            pageData: undefined,
-        };
-    },
-
     computed: {
+        pageData(): Page {
+            return this.$store.state.pages.currentPage;
+        },
         isEditMode(): boolean {
             return this.$route.name === 'landing-page-edit';
         },
@@ -60,7 +56,7 @@ export default defineComponent({
 
     methods: {
         openBlocksDrawer(): void {
-            this.$store.commit('drawers/setCurrentBlockIndex', this.pageData?.blocks - 1);
+            this.$store.commit('drawers/setCurrentBlockIndex', this.pageData?.blocks?.length);
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
         },
         getCurrentBlock(blockType: BlockType): Component {
@@ -74,9 +70,7 @@ export default defineComponent({
         async initPageData(): Promise<void> {
             try {
                 const pageLink = this.$route.params.pageLink as string;
-                const page = await getPageByLink(pageLink);
-                this.pageData = page.data;
-                console.log(page.data);
+                await this.$store.dispatch('pages/getCurrentPage', pageLink);
             } catch (error: any) {
                 console.error(error.response.data);
             }

@@ -13,9 +13,9 @@
         </div>
 
         <div class="blocks-drawer__body">
-            <p>Главный блок</p>
-            <p>Две колонки</p>
-            <p>Заголовок</p>
+            <p v-for="(block, index) in blocks" :key="index" @click="handleAddBlockToPage(block.type)">
+                {{ block.text }}
+            </p>
         </div>
     </el-drawer>
 </template>
@@ -23,14 +23,48 @@
 <script lang="ts">
 import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
-import MainBlockDrawerBody from './settings-drawer-bodies/MainBlockDrawerBody.vue';
 import { defineComponent } from 'vue';
+import { BlockType } from '@/types/pages';
+
+interface Block {
+    text: string;
+    type: BlockType;
+}
+
+interface Data {
+    blocks: Block[];
+}
 
 export default defineComponent({
     name: 'BlocksDrawer',
-    components: { InputUI, ButtonUI, MainBlockDrawerBody },
+    components: { InputUI, ButtonUI },
+
+    data(): Data {
+        return {
+            blocks: [
+                {
+                    text: 'Главный блок',
+                    type: 'main',
+                },
+                {
+                    text: 'Две колонки',
+                    type: 'twoColumns',
+                },
+                {
+                    text: 'Заголовок',
+                    type: 'title',
+                },
+            ],
+        };
+    },
 
     computed: {
+        pageLink(): string {
+            return this.$route.params.pageLink as string;
+        },
+        blockIndex(): number {
+            return this.$store.getters['drawers/getCurrentBlockIndex'];
+        },
         drawerName(): string {
             return this.$options.name as string;
         },
@@ -45,6 +79,11 @@ export default defineComponent({
     },
 
     methods: {
+        async handleAddBlockToPage(blockType: BlockType): Promise<void> {
+            const payload = { pageLink: this.pageLink, blockType, blockIndex: this.blockIndex };
+            await this.$store.dispatch('pages/addBlockToPage', payload);
+            this.toggleDrawer();
+        },
         toggleDrawer(): void {
             this.$store.commit('drawers/toggleDrawer', this.drawerName);
         },

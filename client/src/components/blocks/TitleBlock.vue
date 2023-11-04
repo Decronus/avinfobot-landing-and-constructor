@@ -1,6 +1,6 @@
 <template>
     <div
-        class="block main-block"
+        class="block title-block"
         :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
     >
         <EditRow v-if="isEditMode" blockType="title" />
@@ -46,19 +46,13 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/scss/variables';
 
-.main-block {
+.title-block {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-image: url('https://a.d-cd.net/6f3caees-1920.jpg');
-    background-attachment: fixed;
-    background-color: rgba(255, 255, 255, 0.8);
-    background-blend-mode: overlay;
-    background-size: cover;
-    background-repeat: no-repeat;
+    padding: 80px 20px;
 
     .content {
         max-width: 964px;

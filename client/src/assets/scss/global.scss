@@ -89,7 +89,7 @@ p {
 
 .block-hover:hover::before,
 .block-hover:hover::after {
-    opacity: 1; /* При наведении рамки становятся видимыми */
+    opacity: 1;
 }
 
 .page-card {
@@ -127,8 +127,9 @@ p {
         .page-card__delete {
             position: absolute;
             visibility: hidden;
-            bottom: -14px;
+            bottom: -16px;
             font-size: 10px;
+            font-weight: 600;
             opacity: 0;
             transition: 0.4s ease-in-out;
 
@@ -150,6 +151,7 @@ p {
 
         .page-card__date {
             font-size: 12px;
+            font-weight: 600;
             color: $secondary-text-color;
         }
     }

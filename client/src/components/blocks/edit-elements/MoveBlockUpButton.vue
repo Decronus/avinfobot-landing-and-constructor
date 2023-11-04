@@ -1,17 +1,17 @@
 <template>
     <ButtonUI edit secondary>
-        <DeleteIcon />
+        <ArrowIcon />
     </ButtonUI>
 </template>
 
 <script lang="ts">
 import ButtonUI from '@/components/ui/ButtonUI.vue';
-import DeleteIcon from '@/components/icons/DeleteIcon.vue';
+import ArrowIcon from '@/components/icons/ArrowIcon.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'DeleteBlockButton',
-    components: { ButtonUI, DeleteIcon },
+    name: 'MoveBlockUpButton',
+    components: { ButtonUI, ArrowIcon },
 });
 </script>
 

@@ -18,7 +18,6 @@
 import { defineComponent } from 'vue';
 import { PropType } from 'vue';
 import { Page } from '@/types/pages';
-import { deletePage } from '@/axios/api';
 
 export default defineComponent({
     name: 'PageCard',
@@ -30,9 +29,9 @@ export default defineComponent({
     },
 
     methods: {
-        handleDeletePage(pageLink: string): void {
+        async handleDeletePage(pageLink: string): Promise<void> {
             try {
-                deletePage(pageLink);
+                await this.$store.dispatch('pages/deletePage', pageLink);
             } catch (error: any) {
                 console.error(error.response.data);
             }

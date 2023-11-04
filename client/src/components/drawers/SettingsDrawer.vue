@@ -21,27 +21,29 @@
 <script lang="ts">
 import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
-import MainBlockDrawerBody from './settings-drawer-bodies/MainBlockDrawerBody.vue';
+import MainBlockSettingsDrawerBody from './settings-drawer-bodies/MainBlockSettingsDrawerBody.vue';
+import DefaultSettingsDrawerBody from './settings-drawer-bodies/DefaultSettingsDrawerBody.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
 export default defineComponent({
     name: 'SettingsDrawer',
-    components: { InputUI, ButtonUI, MainBlockDrawerBody },
+    components: { InputUI, ButtonUI, MainBlockSettingsDrawerBody },
 
     computed: {
+        currentBlockType(): BlockType {
+            return this.$store.getters['drawers/getCurrentBlock'];
+        },
         drawerName(): string {
             return this.$options.name as string;
         },
         drawerBody(): Component {
             const drawerBodies: Record<BlockType, Component> = {
-                main: MainBlockDrawerBody,
-                title: MainBlockDrawerBody,
-                twoColumns: MainBlockDrawerBody,
+                main: MainBlockSettingsDrawerBody,
+                title: DefaultSettingsDrawerBody,
+                twoColumns: DefaultSettingsDrawerBody,
             };
-            const currentBlockType: BlockType = this.$store.getters['drawers/getCurrentBlock'];
-            console.log('drawerBody', drawerBodies[currentBlockType]);
-            return drawerBodies[currentBlockType];
+            return drawerBodies[this.currentBlockType];
         },
         drawerVisibility: {
             get(): boolean {

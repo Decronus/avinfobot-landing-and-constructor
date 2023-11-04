@@ -16,8 +16,7 @@ const blockSchema = new mongoose.Schema({
         },
         readNext: {
             type: Boolean,
-            required: true,
-            default: true,
+            required: false,
         },
     },
 
@@ -50,13 +49,11 @@ const blockSchema = new mongoose.Schema({
         action: {
             active: {
                 type: Boolean,
-                required: true,
-                default: true,
+                required: false,
             },
             text: {
                 type: String,
                 required: false,
-                default: 'Призыв к действию',
             },
         },
     },

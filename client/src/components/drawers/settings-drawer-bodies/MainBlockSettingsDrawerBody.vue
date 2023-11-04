@@ -8,7 +8,7 @@ import SwitchUI from '@/components/ui/SwitchUI.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'MainBlockDrawerBody',
+    name: 'MainBlockSettingsDrawerBody',
     components: { SwitchUI },
 
     data() {

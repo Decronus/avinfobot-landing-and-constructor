@@ -7,20 +7,27 @@
             </div>
             <p class="edit-row__block-name">{{ blockName }}</p>
         </div>
-        <DeleteContentButton />
+
+        <div class="edit-row__right merged-buttons">
+            <MoveBlockUpButton />
+            <MoveBlockDownButton />
+            <DeleteBlockButton />
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import SettingsButton from '@/components/blocks/edit-elements/SettingsButton.vue';
 import EditContentButton from '@/components/blocks/edit-elements/EditContentButton.vue';
-import DeleteContentButton from '@/components/blocks/edit-elements/DeleteBlockButton.vue';
+import DeleteBlockButton from '@/components/blocks/edit-elements/DeleteBlockButton.vue';
+import MoveBlockDownButton from './MoveBlockDownButton.vue';
+import MoveBlockUpButton from './MoveBlockUpButton.vue';
 import { PropType, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
 export default defineComponent({
     name: 'EditRow',
-    components: { SettingsButton, EditContentButton, DeleteContentButton },
+    components: { SettingsButton, EditContentButton, DeleteBlockButton, MoveBlockDownButton, MoveBlockUpButton },
     props: {
         blockType: {
             type: String as PropType<BlockType>,
@@ -83,6 +90,20 @@ export default defineComponent({
         .button {
             align-self: flex-start;
         }
+    }
+
+    .edit-row__right {
+        display: flex;
+    }
+}
+
+.merged-buttons {
+    .button:first-child {
+        border-radius: 4px 0 0 4px;
+    }
+
+    .button:last-child {
+        border-radius: 0 4px 4px 0;
     }
 }
 </style>

@@ -133,7 +133,7 @@ export default defineComponent({
         },
         async handleCreatePage() {
             try {
-                const res = await createPage({ ...this.page, link: this.clearLink });
+                this.$store.dispatch('pages/createPage', { ...this.page, link: this.clearLink });
                 this.toggleModal();
             } catch (err) {
                 console.error(err);

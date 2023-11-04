@@ -15,8 +15,7 @@
 </template>
 
 <script lang="ts">
-import { BlockType } from '@/types/pages';
-import { PropType, defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'AddBlockButton',

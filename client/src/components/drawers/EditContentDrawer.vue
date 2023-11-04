@@ -30,6 +30,9 @@ export default defineComponent({
     components: { InputUI, ButtonUI, MainBlockDrawerBody },
 
     computed: {
+        currentBlockType(): BlockType {
+            return this.$store.getters['drawers/getCurrentBlock'];
+        },
         drawerName(): string {
             return this.$options.name as string;
         },
@@ -39,8 +42,7 @@ export default defineComponent({
                 title: MainBlockDrawerBody,
                 twoColumns: MainBlockDrawerBody,
             };
-            const currentBlockType: BlockType = this.$store.getters['drawers/getCurrentBlock'];
-            return drawerBodies[currentBlockType];
+            return drawerBodies[this.currentBlockType];
         },
         drawerVisibility: {
             get(): boolean {
