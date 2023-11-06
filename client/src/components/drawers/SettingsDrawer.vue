@@ -2,7 +2,7 @@
     <el-drawer
         class="edit-content__drawer"
         v-model="drawerVisibility"
-        size="710px"
+        size="320px"
         :with-header="false"
         direction="ltr"
         :close-on-click-modal="false"

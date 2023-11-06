@@ -2,6 +2,7 @@
     <div
         class="block main-block"
         :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
+        :id="block?._id"
     >
         <EditRow
             v-if="isEditMode"

@@ -1,5 +1,5 @@
 <template>
-    <EditModeHeader v-if="isEditMode" />
+    <EditModeHeader v-if="isEditMode" :pageName="currentPage?.name" />
 
     <component
         v-for="(block, index) in currentPage?.blocks"

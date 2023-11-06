@@ -62,13 +62,29 @@ export default defineComponent({
     },
 
     methods: {
-        moveBlockUp(): void {
-            const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex: this.blockIndex - 1 };
-            this.$store.dispatch('pages/replaceBlocks', payload);
+        scrollToBlock(): void {
+            const element = document.getElementById(this.blockId);
+            const options: ScrollIntoViewOptions = {
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'nearest',
+            };
+            element && element.scrollIntoView(options);
+            function scrollHandler(): void {
+                window.scrollBy({ top: -100, behavior: 'smooth' });
+                window.removeEventListener('scrollend', scrollHandler);
+            }
+            window.addEventListener('scrollend', scrollHandler);
         },
-        moveBlockDown(): void {
+        async moveBlockUp(): Promise<void> {
+            const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex: this.blockIndex - 1 };
+            await this.$store.dispatch('pages/replaceBlocks', payload);
+            this.scrollToBlock();
+        },
+        async moveBlockDown(): Promise<void> {
             const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex: this.blockIndex + 1 };
-            this.$store.dispatch('pages/replaceBlocks', payload);
+            await this.$store.dispatch('pages/replaceBlocks', payload);
+            this.scrollToBlock();
         },
         deleteBlock(): void {
             const payload = { pageLink: this.pageLink, blockId: this.blockId };

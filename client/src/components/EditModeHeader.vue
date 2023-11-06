@@ -1,6 +1,9 @@
 <template>
     <div class="edit-mode__header">
-        <span class="header-element header-element__edit-mode">РЕЖИМ РЕДАКТИРОВАНИЯ</span>
+        <p class="header-element">
+            <span class="header-element__link" @click="$router.push('/pages')">СТРАНИЦЫ</span> /
+            <span class="header-element__page-name">{{ pageName }}</span>
+        </p>
         <div class="header-group">
             <span class="header-element" @click="$router.push('/pages')">Страницы</span>
             <span class="header-element" @click="openCreatePageModal">Настройки</span>
@@ -23,9 +26,11 @@ import ThreeDotsIcon from '@/components/icons/ThreeDotsIcon.vue';
 export default defineComponent({
     name: 'EditModeHeader',
     components: { CreatePageModal, ThreeDotsIcon },
-
-    data() {
-        return {};
+    props: {
+        pageName: {
+            type: String,
+            required: true,
+        },
     },
 
     methods: {
@@ -57,9 +62,9 @@ export default defineComponent({
     left: 0;
     z-index: 10;
 
-    .header-element__edit-mode {
+    /* .header-element__edit-mode {
         pointer-events: none;
-    }
+    } */
 
     .header-group {
         display: flex;
@@ -76,6 +81,14 @@ export default defineComponent({
                 color: $primary-color;
             }
         }
+    }
+
+    .header-element__link {
+        cursor: pointer;
+    }
+
+    .header-element__page-name {
+        font-weight: 600;
     }
 
     .header__dropdown {
