@@ -82,8 +82,8 @@ async function createPage(request, response) {
 }
 
 const getPageByLink = async (request, response) => {
-    const { link } = request.params;
     try {
+        const { link } = request.params;
         const page = await Page.findOne({ link });
         if (page) {
             return response.status(200).send(page);
@@ -96,8 +96,8 @@ const getPageByLink = async (request, response) => {
 };
 
 const deletePageByLink = async (request, response) => {
-    const { link } = request.params;
     try {
+        const { link } = request.params;
         const page = await Page.findOneAndDelete({ link });
         if (page) {
             const pages = await Page.find();
@@ -143,13 +143,13 @@ async function addBlockToPage(req, res) {
     }
 }
 
-async function deleteBlockFromPage(request, response) {
-    const { link, index } = request.params;
+async function deleteBlockFromPage(req, res) {
     try {
-        const page = await Page.findOneAndUpdate({ link }, { $pull: { blocks: { $position: index } } }, { new: true });
-        return response.status(200).send(page);
+        const { link, id } = req.params;
+        const page = await Page.findOneAndUpdate({ link }, { $pull: { blocks: { _id: id } } }, { new: true });
+        return res.status(200).send(page);
     } catch (error) {
-        return response.status(500).send('Ошибка при обработке запроса');
+        return res.status(500).send('Ошибка при обработке запроса');
     }
 }
 

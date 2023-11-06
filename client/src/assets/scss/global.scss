@@ -67,11 +67,6 @@ p {
     }
 }
 
-// .block-hover:hover {
-//     border-top: 2px dashed #c3c3c3;
-//     border-bottom: 2px dashed #c3c3c3;
-// }
-
 .block-hover::before,
 .block-hover::after {
     content: '';

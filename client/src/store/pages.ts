@@ -1,6 +1,6 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
 import { BlockType, Page } from '@/types/pages';
-import { getPages, addBlockToPage, getPageByLink, createPage, deletePage } from '@/axios/api';
+import { getPages, addBlockToPage, getPageByLink, createPage, deletePage, deleteBlockFromPage } from '@/axios/api';
 
 interface AddBlockToPagePayload {
     pageLink: string;
@@ -57,6 +57,14 @@ const actions: ActionTree<State, any> = {
     async addBlockToPage({ commit }, { pageLink, blockType, blockIndex }: AddBlockToPagePayload) {
         try {
             const { data } = await addBlockToPage(pageLink, blockType, blockIndex + 1);
+            commit('setCurrentPage', data);
+        } catch (error: any) {
+            console.log(error.reponse.data);
+        }
+    },
+    async deleteBlockFromPage({ commit }, { pageLink, blockId }: { pageLink: string; blockId: string }) {
+        try {
+            const { data } = await deleteBlockFromPage(pageLink, blockId);
             commit('setCurrentPage', data);
         } catch (error: any) {
             console.log(error.reponse.data);

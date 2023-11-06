@@ -3,10 +3,19 @@
         class="block two-columns__block"
         :class="{ 'two-columns__block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
     >
-        <EditRow v-if="isEditMode" blockType="twoColumns" :blockIndex="blockIndex" :blocksAmount="blocksAmount" />
+        <EditRow
+            v-if="isEditMode"
+            blockType="twoColumns"
+            :blockIndex="blockIndex"
+            :blocksAmount="blocksAmount"
+            :blockId="(block?._id as string)"
+        />
 
         <div class="content">
-            <h1>Две колонки</h1>
+            <div class="column left-column">
+                <h3>{{ block?.content.title }}</h3>
+            </div>
+            <div class="column right-column"></div>
         </div>
 
         <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />
@@ -57,41 +66,31 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     padding: 80px 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background: #fff;
 
     .content {
+        width: 100%;
         max-width: 964px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
 
-        h1 {
-            font-size: 72px;
-            margin-bottom: 24px;
-
-            @media (max-width: 768px) {
-                font-size: 48px;
-            }
+        .column {
+            width: 100%;
         }
 
-        p {
-            margin-bottom: 80px;
+        h3 {
+            font-size: 32px;
+            margin-bottom: 8px;
+
+            @media (max-width: 768px) {
+                font-size: 24px;
+            }
         }
     }
 }
 
 .two-columns__block__inverted {
     background-color: rgba(13, 2, 2, 0.5);
-
-    h1,
-    p {
-        color: #ffffff;
-    }
-
-    .read-next__wrap {
-        span {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        svg path {
-            fill: rgba(255, 255, 255, 0.7);
-        }
-    }
 }
 </style>

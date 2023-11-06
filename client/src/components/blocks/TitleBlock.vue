@@ -3,7 +3,13 @@
         class="block title-block"
         :class="{ 'title-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
     >
-        <EditRow v-if="isEditMode" blockType="title" :blockIndex="blockIndex" :blocksAmount="blocksAmount" />
+        <EditRow
+            v-if="isEditMode"
+            blockType="title"
+            :blockIndex="blockIndex"
+            :blocksAmount="blocksAmount"
+            :blockId="(block?._id as string)"
+        />
 
         <div class="content">
             <h1>Заголовок</h1>

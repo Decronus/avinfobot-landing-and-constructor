@@ -22,10 +22,14 @@ export function deletePage(link: string): Promise<AxiosResponse<string, string>>
     return axiosInst.delete(`pages/${link}`);
 }
 
-export function addBlockToPage(link: string, type: BlockType, index: number): Promise<AxiosResponse<string, string>> {
+export function addBlockToPage(link: string, type: BlockType, index: number): Promise<AxiosResponse<Page, string>> {
     return axiosInst.post(`pages/${link}/block/${type}/${index}`);
 }
 
-export function updateBlockContent(link: string): Promise<AxiosResponse<string, string>> {
-    return axiosInst.post(`pages/${link}/block/`);
+export function deleteBlockFromPage(link: string, id: string): Promise<AxiosResponse<Page, string>> {
+    return axiosInst.delete(`pages/${link}/block/${id}`);
 }
+
+// export function updateBlockContent(link: string): Promise<AxiosResponse<string, string>> {
+//     return axiosInst.post(`pages/${link}/block/`);
+// }

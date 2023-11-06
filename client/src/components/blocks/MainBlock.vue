@@ -3,7 +3,13 @@
         class="block main-block"
         :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
     >
-        <EditRow v-if="isEditMode" blockType="main" :blockIndex="blockIndex" :blocksAmount="blocksAmount" />
+        <EditRow
+            v-if="isEditMode"
+            blockType="main"
+            :blockIndex="blockIndex"
+            :blocksAmount="blocksAmount"
+            :blockId="(block?._id as string)"
+        />
 
         <div class="content">
             <div class="squares-wrap">

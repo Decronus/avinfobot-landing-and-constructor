@@ -14,6 +14,6 @@ router.get('/pages/:link', getPageByLink);
 router.post('/pages', createPage);
 router.delete('/pages/:link', deletePageByLink);
 router.post('/pages/:link/block/:type/:index', addBlockToPage);
-router.delete('/pages/:link/block/:index', deleteBlockFromPage);
+router.delete('/pages/:link/block/:id', deleteBlockFromPage);
 
 module.exports = router;

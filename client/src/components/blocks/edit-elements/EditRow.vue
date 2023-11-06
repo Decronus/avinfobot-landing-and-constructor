@@ -11,7 +11,7 @@
         <div class="edit-row__right" :class="{ 'merged-buttons': blocksAmount !== 1 }">
             <MoveBlockUpButton v-if="blockIndex !== 0" />
             <MoveBlockDownButton v-if="blockIndex !== blocksAmount - 1" />
-            <DeleteBlockButton />
+            <DeleteBlockButton @click="deleteBlock" />
         </div>
     </div>
 </template>
@@ -37,6 +37,10 @@ export default defineComponent({
             type: Number,
             required: true,
         },
+        blockId: {
+            type: String,
+            required: true,
+        },
         blocksAmount: {
             type: Number,
             required: true,
@@ -44,6 +48,9 @@ export default defineComponent({
     },
 
     computed: {
+        pageLink(): string {
+            return this.$store.state.pages.currentPage.link;
+        },
         blockName(): string {
             const blockNames: Record<BlockType, string> = {
                 main: 'Главная страница: заголовок, описание, призыв к действию',
@@ -55,6 +62,10 @@ export default defineComponent({
     },
 
     methods: {
+        deleteBlock(): void {
+            const payload = { pageLink: this.pageLink, blockId: this.blockId };
+            this.$store.dispatch('pages/deleteBlockFromPage', payload);
+        },
         openEditContentDrawer(): void {
             this.$store.commit('drawers/setCurrentBlock', this.blockType);
             this.$store.commit('drawers/toggleDrawer', 'EditContentDrawer');
