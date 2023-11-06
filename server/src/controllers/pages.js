@@ -137,7 +137,7 @@ async function addBlockToPage(req, res) {
             { $push: { blocks: { $each: [blocksMap[type]], $position: index } } },
             { new: true }
         );
-        return res.status(200).send(page);
+        return res.status(201).send(page);
     } catch (error) {
         return res.status(500).send(error.message);
     }
@@ -153,6 +153,25 @@ async function deleteBlockFromPage(req, res) {
     }
 }
 
+async function swapBlocks(req, res) {
+    try {
+        const { link, prevIndex, nextIndex } = req.params;
+        const page = await Page.findOne({ link });
+        const prevBlock = page.blocks[prevIndex];
+        const nextBlock = page.blocks[nextIndex];
+        page.blocks[prevIndex] = nextBlock;
+        page.blocks[nextIndex] = prevBlock;
+        const updatedPage = await page.save();
+        if (updatedPage) {
+            return res.status(200).send(updatedPage);
+        } else {
+            throw new Error('Ошибка при обновлении страницы');
+        }
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     getPages,
     createPage,
@@ -160,4 +179,5 @@ module.exports = {
     deletePageByLink,
     addBlockToPage,
     deleteBlockFromPage,
+    swapBlocks,
 };

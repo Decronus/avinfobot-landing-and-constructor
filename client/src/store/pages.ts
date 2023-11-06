@@ -1,11 +1,25 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
 import { BlockType, Page } from '@/types/pages';
-import { getPages, addBlockToPage, getPageByLink, createPage, deletePage, deleteBlockFromPage } from '@/axios/api';
+import {
+    getPages,
+    addBlockToPage,
+    getPageByLink,
+    createPage,
+    deletePage,
+    deleteBlockFromPage,
+    replaceBlocks,
+} from '@/axios/api';
 
 interface AddBlockToPagePayload {
     pageLink: string;
     blockType: BlockType;
     blockIndex: number;
+}
+
+interface ReplaceBlocksPayload {
+    pageLink: string;
+    prevIndex: number;
+    nextIndex: number;
 }
 
 interface State {
@@ -75,7 +89,15 @@ const actions: ActionTree<State, any> = {
             const { data } = await getPageByLink(pageLink);
             commit('setCurrentPage', data);
         } catch (error) {
-            console.log('Ошибка при получении текущей страницы');
+            console.error('Ошибка при получении текущей страницы');
+        }
+    },
+    async replaceBlocks({ commit }, { pageLink, prevIndex, nextIndex }: ReplaceBlocksPayload) {
+        try {
+            const { data } = await replaceBlocks(pageLink, prevIndex, nextIndex);
+            commit('setCurrentPage', data);
+        } catch (error) {
+            console.error('Ошибка при перемещении блока');
         }
     },
 };

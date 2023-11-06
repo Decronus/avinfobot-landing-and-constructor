@@ -9,8 +9,8 @@
         </div>
 
         <div class="edit-row__right" :class="{ 'merged-buttons': blocksAmount !== 1 }">
-            <MoveBlockUpButton v-if="blockIndex !== 0" />
-            <MoveBlockDownButton v-if="blockIndex !== blocksAmount - 1" />
+            <MoveBlockUpButton v-if="blockIndex !== 0" @click="moveBlockUp" />
+            <MoveBlockDownButton v-if="blockIndex !== blocksAmount - 1" @click="moveBlockDown" />
             <DeleteBlockButton @click="deleteBlock" />
         </div>
     </div>
@@ -62,6 +62,14 @@ export default defineComponent({
     },
 
     methods: {
+        moveBlockUp(): void {
+            const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex: this.blockIndex - 1 };
+            this.$store.dispatch('pages/replaceBlocks', payload);
+        },
+        moveBlockDown(): void {
+            const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex: this.blockIndex + 1 };
+            this.$store.dispatch('pages/replaceBlocks', payload);
+        },
         deleteBlock(): void {
             const payload = { pageLink: this.pageLink, blockId: this.blockId };
             this.$store.dispatch('pages/deleteBlockFromPage', payload);
