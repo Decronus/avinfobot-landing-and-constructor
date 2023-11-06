@@ -110,33 +110,48 @@ const deletePageByLink = async (request, response) => {
     }
 };
 
-async function addBlockToPage(request, response) {
-    const { link, type, index } = request.params;
+async function addBlockToPage(req, res) {
     try {
+        function handleErrors(req) {
+            const { link, type, index } = req.params;
+
+            if (link === 'undefined') {
+                throw new Error(`Неправильная ссылка блока: ${link}`);
+            }
+            if (!blocksMap[type]) {
+                throw new Error(`Неправильный тип блока: ${type}`);
+            }
+            if (index === 'undefined') {
+                throw new Error('Индекс блока должен быть числом');
+            }
+            if (+index < 0) {
+                throw new Error('Индекс блока должен быть больше или равен нулю');
+            }
+        }
+        handleErrors(req);
+
+        const { link, type, index } = req.params;
+
         const page = await Page.findOneAndUpdate(
             { link },
-            { $push: { blocks: { $each: [blocksMap[type]], $position: index >= 0 ? index : undefined } } },
+            { $push: { blocks: { $each: [blocksMap[type]], $position: index } } },
             { new: true }
         );
+        return res.status(200).send(page);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
+async function deleteBlockFromPage(request, response) {
+    const { link, index } = request.params;
+    try {
+        const page = await Page.findOneAndUpdate({ link }, { $pull: { blocks: { $position: index } } }, { new: true });
         return response.status(200).send(page);
     } catch (error) {
         return response.status(500).send('Ошибка при обработке запроса');
     }
 }
-
-// async function updateBlockContent(request, response) {
-//     const { link, blockId } = request.params;
-//     try {
-//         const page = await Page.findOneAndUpdate(
-//             { link },
-//             { $push: { blocks: { $each: [blocksMap[type]], $position: index >= 0 ? index : undefined } } },
-//             { new: true }
-//         );
-//         return response.status(200).send(page);
-//     } catch (error) {
-//         return response.status(500).send('Ошибка при обработке запроса');
-//     }
-// }
 
 module.exports = {
     getPages,
@@ -144,4 +159,5 @@ module.exports = {
     getPageByLink,
     deletePageByLink,
     addBlockToPage,
+    deleteBlockFromPage,
 };

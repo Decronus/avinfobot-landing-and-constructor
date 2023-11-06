@@ -2,10 +2,11 @@
     <EditModeHeader v-if="isEditMode" />
 
     <component
-        v-for="(block, index) in pageData?.blocks"
+        v-for="(block, index) in currentPage?.blocks"
         :blockIndex="index"
         :key="block._id"
         :block="block"
+        :blocksAmount="blocksAmount"
         :isEditMode="isEditMode"
         :is="getCurrentBlock(block.type)"
     />
@@ -33,17 +34,16 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType, Page } from '@/types/pages';
 
-interface Data {
-    pageData: Page | undefined;
-}
-
 export default defineComponent({
     name: 'LandingPage',
     components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, BlocksDrawer, ButtonUI },
 
     computed: {
-        pageData(): Page {
+        currentPage(): Page {
             return this.$store.state.pages.currentPage;
+        },
+        blocksAmount(): number {
+            return this.currentPage?.blocks?.length || 0;
         },
         isEditMode(): boolean {
             return this.$route.name === 'landing-page-edit';
@@ -56,7 +56,7 @@ export default defineComponent({
 
     methods: {
         openBlocksDrawer(): void {
-            this.$store.commit('drawers/setCurrentBlockIndex', this.pageData?.blocks?.length);
+            this.$store.commit('drawers/setCurrentBlockIndex', this.currentPage?.blocks?.length);
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
         },
         getCurrentBlock(blockType: BlockType): Component {

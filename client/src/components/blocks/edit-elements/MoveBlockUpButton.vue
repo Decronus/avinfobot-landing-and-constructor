@@ -1,5 +1,5 @@
 <template>
-    <ButtonUI edit secondary>
+    <ButtonUI edit secondary rounded>
         <ArrowIcon />
     </ButtonUI>
 </template>

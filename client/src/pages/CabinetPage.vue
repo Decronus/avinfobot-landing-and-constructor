@@ -2,7 +2,7 @@
     <div class="cabinet-page">
         <h1>Страницы</h1>
 
-        <AddPageCard @click="openCreatePageModal" />
+        <AddPageButton @click="openCreatePageModal" />
         <PageCard v-for="page in pages" :page="page" />
 
         <CreatePageModal />
@@ -12,18 +12,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import PageCard from '@/components/cabinet/PageCard.vue';
-import AddPageCard from '@/components/cabinet/AddPageCard.vue';
+import AddPageButton from '@/components/cabinet/AddPageButton.vue';
 import CreatePageModal from '@/components/modals/CreatePageModal.vue';
-import { getPages } from '@/axios/api';
 import { Page } from '@/types/pages';
-
-interface Data {
-    pages: Page[];
-}
 
 export default defineComponent({
     name: 'CabinetPage',
-    components: { PageCard, AddPageCard, CreatePageModal },
+    components: { PageCard, AddPageButton, CreatePageModal },
 
     computed: {
         pages(): Page[] {

@@ -3,7 +3,7 @@
         class="block main-block"
         :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
     >
-        <EditRow v-if="isEditMode" blockType="main" />
+        <EditRow v-if="isEditMode" blockType="main" :blockIndex="blockIndex" :blocksAmount="blocksAmount" />
 
         <div class="content">
             <div class="squares-wrap">
@@ -42,9 +42,8 @@ import FourSquares from '@/components/decorative-elements/FourSquares.vue';
 import AngleElement from '@/components/decorative-elements/AngleElement.vue';
 import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
-import { MainBlock, Block } from '@/types/pages';
+import { MainBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
-import { addBlockToPage } from '@/axios/api';
 
 export default defineComponent({
     name: 'MainBlock',
@@ -62,16 +61,16 @@ export default defineComponent({
             type: Number,
             required: true,
         },
+        blocksAmount: {
+            type: Number,
+            required: true,
+        },
     },
 
     methods: {
         openBlocksDrawer(): void {
             this.$store.commit('drawers/setCurrentBlock', this.block?.type);
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
-        },
-        async handleAddBlock(): Promise<void> {
-            const page = await addBlockToPage(this.$route.params.pageLink as string, 'twoColumns', 1);
-            console.log('page', page);
         },
     },
 });

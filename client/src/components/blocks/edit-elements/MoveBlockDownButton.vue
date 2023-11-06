@@ -1,5 +1,5 @@
 <template>
-    <ButtonUI edit secondary>
+    <ButtonUI edit secondary rounded>
         <ArrowIcon style="transform: rotate(180deg)" />
     </ButtonUI>
 </template>

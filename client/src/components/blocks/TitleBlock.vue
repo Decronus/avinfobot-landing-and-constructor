@@ -1,9 +1,9 @@
 <template>
     <div
         class="block title-block"
-        :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
+        :class="{ 'title-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
     >
-        <EditRow v-if="isEditMode" blockType="title" />
+        <EditRow v-if="isEditMode" blockType="title" :blockIndex="blockIndex" :blocksAmount="blocksAmount" />
 
         <div class="content">
             <h1>Заголовок</h1>
@@ -39,6 +39,10 @@ export default defineComponent({
             type: Number,
             required: true,
         },
+        blocksAmount: {
+            type: Number,
+            required: true,
+        },
     },
 });
 </script>
@@ -52,71 +56,23 @@ export default defineComponent({
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 80px 20px;
+    padding-bottom: 0 !important;
+    background: #fff;
 
     .content {
         max-width: 964px;
 
         h1 {
-            font-size: 72px;
-            margin-bottom: 24px;
-
-            @media (max-width: 768px) {
-                font-size: 48px;
-            }
-        }
-
-        p {
-            margin-bottom: 80px;
-        }
-
-        .squares-wrap {
-            display: flex;
-            justify-content: space-between;
-        }
-    }
-
-    .read-next__wrap {
-        position: absolute;
-        bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        animation: arrowAnimation 1s infinite alternate;
-        transition: transform 0.2s ease-in-out;
-
-        @keyframes arrowAnimation {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(8px);
-            }
-        }
-
-        span {
-            font-size: 14px;
+            font-size: 48px;
         }
     }
 }
 
-.main-block__inverted {
+.title-block__inverted {
     background-color: rgba(13, 2, 2, 0.5);
 
-    h1,
-    p {
+    h1 {
         color: #ffffff;
-    }
-
-    .read-next__wrap {
-        span {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        svg path {
-            fill: rgba(255, 255, 255, 0.7);
-        }
     }
 }
 </style>

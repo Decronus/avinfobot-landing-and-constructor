@@ -22,6 +22,11 @@
     color: #222222;
 }
 
+body {
+    background: #f7f7f7;
+    min-width: 100vh;
+}
+
 h1 {
     font-family: 'RoadRadio';
 }
@@ -90,69 +95,4 @@ p {
 .block-hover:hover::before,
 .block-hover:hover::after {
     opacity: 1;
-}
-
-.page-card {
-    display: flex;
-    gap: 12px;
-    cursor: pointer;
-    align-self: flex-start;
-    position: relative;
-    transition: 0.2s ease-in-out;
-
-    &:hover {
-        .page-card__delete {
-            opacity: 1;
-            visibility: visible;
-        }
-    }
-
-    &__image-block {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-
-        .page-card__image {
-            width: 82px;
-            height: 47px;
-            flex-shrink: 0;
-            border-radius: 6px;
-            background-image: url('https://a.d-cd.net/6f3caees-1920.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .page-card__delete {
-            position: absolute;
-            visibility: hidden;
-            bottom: -16px;
-            font-size: 10px;
-            font-weight: 600;
-            opacity: 0;
-            transition: 0.4s ease-in-out;
-
-            &:hover {
-                color: $primary-color;
-            }
-        }
-    }
-
-    &__content {
-        display: flex;
-        justify-content: space-between;
-        gap: 24px;
-
-        .page-card__name {
-            margin-top: -4px;
-            margin-bottom: 8px;
-        }
-
-        .page-card__date {
-            font-size: 12px;
-            font-weight: 600;
-            color: $secondary-text-color;
-        }
-    }
 }

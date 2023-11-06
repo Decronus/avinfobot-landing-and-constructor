@@ -39,7 +39,7 @@ export type Block = MainBlock | TwoColumnsBlock | TitleBlock;
 
 export interface Page {
     _id?: string;
-    createdAt?: Date;
+    createdAt?: string;
     name: string;
     link: string;
     image?: string;

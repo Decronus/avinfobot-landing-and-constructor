@@ -8,9 +8,9 @@
             <p class="edit-row__block-name">{{ blockName }}</p>
         </div>
 
-        <div class="edit-row__right merged-buttons">
-            <MoveBlockUpButton />
-            <MoveBlockDownButton />
+        <div class="edit-row__right" :class="{ 'merged-buttons': blocksAmount !== 1 }">
+            <MoveBlockUpButton v-if="blockIndex !== 0" />
+            <MoveBlockDownButton v-if="blockIndex !== blocksAmount - 1" />
             <DeleteBlockButton />
         </div>
     </div>
@@ -31,6 +31,14 @@ export default defineComponent({
     props: {
         blockType: {
             type: String as PropType<BlockType>,
+            required: true,
+        },
+        blockIndex: {
+            type: Number,
+            required: true,
+        },
+        blocksAmount: {
+            type: Number,
             required: true,
         },
     },
@@ -98,6 +106,10 @@ export default defineComponent({
 }
 
 .merged-buttons {
+    .button {
+        border-radius: 0;
+    }
+
     .button:first-child {
         border-radius: 4px 0 0 4px;
     }

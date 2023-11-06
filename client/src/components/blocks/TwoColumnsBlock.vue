@@ -3,7 +3,7 @@
         class="block two-columns__block"
         :class="{ 'two-columns__block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
     >
-        <EditRow v-if="isEditMode" blockType="twoColumns" />
+        <EditRow v-if="isEditMode" blockType="twoColumns" :blockIndex="blockIndex" :blocksAmount="blocksAmount" />
 
         <div class="content">
             <h1>Две колонки</h1>
@@ -36,6 +36,10 @@ export default defineComponent({
             type: Object as PropType<TwoColumnsBlock>,
         },
         blockIndex: {
+            type: Number,
+            required: true,
+        },
+        blocksAmount: {
             type: Number,
             required: true,
         },

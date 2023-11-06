@@ -1,5 +1,5 @@
 <template>
-    <ButtonUI edit secondary>
+    <ButtonUI edit secondary rounded>
         <DeleteIcon />
     </ButtonUI>
 </template>
