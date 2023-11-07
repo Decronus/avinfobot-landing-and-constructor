@@ -32,7 +32,7 @@ export default defineComponent({
 
     computed: {
         currentBlockType(): BlockType {
-            return this.$store.getters['drawers/getCurrentBlock'];
+            return this.$store.state.drawers.currentBlock.type;
         },
         drawerName(): string {
             return this.$options.name as string;

@@ -38,7 +38,7 @@ export default defineComponent({
             return this.$route.params.pageLink as string;
         },
         blockIndex(): number {
-            return this.$store.getters['drawers/getCurrentBlockIndex'];
+            return this.$store.state.drawers.currentBlock.index;
         },
         drawerName(): string {
             return this.$options.name as string;

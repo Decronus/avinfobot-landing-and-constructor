@@ -14,30 +14,38 @@ interface BaseBlock {
     };
 }
 
-export interface MainBlock extends BaseBlock {
-    content: {
-        title: string;
-        description: string;
-        action: {
-            active: boolean;
-            text: string;
-        };
+export interface MainBlockContent {
+    title: string;
+    description: string;
+    action: {
+        active: boolean;
+        text: string;
+        link?: string;
     };
+    imageUrl?: string;
+}
+
+export interface MainBlock extends BaseBlock {
+    content: MainBlockContent;
+}
+
+export interface TwoColumnsBlockContent {
+    title?: string;
+    subtitle?: string;
+    firstColumnText?: string;
+    secondColumnText?: string;
 }
 
 export interface TwoColumnsBlock extends BaseBlock {
-    content: {
-        title?: string;
-        subtitle?: string;
-        firstColumnText?: string;
-        secondColumnText?: string;
-    };
+    content: TwoColumnsBlockContent;
+}
+
+export interface TitleBlockContent {
+    title: string;
 }
 
 export interface TitleBlock extends BaseBlock {
-    content: {
-        title: string;
-    };
+    content: TitleBlockContent;
 }
 
 export type Block = MainBlock | TwoColumnsBlock | TitleBlock;

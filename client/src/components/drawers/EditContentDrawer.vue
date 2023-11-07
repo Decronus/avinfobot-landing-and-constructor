@@ -21,26 +21,27 @@
 <script lang="ts">
 import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
-import MainBlockDrawerBody from './edit-content-drawer-bodies/MainBlockDrawerBody.vue';
+import MainBlockEditContentDrawerBody from './edit-content-drawer-bodies/MainBlockEditContentDrawerBody.vue';
+import TitleBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleBlockEditContentDrawerBody.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
 export default defineComponent({
     name: 'EditContentDrawer',
-    components: { InputUI, ButtonUI, MainBlockDrawerBody },
+    components: { InputUI, ButtonUI, MainBlockEditContentDrawerBody, TitleBlockEditContentDrawerBody },
 
     computed: {
         currentBlockType(): BlockType {
-            return this.$store.getters['drawers/getCurrentBlock'];
+            return this.$store.state.drawers.currentBlock.type;
         },
         drawerName(): string {
             return this.$options.name as string;
         },
         drawerBody(): Component {
             const drawerBodies: Record<BlockType, Component> = {
-                main: MainBlockDrawerBody,
-                title: MainBlockDrawerBody,
-                twoColumns: MainBlockDrawerBody,
+                main: MainBlockEditContentDrawerBody,
+                title: TitleBlockEditContentDrawerBody,
+                twoColumns: MainBlockEditContentDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

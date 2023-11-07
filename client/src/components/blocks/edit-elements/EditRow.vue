@@ -91,11 +91,13 @@ export default defineComponent({
             this.$store.dispatch('pages/deleteBlockFromPage', payload);
         },
         openEditContentDrawer(): void {
-            this.$store.commit('drawers/setCurrentBlock', this.blockType);
+            const payload = { id: this.blockId, type: this.blockType, index: this.blockIndex };
+            this.$store.commit('drawers/setCurrentBlock', payload);
             this.$store.commit('drawers/toggleDrawer', 'EditContentDrawer');
         },
         openSettingsDrawer(): void {
-            this.$store.commit('drawers/setCurrentBlock', this.blockType);
+            const payload = { id: this.blockId, type: this.blockType, index: this.blockIndex };
+            this.$store.commit('drawers/setCurrentBlock', payload);
             this.$store.commit('drawers/toggleDrawer', 'SettingsDrawer');
         },
     },

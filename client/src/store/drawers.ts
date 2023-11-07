@@ -1,26 +1,36 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
-import { BlockType } from '@/types/pages';
+import { Block, BlockType } from '@/types/pages';
 
-type Drawer = 'EditContentDrawer' | 'BlockSettingsDrawer';
+export type Drawer = 'EditContentDrawer' | 'BlockSettingsDrawer';
+
+type CurrentBlock = { id: string; type: BlockType; index: number };
 
 interface State {
     openedDrawers: Drawer[];
-    currentBlock: BlockType | undefined;
-    currentBlockIndex: number;
+    currentBlock: CurrentBlock;
 }
 
 const state: State = {
     openedDrawers: [],
-    currentBlock: undefined,
-    currentBlockIndex: -1,
+    currentBlock: {
+        id: '',
+        type: 'main',
+        index: -1,
+    },
 };
 
 const getters: GetterTree<State, any> = {
-    getCurrentBlock(state) {
-        return state.currentBlock;
-    },
-    getCurrentBlockIndex(state) {
-        return state.currentBlockIndex;
+    // getCurrentBlockType(state) {
+    //     return state.currentBlock?.type;
+    // },
+    // getCurrentBlockIndex(state) {
+    //     return state.currentBlock?.index;
+    // },
+    getCurrentBlockContent: (state, getters, rootState) => (blockId: string) => {
+        const blocks = rootState.pages.currentBlock.blocks;
+        console.log('blocks', blocks);
+        const currentBlock = blocks.filter((el: Block) => el._id === blockId);
+        return currentBlock;
     },
     getDrawerVisibility: (state) => (modalName: Drawer) => {
         return state.openedDrawers.includes(modalName);
@@ -28,13 +38,11 @@ const getters: GetterTree<State, any> = {
 };
 
 const mutations: MutationTree<State> = {
-    setCurrentBlock(state, blockType: BlockType) {
-        state.currentBlock = blockType;
+    setCurrentBlock(state, currentBlock: CurrentBlock) {
+        state.currentBlock = currentBlock;
     },
     setCurrentBlockIndex(state, blockIndex: number) {
-        console.log('blockIndex', blockIndex);
-        state.currentBlockIndex = blockIndex;
-        console.log(' state.currentBlockIndex', state.currentBlockIndex);
+        state.currentBlock.index = blockIndex;
     },
     toggleDrawer(state, modalName: Drawer) {
         if (state.openedDrawers.includes(modalName)) {
