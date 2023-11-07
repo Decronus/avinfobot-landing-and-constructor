@@ -153,6 +153,29 @@ async function deleteBlockFromPage(req, res) {
     }
 }
 
+async function updateBlockContent(req, res) {
+    try {
+        const { link, id } = req.params;
+        const { body } = req;
+
+        if (!body) {
+            throw new Error('Пустое тело запроса');
+        }
+
+        const page = await Page.findOne({ link });
+        const blockToUpdate = page.blocks.find((el) => (el.id = id));
+        if (!blockToUpdate) {
+            throw new Error('Блока с таким id не существует');
+        }
+        blockToUpdate.content = body;
+        await page.save();
+
+        return res.status(200).send(blockToUpdate.content);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
 async function swapBlocks(req, res) {
     try {
         const { link, prevIndex, nextIndex } = req.params;
@@ -180,4 +203,5 @@ module.exports = {
     addBlockToPage,
     deleteBlockFromPage,
     swapBlocks,
+    updateBlockContent,
 };

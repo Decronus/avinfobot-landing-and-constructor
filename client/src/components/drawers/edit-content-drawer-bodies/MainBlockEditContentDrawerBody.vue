@@ -40,12 +40,25 @@ export default defineComponent({
     },
 
     computed: {
+        pageLink(): string {
+            return this.$route.params.pageLink as string;
+        },
+        currentBlockId(): string {
+            return this.$store.state.drawers.currentBlock.id;
+        },
         currentBlockContent(): MainBlockContent {
             return this.$store.getters['drawers/getCurrentBlockContent'];
         },
     },
 
     methods: {
+        updateBlockContent(): void {
+            this.$store.dispatch('pages/updateBlockContent', {
+                pageLink: this.pageLink,
+                blockId: this.currentBlockId,
+                body: this.form,
+            });
+        },
         handleFileChange(event: Event): void {
             const fileInput = event.target as HTMLInputElement;
             const file = fileInput.files?.[0];
@@ -56,7 +69,9 @@ export default defineComponent({
     },
 
     mounted() {
-        this.form = { ...this.currentBlockContent };
+        if (this.currentBlockContent) {
+            this.form = { ...this.currentBlockContent };
+        }
     },
 });
 </script>

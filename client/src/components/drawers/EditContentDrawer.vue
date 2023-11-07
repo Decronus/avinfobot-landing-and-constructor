@@ -9,11 +9,11 @@
     >
         <div class="drawer__buttons-wrap">
             <ButtonUI text="Отмена" drawer secondary @click="toggleDrawer" />
-            <ButtonUI text="Сохранить и закрыть" drawer @click="toggleDrawer" />
+            <ButtonUI text="Сохранить и закрыть" drawer @click="saveAndClose" />
         </div>
 
         <div class="edit-drawer__body">
-            <component :is="drawerBody" />
+            <component :is="drawerBody" ref="drawerBody" />
         </div>
     </el-drawer>
 </template>
@@ -24,7 +24,7 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import MainBlockEditContentDrawerBody from './edit-content-drawer-bodies/MainBlockEditContentDrawerBody.vue';
 import TitleBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleBlockEditContentDrawerBody.vue';
 import TwoColumnsBlockEditContentDrawerBody from './edit-content-drawer-bodies/TwoColumnsBlockEditContentDrawerBody.vue';
-import { Component, defineComponent } from 'vue';
+import { Component, VueElement, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
 export default defineComponent({
@@ -57,6 +57,11 @@ export default defineComponent({
     },
 
     methods: {
+        saveAndClose(): void {
+            const drawerBody = this.$refs.drawerBody as { updateBlockContent: () => void };
+            drawerBody.updateBlockContent();
+            this.toggleDrawer();
+        },
         toggleDrawer(): void {
             this.$store.commit('drawers/toggleDrawer', this.drawerName);
         },

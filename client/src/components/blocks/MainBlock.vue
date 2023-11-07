@@ -17,19 +17,19 @@
                 <AngleElement style="margin-left: auto" />
             </div>
 
-            <h1>{{ block?.content.title }}</h1>
+            <h1>{{ block?.content?.title }}</h1>
             <p>
-                {{ block?.content.description }}
+                {{ block?.content?.description }}
             </p>
             <ButtonUI
-                v-if="block?.content.action.active"
-                :text="block?.content.action.text"
+                v-if="block?.content?.action.active"
+                :text="block?.content?.action.text"
                 style="margin-bottom: 80px"
                 @click="openExternalLink('google.com')"
             />
 
             <div class="squares-wrap">
-                <FourSquares v-if="!block?.content.action.active" />
+                <FourSquares v-if="!block?.content?.action.active" />
                 <FourSquares style="margin-left: auto" />
             </div>
         </div>

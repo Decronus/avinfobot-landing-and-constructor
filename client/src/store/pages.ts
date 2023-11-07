@@ -1,5 +1,5 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
-import { BlockType, BlockTypeWithName, Page } from '@/types/pages';
+import { BlockContent, BlockType, BlockTypeWithName, Page } from '@/types/pages';
 import {
     getPages,
     addBlockToPage,
@@ -8,6 +8,7 @@ import {
     deletePage,
     deleteBlockFromPage,
     replaceBlocks,
+    updateBlockContent,
 } from '@/axios/api';
 
 interface AddBlockToPagePayload {
@@ -20,6 +21,12 @@ interface ReplaceBlocksPayload {
     pageLink: string;
     prevIndex: number;
     nextIndex: number;
+}
+
+interface UpdateBlockContentPayload {
+    pageLink: string;
+    blockId: string;
+    body: BlockContent;
 }
 
 interface State {
@@ -113,6 +120,18 @@ const actions: ActionTree<State, any> = {
             commit('setCurrentPage', data);
         } catch (error) {
             console.error('Ошибка при перемещении блока');
+        }
+    },
+    async updateBlockContent({ state, commit }, { pageLink, blockId, body }: UpdateBlockContentPayload) {
+        try {
+            const { data } = await updateBlockContent(pageLink, blockId, body);
+            const blockToUpdate = state.currentPage?.blocks?.find((el) => el._id === blockId);
+            if (!blockToUpdate) {
+                throw new Error('Блок для обновления не найден');
+            }
+            blockToUpdate.content = data;
+        } catch (error: any) {
+            console.error(error.message);
         }
     },
 };

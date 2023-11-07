@@ -5,7 +5,6 @@ const blockSchema = new mongoose.Schema({
         type: String,
         enum: ['main', 'twoColumns', 'title'],
         required: true,
-        minLength: 2,
     },
 
     settings: {
@@ -24,17 +23,14 @@ const blockSchema = new mongoose.Schema({
         title: {
             type: String,
             required: false,
-            minLength: 2,
         },
         subtitle: {
             type: String,
             required: false,
-            minLength: 2,
         },
         description: {
             type: String,
             required: false,
-            minLength: 2,
         },
         firstColumnText: {
             type: String,
@@ -44,7 +40,6 @@ const blockSchema = new mongoose.Schema({
         secondColumnText: {
             type: String,
             required: false,
-            minLength: 2,
         },
         action: {
             active: {
@@ -59,7 +54,6 @@ const blockSchema = new mongoose.Schema({
         imageUrl: {
             type: String,
             required: false,
-            minLength: 2,
         },
     },
 });
@@ -72,12 +66,10 @@ const pageSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        minLength: 2,
     },
     link: {
         type: String,
         required: true,
-        minLength: 2,
     },
     image: {
         type: String,
