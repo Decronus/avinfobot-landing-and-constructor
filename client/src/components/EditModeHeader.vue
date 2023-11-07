@@ -29,7 +29,6 @@ export default defineComponent({
     props: {
         pageName: {
             type: String,
-            required: true,
         },
     },
 

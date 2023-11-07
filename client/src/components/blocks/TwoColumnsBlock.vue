@@ -15,8 +15,12 @@
         <div class="content">
             <div class="column left-column">
                 <h3>{{ block?.content.title }}</h3>
+                <p class="subtitle">{{ block?.content.subtitle }}</p>
+                <p>{{ block?.content.firstColumnText }}</p>
             </div>
-            <div class="column right-column"></div>
+            <div class="column right-column">
+                <p>{{ block?.content.secondColumnText }}</p>
+            </div>
         </div>
 
         <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />
@@ -78,14 +82,24 @@ export default defineComponent({
 
         .column {
             width: 100%;
-        }
 
-        h3 {
-            font-size: 32px;
-            margin-bottom: 8px;
+            h3 {
+                font-size: 32px;
+                margin-bottom: 8px;
 
-            @media (max-width: 768px) {
-                font-size: 24px;
+                @media (max-width: 768px) {
+                    font-size: 24px;
+                }
+            }
+
+            .subtitle {
+                font-size: 14px;
+                color: $secondary-text-color;
+                margin-bottom: 24px;
+            }
+
+            p {
+                font-size: 20px;
             }
         }
     }

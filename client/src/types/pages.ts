@@ -1,5 +1,10 @@
 export type BlockType = 'main' | 'twoColumns' | 'title';
 
+export interface BlockTypeWithName {
+    text: string;
+    type: BlockType;
+}
+
 interface BaseBlock {
     _id?: string;
     type: BlockType;

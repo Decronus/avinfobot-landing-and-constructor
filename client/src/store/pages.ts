@@ -1,5 +1,5 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
-import { BlockType, Page } from '@/types/pages';
+import { BlockType, BlockTypeWithName, Page } from '@/types/pages';
 import {
     getPages,
     addBlockToPage,
@@ -23,11 +23,26 @@ interface ReplaceBlocksPayload {
 }
 
 interface State {
+    blocks: BlockTypeWithName[];
     pages: Page[] | undefined;
     currentPage: Page | undefined;
 }
 
 const state: State = {
+    blocks: [
+        {
+            text: 'Главный блок',
+            type: 'main',
+        },
+        {
+            text: 'Две колонки',
+            type: 'twoColumns',
+        },
+        {
+            text: 'Заголовок',
+            type: 'title',
+        },
+    ],
     pages: undefined,
     currentPage: undefined,
 };
@@ -68,7 +83,7 @@ const actions: ActionTree<State, any> = {
             console.log('Ошибка при удалении блока');
         }
     },
-    async addBlockToPage({ commit }, { pageLink, blockType, blockIndex }: AddBlockToPagePayload) {
+    async addBlock({ commit }, { pageLink, blockType, blockIndex }: AddBlockToPagePayload) {
         try {
             const { data } = await addBlockToPage(pageLink, blockType, blockIndex + 1);
             commit('setCurrentPage', data);

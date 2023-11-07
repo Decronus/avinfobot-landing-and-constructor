@@ -31,12 +31,12 @@ function twoColumnsBlockConstructor() {
             inverted: false,
         },
         content: {
-            title: 'Lorem ipsum.',
+            title: 'Lorem ipsum',
             subtitle: 'Lorem ipsum dolor sit amet consectetur.',
             firstColumnText:
                 'Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh.',
             secondColumnText:
-                'Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh.',
+                'Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet.',
         },
     };
 }
@@ -48,7 +48,7 @@ function titleBlockConstructor() {
             inverted: false,
         },
         content: {
-            title: 'Lorem ipsum.',
+            title: 'Lorem ipsum',
         },
     };
 }
@@ -121,7 +121,7 @@ async function addBlockToPage(req, res) {
             if (!blocksMap[type]) {
                 throw new Error(`Неправильный тип блока: ${type}`);
             }
-            if (index === 'undefined') {
+            if (isNaN(index)) {
                 throw new Error('Индекс блока должен быть числом');
             }
             if (+index < 0) {

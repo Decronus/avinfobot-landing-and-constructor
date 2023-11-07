@@ -13,7 +13,7 @@
         </div>
 
         <div class="blocks-drawer__body">
-            <p v-for="(block, index) in blocks" :key="index" @click="handleAddBlockToPage(block.type)">
+            <p v-for="(block, index) in blocks" :key="index" @click="addBlock(block.type)">
                 {{ block.text }}
             </p>
         </div>
@@ -24,41 +24,16 @@
 import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { defineComponent } from 'vue';
-import { BlockType } from '@/types/pages';
-
-interface Block {
-    text: string;
-    type: BlockType;
-}
-
-interface Data {
-    blocks: Block[];
-}
+import { BlockType, BlockTypeWithName } from '@/types/pages';
 
 export default defineComponent({
     name: 'BlocksDrawer',
     components: { InputUI, ButtonUI },
 
-    data(): Data {
-        return {
-            blocks: [
-                {
-                    text: 'Главный блок',
-                    type: 'main',
-                },
-                {
-                    text: 'Две колонки',
-                    type: 'twoColumns',
-                },
-                {
-                    text: 'Заголовок',
-                    type: 'title',
-                },
-            ],
-        };
-    },
-
     computed: {
+        blocks(): BlockTypeWithName[] {
+            return this.$store.state.pages.blocks;
+        },
         pageLink(): string {
             return this.$route.params.pageLink as string;
         },
@@ -79,9 +54,9 @@ export default defineComponent({
     },
 
     methods: {
-        async handleAddBlockToPage(blockType: BlockType): Promise<void> {
+        async addBlock(blockType: BlockType): Promise<void> {
             const payload = { pageLink: this.pageLink, blockType, blockIndex: this.blockIndex };
-            await this.$store.dispatch('pages/addBlockToPage', payload);
+            await this.$store.dispatch('pages/addBlock', payload);
             this.toggleDrawer();
         },
         toggleDrawer(): void {

@@ -139,18 +139,4 @@ export default defineComponent({
         display: flex;
     }
 }
-
-.merged-buttons {
-    .button {
-        border-radius: 0;
-    }
-
-    .button:first-child {
-        border-radius: 4px 0 0 4px;
-    }
-
-    .button:last-child {
-        border-radius: 0 4px 4px 0;
-    }
-}
 </style>

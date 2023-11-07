@@ -11,8 +11,20 @@
         :is="getCurrentBlock(block.type)"
     />
 
-    <div v-if="isEditMode" class="all-blocks-button__wrap" @click="openBlocksDrawer">
-        <ButtonUI text="ВСЕ БЛОКИ" medium rounded />
+    <div v-if="isEditMode" class="all-blocks-button__wrap">
+        <ButtonUI text="ВСЕ БЛОКИ" medium rounded @click="openBlocksDrawer" />
+
+        <div class="merged-buttons">
+            <ButtonUI
+                v-for="(block, index) in blocks"
+                :key="index"
+                medium
+                secondary
+                rounded
+                :text="block.text"
+                @click="addBlock(block.type)"
+            />
+        </div>
     </div>
 
     <div v-if="isEditMode">
@@ -32,13 +44,16 @@ import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
 import BlocksDrawer from '@/components/drawers/BlocksDrawer.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { Component, defineComponent } from 'vue';
-import { BlockType, Page } from '@/types/pages';
+import { BlockType, BlockTypeWithName, Page } from '@/types/pages';
 
 export default defineComponent({
     name: 'LandingPage',
     components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, BlocksDrawer, ButtonUI },
 
     computed: {
+        blocks(): BlockTypeWithName[] {
+            return this.$store.state.pages.blocks;
+        },
         currentPage(): Page {
             return this.$store.state.pages.currentPage;
         },
@@ -55,6 +70,11 @@ export default defineComponent({
     },
 
     methods: {
+        async addBlock(blockType: BlockType): Promise<void> {
+            const payload = { pageLink: this.currentPage.link, blockType, blockIndex: this.blocksAmount };
+            await this.$store.dispatch('pages/addBlock', payload);
+            window.scrollBy({ left: 0, top: window.innerHeight, behavior: 'smooth' });
+        },
         openBlocksDrawer(): void {
             this.$store.commit('drawers/setCurrentBlockIndex', this.currentPage?.blocks?.length);
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
@@ -87,5 +107,14 @@ export default defineComponent({
     padding: 48px 20px;
     display: flex;
     justify-content: center;
+    gap: 24px;
+
+    .merged-buttons {
+        display: flex;
+
+        .button {
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        }
+    }
 }
 </style>

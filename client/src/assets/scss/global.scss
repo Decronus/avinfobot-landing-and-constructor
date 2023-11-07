@@ -24,7 +24,6 @@
 
 body {
     background: #f7f7f7;
-    min-width: 100vh;
 }
 
 h1 {
@@ -90,4 +89,18 @@ p {
 .block-hover:hover::before,
 .block-hover:hover::after {
     opacity: 1;
+}
+
+.merged-buttons {
+    .button {
+        border-radius: 0;
+    }
+
+    .button:first-child {
+        border-radius: 4px 0 0 4px;
+    }
+
+    .button:last-child {
+        border-radius: 0 4px 4px 0;
+    }
 }
