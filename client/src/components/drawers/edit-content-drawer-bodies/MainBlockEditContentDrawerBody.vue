@@ -16,7 +16,6 @@
 import InputUI from '@/components/ui/InputUI.vue';
 import { defineComponent } from 'vue';
 import { MainBlockContent } from '@/types/pages';
-import { Drawer } from '@/store/drawers';
 
 interface Data {
     form: MainBlockContent;
@@ -42,7 +41,7 @@ export default defineComponent({
 
     computed: {
         currentBlockContent(): MainBlockContent {
-            return this.$store.state.pages.currentPage;
+            return this.$store.getters['drawers/getCurrentBlockContent'];
         },
     },
 
@@ -57,16 +56,8 @@ export default defineComponent({
     },
 
     mounted() {
-        // this.form = { ...this.currentPageContent };
-        console.log(this.currentBlockContent);
+        this.form = { ...this.currentBlockContent };
     },
-
-    // watch: {
-    //     '$store.state.drawers.openedDrawers'(newValue: Drawer[], oldValue: Drawer[]) {
-    //         console.log('oldValue', oldValue);
-    //         console.log('newValue', newValue);
-    //     },
-    // },
 });
 </script>
 

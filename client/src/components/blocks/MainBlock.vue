@@ -25,6 +25,7 @@
                 v-if="block?.content.action.active"
                 :text="block?.content.action.text"
                 style="margin-bottom: 80px"
+                @click="openExternalLink('google.com')"
             />
 
             <div class="squares-wrap">
@@ -78,6 +79,9 @@ export default defineComponent({
         openBlocksDrawer(): void {
             this.$store.commit('drawers/setCurrentBlock', this.block?.type);
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
+        },
+        openExternalLink(link: string): void {
+            window.open(link, '_blank');
         },
     },
 });

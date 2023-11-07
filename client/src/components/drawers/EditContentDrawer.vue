@@ -23,6 +23,7 @@ import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import MainBlockEditContentDrawerBody from './edit-content-drawer-bodies/MainBlockEditContentDrawerBody.vue';
 import TitleBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleBlockEditContentDrawerBody.vue';
+import TwoColumnsBlockEditContentDrawerBody from './edit-content-drawer-bodies/TwoColumnsBlockEditContentDrawerBody.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
@@ -41,7 +42,7 @@ export default defineComponent({
             const drawerBodies: Record<BlockType, Component> = {
                 main: MainBlockEditContentDrawerBody,
                 title: TitleBlockEditContentDrawerBody,
-                twoColumns: MainBlockEditContentDrawerBody,
+                twoColumns: TwoColumnsBlockEditContentDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

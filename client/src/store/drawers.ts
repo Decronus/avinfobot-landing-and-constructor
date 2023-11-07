@@ -20,17 +20,10 @@ const state: State = {
 };
 
 const getters: GetterTree<State, any> = {
-    // getCurrentBlockType(state) {
-    //     return state.currentBlock?.type;
-    // },
-    // getCurrentBlockIndex(state) {
-    //     return state.currentBlock?.index;
-    // },
-    getCurrentBlockContent: (state, getters, rootState) => (blockId: string) => {
-        const blocks = rootState.pages.currentBlock.blocks;
-        console.log('blocks', blocks);
-        const currentBlock = blocks.filter((el: Block) => el._id === blockId);
-        return currentBlock;
+    getCurrentBlockContent(state, getters, rootState) {
+        const blocks = rootState.pages.currentPage.blocks;
+        const currentBlock = blocks.find((el: Block) => el._id === state.currentBlock.id);
+        return (currentBlock as Block).content;
     },
     getDrawerVisibility: (state) => (modalName: Drawer) => {
         return state.openedDrawers.includes(modalName);

@@ -65,9 +65,8 @@ export default defineComponent({
         },
     },
 
-    async mounted() {
-        await this.initPageData();
-        this.$store.getters['drawers/getCurrentBlockContent']('asdfasdf');
+    mounted() {
+        this.initPageData();
     },
 
     methods: {
