@@ -6,6 +6,7 @@
         :with-header="false"
         direction="ltr"
         :close-on-click-modal="false"
+        destroy-on-close
     >
         <div class="drawer__buttons-wrap">
             <ButtonUI text="Отмена" drawer secondary @click="toggleDrawer" />
@@ -24,7 +25,7 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import MainBlockEditContentDrawerBody from './edit-content-drawer-bodies/MainBlockEditContentDrawerBody.vue';
 import TitleBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleBlockEditContentDrawerBody.vue';
 import TwoColumnsBlockEditContentDrawerBody from './edit-content-drawer-bodies/TwoColumnsBlockEditContentDrawerBody.vue';
-import { Component, VueElement, defineComponent } from 'vue';
+import { Component, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
 export default defineComponent({
@@ -58,7 +59,7 @@ export default defineComponent({
 
     methods: {
         saveAndClose(): void {
-            const drawerBody = this.$refs.drawerBody as { updateBlockContent: () => void };
+            const drawerBody = this.$refs.drawerBody as Component & { updateBlockContent: () => void };
             drawerBody.updateBlockContent();
             this.toggleDrawer();
         },

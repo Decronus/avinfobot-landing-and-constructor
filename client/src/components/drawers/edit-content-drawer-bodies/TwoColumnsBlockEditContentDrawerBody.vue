@@ -9,6 +9,7 @@
 import InputUI from '@/components/ui/InputUI.vue';
 import { TwoColumnsBlockContent } from '@/types/pages';
 import { defineComponent } from 'vue';
+import EditContentDrawerBodyMixin from './EditContentDrawerBodyMixin';
 
 interface Data {
     form: TwoColumnsBlockContent;
@@ -17,6 +18,7 @@ interface Data {
 export default defineComponent({
     name: 'TwoColumnsBlockEditContentDrawerBody',
     components: { InputUI },
+    mixins: [EditContentDrawerBodyMixin],
 
     data(): Data {
         return {
@@ -27,16 +29,6 @@ export default defineComponent({
                 secondColumnText: '',
             },
         };
-    },
-
-    computed: {
-        currentBlockContent(): TwoColumnsBlockContent {
-            return this.$store.getters['drawers/getCurrentBlockContent'];
-        },
-    },
-
-    mounted() {
-        this.form = { ...this.currentBlockContent };
     },
 });
 </script>

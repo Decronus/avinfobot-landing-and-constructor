@@ -31,13 +31,13 @@ export function deleteBlockFromPage(link: string, id: string): Promise<AxiosResp
 }
 
 export function replaceBlocks(link: string, prevIndex: number, nextIndex: number): Promise<AxiosResponse<Page, any>> {
-    return axiosInst.post(`pages/${link}/block/${prevIndex}/${nextIndex}`);
+    return axiosInst.put(`pages/${link}/swap-blocks/${prevIndex}/${nextIndex}`);
 }
 
 export function updateBlockContent(
     link: string,
-    id: string,
-    body: BlockContent
+    index: number,
+    content: BlockContent
 ): Promise<AxiosResponse<BlockContent, any>> {
-    return axiosInst.put(`pages/${link}/block/${id}/content`, body);
+    return axiosInst.put(`pages/${link}/block/${index}/content`, content);
 }

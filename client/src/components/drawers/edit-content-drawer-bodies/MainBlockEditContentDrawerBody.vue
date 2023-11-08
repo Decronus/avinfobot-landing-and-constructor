@@ -16,6 +16,7 @@
 import InputUI from '@/components/ui/InputUI.vue';
 import { defineComponent } from 'vue';
 import { MainBlockContent } from '@/types/pages';
+import EditContentDrawerBodyMixin from './EditContentDrawerBodyMixin';
 
 interface Data {
     form: MainBlockContent;
@@ -24,6 +25,7 @@ interface Data {
 export default defineComponent({
     name: 'MainBlockEditContentDrawerBody',
     components: { InputUI },
+    mixins: [EditContentDrawerBodyMixin],
 
     data(): Data {
         return {
@@ -39,26 +41,7 @@ export default defineComponent({
         };
     },
 
-    computed: {
-        pageLink(): string {
-            return this.$route.params.pageLink as string;
-        },
-        currentBlockId(): string {
-            return this.$store.state.drawers.currentBlock.id;
-        },
-        currentBlockContent(): MainBlockContent {
-            return this.$store.getters['drawers/getCurrentBlockContent'];
-        },
-    },
-
     methods: {
-        updateBlockContent(): void {
-            this.$store.dispatch('pages/updateBlockContent', {
-                pageLink: this.pageLink,
-                blockId: this.currentBlockId,
-                body: this.form,
-            });
-        },
         handleFileChange(event: Event): void {
             const fileInput = event.target as HTMLInputElement;
             const file = fileInput.files?.[0];
@@ -66,12 +49,6 @@ export default defineComponent({
                 console.log('Выбранный файл:', file);
             }
         },
-    },
-
-    mounted() {
-        if (this.currentBlockContent) {
-            this.form = { ...this.currentBlockContent };
-        }
     },
 });
 </script>

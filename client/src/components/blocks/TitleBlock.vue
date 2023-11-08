@@ -13,7 +13,7 @@
         />
 
         <div class="content">
-            <h1>{{ block?.content.title }}</h1>
+            <h1>{{ block?.content?.title }}</h1>
         </div>
 
         <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />

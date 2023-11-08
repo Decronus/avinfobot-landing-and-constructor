@@ -1,5 +1,5 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
-import { BlockContent, BlockType, BlockTypeWithName, Page } from '@/types/pages';
+import { Block, BlockContent, BlockType, BlockTypeWithName, Page } from '@/types/pages';
 import {
     getPages,
     addBlockToPage,
@@ -25,8 +25,8 @@ interface ReplaceBlocksPayload {
 
 interface UpdateBlockContentPayload {
     pageLink: string;
-    blockId: string;
-    body: BlockContent;
+    blockIndex: number;
+    content: BlockContent;
 }
 
 interface State {
@@ -62,6 +62,10 @@ const mutations: MutationTree<State> = {
     },
     setCurrentPage(state, page: Page) {
         state.currentPage = page;
+    },
+    updateBlockContent(state, { blockIndex, content }: { blockIndex: number; content: BlockContent }) {
+        const blocks = state.currentPage?.blocks as Block[];
+        blocks[blockIndex].content = content;
     },
 };
 
@@ -122,16 +126,12 @@ const actions: ActionTree<State, any> = {
             console.error('Ошибка при перемещении блока');
         }
     },
-    async updateBlockContent({ state, commit }, { pageLink, blockId, body }: UpdateBlockContentPayload) {
+    async updateBlockContent({ commit }, { pageLink, blockIndex, content }: UpdateBlockContentPayload) {
         try {
-            const { data } = await updateBlockContent(pageLink, blockId, body);
-            const blockToUpdate = state.currentPage?.blocks?.find((el) => el._id === blockId);
-            if (!blockToUpdate) {
-                throw new Error('Блок для обновления не найден');
-            }
-            blockToUpdate.content = data;
+            const { data } = await updateBlockContent(pageLink, blockIndex, content);
+            commit('updateBlockContent', { blockIndex, content: data });
         } catch (error: any) {
-            console.error(error.message);
+            console.error(error.response.data);
         }
     },
 };

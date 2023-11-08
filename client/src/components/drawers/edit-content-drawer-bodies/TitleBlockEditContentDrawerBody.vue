@@ -6,6 +6,7 @@
 import InputUI from '@/components/ui/InputUI.vue';
 import { TitleBlockContent } from '@/types/pages';
 import { defineComponent } from 'vue';
+import EditContentDrawerBodyMixin from './EditContentDrawerBodyMixin';
 
 interface Data {
     form: TitleBlockContent;
@@ -14,6 +15,7 @@ interface Data {
 export default defineComponent({
     name: 'TitleBlockEditContentDrawerBody',
     components: { InputUI },
+    mixins: [EditContentDrawerBodyMixin],
 
     data(): Data {
         return {
@@ -21,16 +23,6 @@ export default defineComponent({
                 title: '',
             },
         };
-    },
-
-    computed: {
-        currentBlockContent(): TitleBlockContent {
-            return this.$store.getters['drawers/getCurrentBlockContent'];
-        },
-    },
-
-    mounted() {
-        this.form = { ...this.currentBlockContent };
     },
 });
 </script>

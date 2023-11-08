@@ -29,7 +29,7 @@
             />
 
             <div class="squares-wrap">
-                <FourSquares v-if="!block?.content?.action.active" />
+                <FourSquares v-if="!block?.content?.action?.active" />
                 <FourSquares style="margin-left: auto" />
             </div>
         </div>
