@@ -1,7 +1,7 @@
 <template>
     <div
         class="block title-block"
-        :class="{ 'title-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
+        :class="{ 'title-block__inverted': block?.settings?.inverted, 'block-hover': isEditMode }"
         :id="block?._id"
     >
         <EditRow
@@ -76,10 +76,10 @@ export default defineComponent({
 }
 
 .title-block__inverted {
-    background-color: rgba(13, 2, 2, 0.5);
+    background: $dark-bg-color;
 
     h1 {
-        color: #ffffff;
+        color: $dark-text-color;
     }
 }
 </style>

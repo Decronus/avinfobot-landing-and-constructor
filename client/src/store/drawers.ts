@@ -25,6 +25,11 @@ const getters: GetterTree<State, any> = {
         const currentBlock = blocks.find((el: Block) => el._id === state.currentBlock.id);
         return (currentBlock as Block).content;
     },
+    getCurrentBlockSettings(state, getters, rootState) {
+        const blocks = rootState.pages.currentPage.blocks;
+        const currentBlock = blocks.find((el: Block) => el._id === state.currentBlock.id);
+        return (currentBlock as Block).settings;
+    },
     getDrawerVisibility: (state) => (modalName: Drawer) => {
         return state.openedDrawers.includes(modalName);
     },

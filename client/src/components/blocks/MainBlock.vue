@@ -158,7 +158,7 @@ export default defineComponent({
 
     h1,
     p {
-        color: #ffffff;
+        color: $dark-text-color;
     }
 
     .read-next__wrap {

@@ -168,6 +168,22 @@ async function updateBlockContent(req, res) {
     }
 }
 
+async function updateBlockSettings(req, res) {
+    try {
+        const { link, index } = req.params;
+        const { body } = req;
+        if (!body) throw new Error('Пустое тело запроса');
+
+        console.log('body', body);
+        const page = await Page.findOne({ link });
+        page.blocks[index].settings = { ...page.blocks[index].settings, ...body };
+        await page.save();
+        return res.status(200).send(page.blocks[index].settings);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
 async function swapBlocks(req, res) {
     try {
         const { link, prevIndex, nextIndex } = req.params;
@@ -196,4 +212,5 @@ module.exports = {
     deleteBlockFromPage,
     swapBlocks,
     updateBlockContent,
+    updateBlockSettings,
 };

@@ -60,7 +60,7 @@ export default defineComponent({
     methods: {
         saveAndClose(): void {
             const drawerBody = this.$refs.drawerBody as Component & { updateBlockContent: () => void };
-            drawerBody.updateBlockContent();
+            drawerBody && drawerBody.updateBlockContent();
             this.toggleDrawer();
         },
         toggleDrawer(): void {

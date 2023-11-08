@@ -1,7 +1,7 @@
 <template>
     <div
         class="block two-columns__block"
-        :class="{ 'two-columns__block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
+        :class="{ 'two-columns__block-inverted': block?.settings.inverted, 'block-hover': isEditMode }"
         :id="block?._id"
     >
         <EditRow
@@ -15,11 +15,11 @@
         <div class="content">
             <div class="column left-column">
                 <h3>{{ block?.content.title }}</h3>
-                <p class="subtitle">{{ block?.content.subtitle }}</p>
-                <p>{{ block?.content.firstColumnText }}</p>
+                <p class="subtitle">{{ block?.content?.subtitle }}</p>
+                <p>{{ block?.content?.firstColumnText }}</p>
             </div>
             <div class="column right-column">
-                <p>{{ block?.content.secondColumnText }}</p>
+                <p>{{ block?.content?.secondColumnText }}</p>
             </div>
         </div>
 
@@ -105,7 +105,12 @@ export default defineComponent({
     }
 }
 
-.two-columns__block__inverted {
-    background-color: rgba(13, 2, 2, 0.5);
+.two-columns__block-inverted {
+    background: $dark-bg-color;
+
+    h3,
+    p {
+        color: $dark-text-color;
+    }
 }
 </style>

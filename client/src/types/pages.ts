@@ -5,13 +5,15 @@ export interface BlockTypeWithName {
     type: BlockType;
 }
 
+export interface BlockSettings {
+    inverted: boolean;
+    readNext?: boolean;
+}
+
 interface BaseBlock {
     _id?: string;
     type: BlockType;
-    settings: {
-        inverted: boolean;
-        readNext?: boolean;
-    };
+    settings: BlockSettings;
 }
 
 export interface MainBlockContent {

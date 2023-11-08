@@ -6,14 +6,15 @@
         :with-header="false"
         direction="ltr"
         :close-on-click-modal="false"
+        destroy-on-close
     >
         <div class="drawer__buttons-wrap">
             <ButtonUI text="Отмена" drawer secondary @click="toggleDrawer" />
-            <ButtonUI text="Сохранить и закрыть" drawer @click="toggleDrawer" />
+            <ButtonUI text="Сохранить и закрыть" drawer @click="saveAndClose" />
         </div>
 
         <div class="edit-drawer__body">
-            <component :is="drawerBody" />
+            <component :is="drawerBody" ref="drawerBody" />
         </div>
     </el-drawer>
 </template>
@@ -56,6 +57,11 @@ export default defineComponent({
     },
 
     methods: {
+        saveAndClose(): void {
+            const drawerBody = this.$refs.drawerBody as Component & { updateBlockSettings: () => void };
+            drawerBody && drawerBody.updateBlockSettings();
+            this.toggleDrawer();
+        },
         toggleDrawer(): void {
             this.$store.commit('drawers/toggleDrawer', this.drawerName);
         },

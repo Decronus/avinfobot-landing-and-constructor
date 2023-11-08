@@ -1,5 +1,5 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
-import { Block, BlockContent, BlockType, BlockTypeWithName, Page } from '@/types/pages';
+import { Block, BlockContent, BlockSettings, BlockType, BlockTypeWithName, Page } from '@/types/pages';
 import {
     getPages,
     addBlockToPage,
@@ -9,6 +9,7 @@ import {
     deleteBlockFromPage,
     replaceBlocks,
     updateBlockContent,
+    updateBlockSettings,
 } from '@/axios/api';
 
 interface AddBlockToPagePayload {
@@ -27,6 +28,12 @@ interface UpdateBlockContentPayload {
     pageLink: string;
     blockIndex: number;
     content: BlockContent;
+}
+
+interface UpdateBlockSettingsPayload {
+    pageLink: string;
+    blockIndex: number;
+    settings: BlockSettings;
 }
 
 interface State {
@@ -66,6 +73,10 @@ const mutations: MutationTree<State> = {
     updateBlockContent(state, { blockIndex, content }: { blockIndex: number; content: BlockContent }) {
         const blocks = state.currentPage?.blocks as Block[];
         blocks[blockIndex].content = content;
+    },
+    updateBlockSettings(state, { blockIndex, settings }: { blockIndex: number; settings: BlockSettings }) {
+        const blocks = state.currentPage?.blocks as Block[];
+        blocks[blockIndex].settings = settings;
     },
 };
 
@@ -130,6 +141,14 @@ const actions: ActionTree<State, any> = {
         try {
             const { data } = await updateBlockContent(pageLink, blockIndex, content);
             commit('updateBlockContent', { blockIndex, content: data });
+        } catch (error: any) {
+            console.error(error.response.data);
+        }
+    },
+    async updateBlockSettings({ commit }, { pageLink, blockIndex, settings }: UpdateBlockSettingsPayload) {
+        try {
+            const { data } = await updateBlockSettings(pageLink, blockIndex, settings);
+            commit('updateBlockSettings', { blockIndex, settings: data });
         } catch (error: any) {
             console.error(error.response.data);
         }

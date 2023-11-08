@@ -1,6 +1,6 @@
 import axiosInst from './axios';
 import { AxiosResponse } from 'axios';
-import { BlockContent, BlockType, Page } from '@/types/pages';
+import { BlockContent, BlockSettings, BlockType, Page } from '@/types/pages';
 
 export function getPages(): Promise<AxiosResponse<Page[], void>> {
     return axiosInst.get('pages');
@@ -40,4 +40,12 @@ export function updateBlockContent(
     content: BlockContent
 ): Promise<AxiosResponse<BlockContent, any>> {
     return axiosInst.put(`pages/${link}/block/${index}/content`, content);
+}
+
+export function updateBlockSettings(
+    link: string,
+    index: number,
+    settings: BlockSettings
+): Promise<AxiosResponse<BlockContent, any>> {
+    return axiosInst.put(`pages/${link}/block/${index}/settings`, settings);
 }

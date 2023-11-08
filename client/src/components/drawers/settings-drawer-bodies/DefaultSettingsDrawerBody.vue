@@ -5,10 +5,12 @@
 <script lang="ts">
 import SwitchUI from '@/components/ui/SwitchUI.vue';
 import { defineComponent } from 'vue';
+import EditSettingsDrawerBodyMixin from './EditSettingsDrawerBodyMixin';
 
 export default defineComponent({
     name: 'DefaultSettingsDrawerBody',
     components: { SwitchUI },
+    mixins: [EditSettingsDrawerBodyMixin],
 
     data() {
         return {
