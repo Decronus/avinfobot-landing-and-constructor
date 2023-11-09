@@ -160,7 +160,7 @@ async function updateBlockContent(req, res) {
         if (!body) throw new Error('Пустое тело запроса');
 
         const page = await Page.findOne({ link });
-        page.blocks[index].content = body;
+        page.blocks[index].content = { ...page.blocks[index].content, ...body };
         await page.save();
         return res.status(200).send(body);
     } catch (error) {
@@ -174,7 +174,6 @@ async function updateBlockSettings(req, res) {
         const { body } = req;
         if (!body) throw new Error('Пустое тело запроса');
 
-        console.log('body', body);
         const page = await Page.findOne({ link });
         page.blocks[index].settings = { ...page.blocks[index].settings, ...body };
         await page.save();
@@ -203,6 +202,18 @@ async function swapBlocks(req, res) {
     }
 }
 
+async function uploadImage(req, res) {
+    const { link, index } = req.params;
+    try {
+        const page = await Page.findOne({ link });
+        page.blocks[index].content.bgImageUrl = req.file.path;
+        await page.save();
+        res.status(201).send(page.blocks[index].content);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     getPages,
     createPage,
@@ -213,4 +224,5 @@ module.exports = {
     swapBlocks,
     updateBlockContent,
     updateBlockSettings,
+    uploadImage,
 };

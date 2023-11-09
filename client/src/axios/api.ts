@@ -49,3 +49,7 @@ export function updateBlockSettings(
 ): Promise<AxiosResponse<BlockContent, any>> {
     return axiosInst.put(`pages/${link}/block/${index}/settings`, settings);
 }
+
+export function uploadImage(link: string, index: number, formData: FormData): Promise<AxiosResponse<Page, any>> {
+    return axiosInst.post(`upload/${link}/${index}`, formData);
+}

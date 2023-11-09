@@ -51,7 +51,7 @@ const blockSchema = new mongoose.Schema({
                 required: false,
             },
         },
-        imageUrl: {
+        bgImageUrl: {
             type: String,
             required: false,
         },
@@ -70,10 +70,6 @@ const pageSchema = new mongoose.Schema({
     link: {
         type: String,
         required: true,
-    },
-    image: {
-        type: String,
-        required: false,
     },
     blocks: [blockSchema],
 });

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const multer = require('multer');
+const path = require('path');
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
@@ -22,6 +23,7 @@ const {
     swapBlocks,
     updateBlockContent,
     updateBlockSettings,
+    uploadImage,
 } = require('../controllers/pages');
 
 router.get('/pages', getPages);
@@ -33,9 +35,7 @@ router.delete('/pages/:link', deletePageByLink);
 router.put('/pages/:link/block/:index/content', updateBlockContent);
 router.put('/pages/:link/block/:index/settings', updateBlockSettings);
 router.delete('/pages/:link/block/:id', deleteBlockFromPage);
-router.post('/upload', upload.single('image'), (req, res) => {
-    console.log('req', req);
-    res.status(201).send('Изображение успешно загружено');
-});
+router.post('/upload/:link/:index/', upload.single('image'), uploadImage);
+router.post('/pages/:link/settings/', uploadImage);
 
 module.exports = router;

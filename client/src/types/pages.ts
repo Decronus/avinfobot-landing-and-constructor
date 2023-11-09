@@ -24,7 +24,7 @@ export interface MainBlockContent {
         text: string;
         link?: string;
     };
-    imageUrl?: string;
+    bgImageUrl?: string;
 }
 
 export interface MainBlock extends BaseBlock {

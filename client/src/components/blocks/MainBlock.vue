@@ -2,6 +2,7 @@
     <div
         class="block main-block"
         :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
+        :style="customBg ? { 'background-image': `url(${apiUrl}/${block?.content?.bgImageUrl})` } : {}"
         :id="block?._id"
     >
         <EditRow
@@ -75,6 +76,15 @@ export default defineComponent({
         },
     },
 
+    computed: {
+        apiUrl(): string {
+            return process.env.VUE_APP_API_URL;
+        },
+        customBg() {
+            return this.block?.content?.bgImageUrl;
+        },
+    },
+
     methods: {
         openBlocksDrawer(): void {
             this.$store.commit('drawers/setCurrentBlock', this.block?.type);
@@ -83,6 +93,9 @@ export default defineComponent({
         openExternalLink(link: string): void {
             window.open(link, '_blank');
         },
+    },
+    mounted() {
+        console.log(process.env);
     },
 });
 </script>

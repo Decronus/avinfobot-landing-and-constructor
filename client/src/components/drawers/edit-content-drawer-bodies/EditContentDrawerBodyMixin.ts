@@ -1,6 +1,8 @@
 import { MainBlockContent } from '@/types/pages';
 import { defineComponent } from 'vue';
 
+declare function structuredClone<T>(obj: T): T;
+
 export default defineComponent({
     name: 'EditContentDrawerBodyMixin',
 
@@ -14,7 +16,7 @@ export default defineComponent({
         pageLink(): string {
             return this.$route.params.pageLink as string;
         },
-        currentBlockIndex(): string {
+        currentBlockIndex(): number {
             return this.$store.state.drawers.currentBlock.index;
         },
         currentBlockContent(): MainBlockContent {
@@ -33,6 +35,6 @@ export default defineComponent({
     },
 
     mounted() {
-        this.form = { ...this.currentBlockContent };
+        this.form = structuredClone(this.currentBlockContent);
     },
 });

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="modalVisibility" width="800px" :show-close="false">
+    <el-dialog v-model="modalVisibility" width="800px" :show-close="false" destroy-on-close>
         <template #header>
             <div class="modal-header">
                 <span>{{ isEditMode ? 'Настройки страницы' : 'Создание страницы' }}</span>
@@ -30,7 +30,6 @@ import InputUI from '@/components/ui/InputUI.vue';
 import CloseIcon from '@/components/icons/CloseIcon.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { defineComponent } from 'vue';
-import { createPage } from '@/axios/api';
 
 export default defineComponent({
     name: 'CreatePageModal',

@@ -14,7 +14,7 @@
         </div>
 
         <div class="edit-drawer__body">
-            <component :is="drawerBody" ref="drawerBody" />
+            <component :is="drawerBody" ref="drawerBody" @imageChanged="imageChanged = true" />
         </div>
     </el-drawer>
 </template>
@@ -31,6 +31,12 @@ import { BlockType } from '@/types/pages';
 export default defineComponent({
     name: 'EditContentDrawer',
     components: { InputUI, ButtonUI, MainBlockEditContentDrawerBody, TitleBlockEditContentDrawerBody },
+
+    data() {
+        return {
+            imageChanged: false,
+        };
+    },
 
     computed: {
         currentBlockType(): BlockType {
@@ -59,8 +65,14 @@ export default defineComponent({
 
     methods: {
         saveAndClose(): void {
-            const drawerBody = this.$refs.drawerBody as Component & { updateBlockContent: () => void };
-            drawerBody && drawerBody.updateBlockContent();
+            const drawerBody = this.$refs.drawerBody as Component & {
+                updateBlockContent: () => void;
+                handleUpload: () => void;
+            };
+            if (drawerBody) {
+                drawerBody.updateBlockContent();
+                this.imageChanged && drawerBody.handleUpload();
+            }
             this.toggleDrawer();
         },
         toggleDrawer(): void {
