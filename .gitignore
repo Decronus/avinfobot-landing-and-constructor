@@ -3,7 +3,7 @@ node_modules
 /dist
 /client/node_modules
 /server/node_modules
-/server/uploads
+/server/uploads/*
 
 
 # local env files
