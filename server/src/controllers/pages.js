@@ -214,6 +214,37 @@ async function uploadImage(req, res) {
     }
 }
 
+async function updatePageSettings(req, res) {
+    try {
+        const { link: pageLink } = req.params;
+        const { body } = req;
+        const { name, link } = body;
+
+        function handleErrors() {
+            if (!name) {
+                throw new Error(`Свойство name обязательно`);
+            }
+            if (!link) {
+                throw new Error(`Свойство link обязательно`);
+            }
+        }
+        handleErrors();
+
+        const page = await Page.findOne({ link: pageLink });
+
+        if (page) {
+            page.name = name;
+            page.link = link;
+            await page.save();
+            res.status(200).send(body);
+        } else {
+            res.status(404).send(`Страница со ссылкой "${pageLink}" не найдена`);
+        }
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     getPages,
     createPage,
@@ -225,4 +256,5 @@ module.exports = {
     updateBlockContent,
     updateBlockSettings,
     uploadImage,
+    updatePageSettings,
 };

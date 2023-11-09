@@ -1,5 +1,5 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
-import { Block, BlockContent, BlockSettings, BlockType, BlockTypeWithName, Page } from '@/types/pages';
+import { Block, BlockContent, BlockSettings, BlockType, BlockTypeWithName, Page, PageSettings } from '@/types/pages';
 import {
     getPages,
     addBlockToPage,
@@ -10,6 +10,7 @@ import {
     replaceBlocks,
     updateBlockContent,
     updateBlockSettings,
+    updatePageSettings,
 } from '@/axios/api';
 
 interface AddBlockToPagePayload {
@@ -34,6 +35,11 @@ interface UpdateBlockSettingsPayload {
     pageLink: string;
     blockIndex: number;
     settings: BlockSettings;
+}
+
+interface UpdatePageSettingsPayload {
+    pageLink: string;
+    settings: PageSettings;
 }
 
 interface State {
@@ -77,6 +83,13 @@ const mutations: MutationTree<State> = {
     updateBlockSettings(state, { blockIndex, settings }: { blockIndex: number; settings: BlockSettings }) {
         const blocks = state.currentPage?.blocks as Block[];
         blocks[blockIndex].settings = settings;
+    },
+    updatePageSettings(state, settings: PageSettings) {
+        const page = state.currentPage;
+        if (page) {
+            page.name = settings.name;
+            page.link = settings.link;
+        }
     },
 };
 
@@ -139,16 +152,25 @@ const actions: ActionTree<State, any> = {
     },
     async updateBlockContent({ commit }, { pageLink, blockIndex, content }: UpdateBlockContentPayload) {
         try {
-            const { data } = await updateBlockContent(pageLink, blockIndex, content);
-            commit('updateBlockContent', { blockIndex, content: data });
+            await updateBlockContent(pageLink, blockIndex, content);
+            commit('updateBlockContent', { blockIndex, content });
         } catch (error: any) {
             console.error(error.response.data);
         }
     },
     async updateBlockSettings({ commit }, { pageLink, blockIndex, settings }: UpdateBlockSettingsPayload) {
         try {
-            const { data } = await updateBlockSettings(pageLink, blockIndex, settings);
-            commit('updateBlockSettings', { blockIndex, settings: data });
+            await updateBlockSettings(pageLink, blockIndex, settings);
+            commit('updateBlockSettings', { blockIndex, settings });
+        } catch (error: any) {
+            console.error(error.response.data);
+        }
+    },
+    async updatePageSettings({ commit }, { pageLink, settings }: UpdatePageSettingsPayload) {
+        try {
+            console.log('body', settings);
+            await updatePageSettings(pageLink, settings);
+            commit('updatePageSettings', settings);
         } catch (error: any) {
             console.error(error.response.data);
         }

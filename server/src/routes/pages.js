@@ -24,6 +24,7 @@ const {
     updateBlockContent,
     updateBlockSettings,
     uploadImage,
+    updatePageSettings,
 } = require('../controllers/pages');
 
 router.get('/pages', getPages);
@@ -36,6 +37,6 @@ router.put('/pages/:link/block/:index/content', updateBlockContent);
 router.put('/pages/:link/block/:index/settings', updateBlockSettings);
 router.delete('/pages/:link/block/:id', deleteBlockFromPage);
 router.post('/upload/:link/:index/', upload.single('image'), uploadImage);
-router.post('/pages/:link/settings/', uploadImage);
+router.put('/pages/:link/settings/', updatePageSettings);
 
 module.exports = router;

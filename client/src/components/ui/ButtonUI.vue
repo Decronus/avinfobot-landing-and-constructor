@@ -15,7 +15,6 @@ export default defineComponent({
     props: {
         rounded: {
             type: Boolean,
-            requiered: false,
             default: false,
         },
         drawer: {

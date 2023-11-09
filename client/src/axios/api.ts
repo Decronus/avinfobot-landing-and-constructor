@@ -1,17 +1,13 @@
 import axiosInst from './axios';
 import { AxiosResponse } from 'axios';
-import { BlockContent, BlockSettings, BlockType, Page } from '@/types/pages';
+import { PageSettings, BlockContent, BlockSettings, BlockType, Page } from '@/types/pages';
 
 export function getPages(): Promise<AxiosResponse<Page[], void>> {
     return axiosInst.get('pages');
 }
 
-interface CreatePageBody {
-    name: string;
-    link: string;
-}
-export function createPage(body: CreatePageBody): Promise<AxiosResponse<Page, any>> {
-    return axiosInst.post('pages', body);
+export function createPage(settings: PageSettings): Promise<AxiosResponse<Page, any>> {
+    return axiosInst.post('pages', settings);
 }
 
 export function getPageByLink(link: string): Promise<AxiosResponse<Page, any>> {
@@ -52,4 +48,8 @@ export function updateBlockSettings(
 
 export function uploadImage(link: string, index: number, formData: FormData): Promise<AxiosResponse<Page, any>> {
     return axiosInst.post(`upload/${link}/${index}`, formData);
+}
+
+export function updatePageSettings(link: string, settings: PageSettings): Promise<AxiosResponse<PageSettings, any>> {
+    return axiosInst.put(`pages/${link}/settings`, settings);
 }

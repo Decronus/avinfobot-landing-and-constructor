@@ -19,7 +19,13 @@
 
             <div class="modal__buttons-wrap">
                 <ButtonUI text="Отменить" medium secondary rounded border @click="toggleModal" />
-                <ButtonUI text="Создать" medium rounded :disabled="!page.name" @click="handleCreatePage" />
+                <ButtonUI
+                    text="Создать"
+                    medium
+                    rounded
+                    :disabled="!page.name"
+                    @click="isCurrentPage ? updatePageSettings() : createPage()"
+                />
             </div>
         </div>
     </el-dialog>
@@ -39,18 +45,27 @@ export default defineComponent({
         return {
             page: {
                 name: '',
-                link: 'https://127.0.0.1/',
+                link: '',
             },
             isLinkInputEdited: false,
         };
     },
 
     computed: {
+        apiUrl(): string {
+            return process.env.VUE_APP_API_URL;
+        },
         clearLink(): string {
-            return this.page.link.replace('https://127.0.0.1/', '');
+            return this.page.link.replace(`${this.apiUrl}/`, '');
         },
         isEditMode(): boolean {
             return this.$route.name === 'landing-page-edit';
+        },
+        isCurrentPage(): boolean {
+            return !!this.$route.params.pageLink;
+        },
+        currentPageLink(): string {
+            return this.$route.params.pageLink as string;
         },
         modalName(): string {
             return this.$options.name as string;
@@ -68,18 +83,24 @@ export default defineComponent({
     watch: {
         'page.name'() {
             if (!this.isLinkInputEdited) {
-                this.page.link = 'https://127.0.0.1/' + this.transliterateToLatin(this.page.name);
+                this.page.link = `${this.apiUrl}/` + this.transliterateToLatin(this.page.name);
             }
         },
         modalVisibility(value: boolean) {
-            if (value) this.clearForm();
+            if (value) {
+                if (this.isCurrentPage) {
+                    this.page.name = this.$store.state.pages.currentPage.name;
+                } else {
+                    this.clearForm();
+                }
+            }
         },
     },
 
     methods: {
         clearForm(): void {
             this.page.name = '';
-            this.page.link = 'https://127.0.0.1/';
+            this.page.link = this.apiUrl;
         },
         transliterateToLatin(text: string): string {
             const cyrillicToLatinMap: Record<string, string> = {
@@ -130,9 +151,21 @@ export default defineComponent({
                 })
                 .join('');
         },
-        async handleCreatePage() {
+        async createPage() {
             try {
                 this.$store.dispatch('pages/createPage', { ...this.page, link: this.clearLink });
+                this.toggleModal();
+            } catch (err) {
+                console.error(err);
+            }
+        },
+        async updatePageSettings() {
+            try {
+                await this.$store.dispatch('pages/updatePageSettings', {
+                    pageLink: this.currentPageLink,
+                    settings: { ...this.page, link: this.clearLink },
+                });
+                this.$router.replace({ name: 'landing-page-edit', params: { pageLink: this.clearLink } });
                 this.toggleModal();
             } catch (err) {
                 console.error(err);

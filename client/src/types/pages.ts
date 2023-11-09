@@ -1,5 +1,10 @@
 export type BlockType = 'main' | 'twoColumns' | 'title';
 
+export interface PageSettings {
+    name: string;
+    link: string;
+}
+
 export interface BlockTypeWithName {
     text: string;
     type: BlockType;
