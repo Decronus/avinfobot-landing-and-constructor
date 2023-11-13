@@ -1,12 +1,12 @@
 <template>
     <div
         class="block text-with-image__block"
-        :class="{ 'two-columns__block-inverted': block?.settings.inverted, 'block-hover': isEditMode }"
+        :class="{ 'text-with-image__block-inverted': block?.settings.inverted, 'block-hover': isEditMode }"
         :id="block?._id"
     >
         <EditRow
             v-if="isEditMode"
-            blockType="twoColumns"
+            blockType="textWithImage"
             :blockIndex="blockIndex"
             :blocksAmount="blocksAmount"
             :blockId="(block?._id as string)"
@@ -105,10 +105,9 @@ export default defineComponent({
     }
 }
 
-.two-columns__block-inverted {
+.text-with-image__block-inverted {
     background: $dark-bg-color;
 
-    h3,
     p {
         color: $dark-text-color;
     }

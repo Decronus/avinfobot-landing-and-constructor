@@ -173,7 +173,7 @@ async function updateBlockContent(req, res) {
         if (!body) throw new Error('Пустое тело запроса');
 
         const page = await Page.findOne({ link });
-        page.blocks[index].content = { ...page.blocks[index].content, ...body };
+        page.blocks[index].content = body;
         await page.save();
         return res.status(200).send(body);
     } catch (error) {
@@ -188,7 +188,7 @@ async function updateBlockSettings(req, res) {
         if (!body) throw new Error('Пустое тело запроса');
 
         const page = await Page.findOne({ link });
-        page.blocks[index].settings = { ...page.blocks[index].settings, ...body };
+        page.blocks[index].settings = body;
         await page.save();
         return res.status(200).send(page.blocks[index].settings);
     } catch (error) {

@@ -35,7 +35,6 @@ const blockSchema = new mongoose.Schema({
         firstColumnText: {
             type: String,
             required: false,
-            minLength: 2,
         },
         secondColumnText: {
             type: String,

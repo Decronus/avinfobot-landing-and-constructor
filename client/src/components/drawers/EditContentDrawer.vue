@@ -25,12 +25,19 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import MainBlockEditContentDrawerBody from './edit-content-drawer-bodies/MainBlockEditContentDrawerBody.vue';
 import TitleBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleBlockEditContentDrawerBody.vue';
 import TwoColumnsBlockEditContentDrawerBody from './edit-content-drawer-bodies/TwoColumnsBlockEditContentDrawerBody.vue';
+import TextWithImageBlockEditContentDrawerBody from './edit-content-drawer-bodies/TextWithImageBlockEditContentDrawerBody.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
 export default defineComponent({
     name: 'EditContentDrawer',
-    components: { InputUI, ButtonUI, MainBlockEditContentDrawerBody, TitleBlockEditContentDrawerBody },
+    components: {
+        InputUI,
+        ButtonUI,
+        MainBlockEditContentDrawerBody,
+        TitleBlockEditContentDrawerBody,
+        TextWithImageBlockEditContentDrawerBody,
+    },
 
     data() {
         return {
@@ -50,7 +57,7 @@ export default defineComponent({
                 main: MainBlockEditContentDrawerBody,
                 title: TitleBlockEditContentDrawerBody,
                 twoColumns: TwoColumnsBlockEditContentDrawerBody,
-                textWithImage: TwoColumnsBlockEditContentDrawerBody,
+                textWithImage: TextWithImageBlockEditContentDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },
