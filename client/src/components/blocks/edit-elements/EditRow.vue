@@ -56,6 +56,7 @@ export default defineComponent({
                 main: 'Главная страница: заголовок, описание, призыв к действию',
                 twoColumns: 'Две колонки: заголовок, подзаголовок, два абзаца',
                 title: 'Одиночный заголовок',
+                textWithImage: 'Текст и изображение',
             };
             return blockNames[this.blockType];
         },

@@ -1,4 +1,4 @@
-export type BlockType = 'main' | 'twoColumns' | 'title';
+export type BlockType = 'main' | 'twoColumns' | 'title' | 'textWithImage';
 
 export interface PageSettings {
     name: string;
@@ -31,7 +31,6 @@ export interface MainBlockContent {
     };
     bgImageUrl?: string;
 }
-
 export interface MainBlock extends BaseBlock {
     content: MainBlockContent;
 }
@@ -42,7 +41,6 @@ export interface TwoColumnsBlockContent {
     firstColumnText?: string;
     secondColumnText?: string;
 }
-
 export interface TwoColumnsBlock extends BaseBlock {
     content: TwoColumnsBlockContent;
 }
@@ -50,9 +48,15 @@ export interface TwoColumnsBlock extends BaseBlock {
 export interface TitleBlockContent {
     title: string;
 }
-
 export interface TitleBlock extends BaseBlock {
     content: TitleBlockContent;
+}
+
+export interface TextWithImageBlockContent {
+    text: string;
+}
+export interface TextWithImageBlock extends BaseBlock {
+    content: TextWithImageBlockContent;
 }
 
 export type Block = MainBlock | TwoColumnsBlock | TitleBlock;

@@ -43,6 +43,7 @@ export default defineComponent({
                 main: MainBlockSettingsDrawerBody,
                 title: DefaultSettingsDrawerBody,
                 twoColumns: DefaultSettingsDrawerBody,
+                textWithImage: DefaultSettingsDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

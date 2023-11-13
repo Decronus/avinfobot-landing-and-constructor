@@ -50,6 +50,7 @@ export default defineComponent({
                 main: MainBlockEditContentDrawerBody,
                 title: TitleBlockEditContentDrawerBody,
                 twoColumns: TwoColumnsBlockEditContentDrawerBody,
+                textWithImage: TwoColumnsBlockEditContentDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

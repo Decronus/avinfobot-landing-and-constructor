@@ -1,6 +1,6 @@
 <template>
     <div
-        class="block two-columns__block"
+        class="block text-with-image__block"
         :class="{ 'two-columns__block-inverted': block?.settings.inverted, 'block-hover': isEditMode }"
         :id="block?._id"
     >
@@ -14,12 +14,10 @@
 
         <div class="content">
             <div class="column left-column">
-                <h3>{{ block?.content.title }}</h3>
-                <p class="subtitle">{{ block?.content?.subtitle }}</p>
-                <p class="paragraph">{{ block?.content?.firstColumnText }}</p>
+                <p>{{ block?.content?.text }}</p>
             </div>
             <div class="column right-column">
-                <p>{{ block?.content?.secondColumnText }}</p>
+                <div class="image"></div>
             </div>
         </div>
 
@@ -34,11 +32,11 @@ import FourSquares from '@/components/decorative-elements/FourSquares.vue';
 import AngleElement from '@/components/decorative-elements/AngleElement.vue';
 import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
-import { TwoColumnsBlock } from '@/types/pages';
+import { TextWithImageBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'TwoColumnsBlock',
+    name: 'TextWithImageBlock',
     components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockButton },
     props: {
         isEditMode: {
@@ -47,7 +45,7 @@ export default defineComponent({
             default: false,
         },
         block: {
-            type: Object as PropType<TwoColumnsBlock>,
+            type: Object as PropType<TextWithImageBlock>,
         },
         blockIndex: {
             type: Number,
@@ -64,7 +62,7 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/scss/variables';
 
-.two-columns__block {
+.text-with-image__block {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -83,33 +81,26 @@ export default defineComponent({
         .column {
             width: 100%;
 
-            h3 {
-                font-size: 32px;
-                margin-bottom: 8px;
+            p {
+                font-size: 20px;
 
-                @media (max-width: 768px) {
-                    font-size: 24px;
+                &:after {
+                    content: '';
+                    display: block;
+                    width: 60%;
+                    height: 8px;
+                    background-color: $primary-color;
+                    margin-top: 24px;
                 }
             }
 
-            .subtitle {
-                font-size: 14px;
-                color: $secondary-text-color;
-                margin-bottom: 24px;
+            .image {
+                width: 100%;
+                min-height: 240px;
+                background-size: cover;
+                background-position: center;
+                background-image: url('https://a.d-cd.net/6f3caees-1920.jpg');
             }
-
-            p {
-                font-size: 20px;
-            }
-        }
-
-        .left-column .paragraph:after {
-            content: '';
-            display: block;
-            width: 60%;
-            height: 8px;
-            background-color: $primary-color;
-            margin-top: 24px;
         }
     }
 }

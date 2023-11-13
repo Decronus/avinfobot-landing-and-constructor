@@ -38,6 +38,7 @@
 import MainBlock from '@/components/blocks/MainBlock.vue';
 import TwoColumnsBlock from '@/components/blocks/TwoColumnsBlock.vue';
 import TitleBlock from '@/components/blocks/TitleBlock.vue';
+import TextWithImageBlock from '@/components/blocks/TextWithImageBlock.vue';
 import EditModeHeader from '@/components/EditModeHeader.vue';
 import EditContentDrawer from '@/components/drawers/EditContentDrawer.vue';
 import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
@@ -84,6 +85,7 @@ export default defineComponent({
                 main: MainBlock,
                 twoColumns: TwoColumnsBlock,
                 title: TitleBlock,
+                textWithImage: TextWithImageBlock,
             };
             return blocksMap[blockType];
         },

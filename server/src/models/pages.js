@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const blockSchema = new mongoose.Schema({
     type: {
         type: String,
-        enum: ['main', 'twoColumns', 'title'],
+        enum: ['main', 'twoColumns', 'title', 'textWithImage'],
         required: true,
     },
 
@@ -38,6 +38,10 @@ const blockSchema = new mongoose.Schema({
             minLength: 2,
         },
         secondColumnText: {
+            type: String,
+            required: false,
+        },
+        text: {
             type: String,
             required: false,
         },
