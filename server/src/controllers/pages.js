@@ -1,8 +1,24 @@
 const Page = require('../models/pages');
+const fs = require('fs');
+const path = require('path');
 
 async function checkPageLinkExists(link) {
     const linkExists = await Page.findOne({ link });
     return !!linkExists;
+}
+
+function deleteImagesFromFolder(images) {
+    if (images) {
+        images.forEach((image) => {
+            const imagePathToDelete = path.join(process.cwd(), image);
+            if (fs.existsSync(imagePathToDelete)) {
+                fs.unlinkSync(imagePathToDelete);
+                console.log('Изображение удалено:', image);
+            } else {
+                console.log('Изображение не найдено.');
+            }
+        });
+    }
 }
 
 function mainBlockConstructor(body) {
@@ -20,6 +36,7 @@ function mainBlockConstructor(body) {
                 active: true,
                 text: 'Призыв к действию',
             },
+            images: [],
         },
     };
 }
@@ -61,6 +78,7 @@ function textWithImageBlockConstructor() {
         },
         content: {
             text: 'Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris. Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra. Lacinia eu vestibulum amet sagittis eu integer nibh.',
+            images: [],
         },
     };
 }
@@ -159,7 +177,11 @@ async function addBlockToPage(req, res) {
 async function deleteBlockFromPage(req, res) {
     try {
         const { link, id } = req.params;
-        const page = await Page.findOneAndUpdate({ link }, { $pull: { blocks: { _id: id } } }, { new: true });
+        let page = await Page.findOne({ link });
+        const targetBlock = page.blocks.find((block) => (block._id = id));
+        deleteImagesFromFolder(targetBlock.content.images);
+
+        page = await Page.findOneAndUpdate({ link }, { $pull: { blocks: { _id: id } } }, { new: true });
         return res.status(200).send(page);
     } catch (error) {
         return res.status(500).send('Ошибка при обработке запроса');
@@ -215,13 +237,42 @@ async function swapBlocks(req, res) {
     }
 }
 
-async function uploadImage(req, res) {
-    const { link, index } = req.params;
+async function uploadImages(req, res) {
     try {
+        const { link, index } = req.params;
+        const { files } = req;
         const page = await Page.findOne({ link });
-        page.blocks[index].content.bgImageUrl = req.file.path;
+        const oldImages = page.blocks[index].content.images ? [...page.blocks[index].content.images] : [];
+
+        // Собираем пути к новым изображениям в массив
+        const newImages = [];
+        files.forEach((file) => {
+            newImages.push(file.path);
+        });
+
+        // Извлекаем текущий массив изображений, если есть, и индексы к нему
+        const originImages = [...oldImages];
+        const filesIndexes = JSON.parse(req.body.filesIndexes);
+
+        // Заменяем исходные изображения на новые под соответствующими индексами
+        filesIndexes.forEach((el, index) => originImages.splice(el, 1, newImages[index]));
+        page.blocks[index].content.images = originImages;
+
+        // Удаляем изображения, которые больше не используются
+        oldImages.forEach((image) => {
+            if (!originImages.includes(image)) {
+                const imagePathToDelete = path.join(process.cwd(), image);
+                if (fs.existsSync(imagePathToDelete)) {
+                    fs.unlinkSync(imagePathToDelete);
+                    console.log('Изображение удалено:', image);
+                } else {
+                    console.log('Изображение не найдено.');
+                }
+            }
+        });
+
         await page.save();
-        res.status(201).send(page.blocks[index].content);
+        return res.status(201).send(page.blocks[index].content);
     } catch (error) {
         return res.status(500).send(error.message);
     }
@@ -249,9 +300,9 @@ async function updatePageSettings(req, res) {
             page.name = name;
             page.link = link;
             await page.save();
-            res.status(200).send(body);
+            return res.status(200).send(body);
         } else {
-            res.status(404).send(`Страница со ссылкой "${pageLink}" не найдена`);
+            return res.status(404).send(`Страница со ссылкой "${pageLink}" не найдена`);
         }
     } catch (error) {
         return res.status(500).send(error.message);
@@ -268,6 +319,6 @@ module.exports = {
     swapBlocks,
     updateBlockContent,
     updateBlockSettings,
-    uploadImage,
+    uploadImages,
     updatePageSettings,
 };

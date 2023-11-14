@@ -54,8 +54,8 @@ const blockSchema = new mongoose.Schema({
                 required: false,
             },
         },
-        bgImageUrl: {
-            type: String,
+        images: {
+            type: Array,
             required: false,
         },
     },

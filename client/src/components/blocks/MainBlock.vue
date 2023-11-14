@@ -2,7 +2,7 @@
     <div
         class="block main-block"
         :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
-        :style="customBg ? { 'background-image': `url(${apiUrl}/${block?.content?.bgImageUrl})` } : {}"
+        :style="customBg ? { 'background-image': `url(${apiUrl}/${block?.content?.images?.[0]})` } : {}"
         :id="block?._id"
     >
         <EditRow
@@ -81,7 +81,7 @@ export default defineComponent({
             return process.env.VUE_APP_API_URL;
         },
         customBg() {
-            return this.block?.content?.bgImageUrl;
+            return this.block?.content?.images?.[0];
         },
     },
 

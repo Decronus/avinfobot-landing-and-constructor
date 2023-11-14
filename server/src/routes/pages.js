@@ -23,7 +23,7 @@ const {
     swapBlocks,
     updateBlockContent,
     updateBlockSettings,
-    uploadImage,
+    uploadImages,
     updatePageSettings,
 } = require('../controllers/pages');
 
@@ -36,7 +36,7 @@ router.delete('/pages/:link', deletePageByLink);
 router.put('/pages/:link/block/:index/content', updateBlockContent);
 router.put('/pages/:link/block/:index/settings', updateBlockSettings);
 router.delete('/pages/:link/block/:id', deleteBlockFromPage);
-router.post('/upload/:link/:index/', upload.single('image'), uploadImage);
+router.post('/upload/:link/:index/', upload.array('images', 5), uploadImages);
 router.put('/pages/:link/settings/', updatePageSettings);
 
 module.exports = router;

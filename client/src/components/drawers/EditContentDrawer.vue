@@ -14,7 +14,7 @@
         </div>
 
         <div class="edit-drawer__body">
-            <component :is="drawerBody" ref="drawerBody" @imageChanged="imageChanged = true" />
+            <component :is="drawerBody" ref="drawerBody" />
         </div>
     </el-drawer>
 </template>
@@ -37,12 +37,6 @@ export default defineComponent({
         MainBlockEditContentDrawerBody,
         TitleBlockEditContentDrawerBody,
         TextWithImageBlockEditContentDrawerBody,
-    },
-
-    data() {
-        return {
-            imageChanged: false,
-        };
     },
 
     computed: {
@@ -74,13 +68,9 @@ export default defineComponent({
     methods: {
         saveAndClose(): void {
             const drawerBody = this.$refs.drawerBody as Component & {
-                updateBlockContent: () => void;
-                handleUpload: () => void;
+                updateBlockContentAndImages: () => void;
             };
-            if (drawerBody) {
-                drawerBody.updateBlockContent();
-                this.imageChanged && drawerBody.handleUpload();
-            }
+            drawerBody && drawerBody.updateBlockContentAndImages();
             this.toggleDrawer();
         },
         toggleDrawer(): void {

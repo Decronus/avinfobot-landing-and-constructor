@@ -1,6 +1,6 @@
 <template>
     <el-drawer
-        class="edit-content__drawer"
+        class="edit-settings__drawer"
         v-model="drawerVisibility"
         size="320px"
         :with-header="false"
@@ -71,13 +71,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.edit-content__drawer {
-    @media (max-width: 709.99px) {
-        .el-drawer__body {
-            width: 100vw;
-        }
-    }
-
+.edit-settings__drawer {
     .edit-drawer__body {
         max-width: 620px;
         margin: 0 auto;

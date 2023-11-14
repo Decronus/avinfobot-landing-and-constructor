@@ -29,7 +29,7 @@ export interface MainBlockContent {
         text: string;
         link?: string;
     };
-    bgImageUrl?: string;
+    images?: string[];
 }
 export interface MainBlock extends BaseBlock {
     content: MainBlockContent;
@@ -54,6 +54,7 @@ export interface TitleBlock extends BaseBlock {
 
 export interface TextWithImageBlockContent {
     text: string;
+    images?: string[];
 }
 export interface TextWithImageBlock extends BaseBlock {
     content: TextWithImageBlockContent;
