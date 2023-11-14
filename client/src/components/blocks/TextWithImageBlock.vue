@@ -17,7 +17,10 @@
                 <p>{{ block?.content?.text }}</p>
             </div>
             <div class="column right-column">
-                <div class="image"></div>
+                <div
+                    class="image"
+                    :style="image ? { 'background-image': `url(${apiUrl}/${block?.content?.images?.[0]})` } : {}"
+                />
             </div>
         </div>
 
@@ -54,6 +57,15 @@ export default defineComponent({
         blocksAmount: {
             type: Number,
             required: true,
+        },
+    },
+
+    computed: {
+        apiUrl(): string {
+            return process.env.VUE_APP_API_URL;
+        },
+        image() {
+            return this.block?.content?.images?.[0];
         },
     },
 });

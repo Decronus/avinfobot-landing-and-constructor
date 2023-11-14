@@ -129,15 +129,19 @@ const getPageByLink = async (request, response) => {
 const deletePageByLink = async (request, response) => {
     try {
         const { link } = request.params;
-        const page = await Page.findOneAndDelete({ link });
+        let page = await Page.findOne({ link });
+
         if (page) {
+            page.blocks?.forEach((el) => deleteImagesFromFolder(el.content.images));
+
+            page = await Page.findOneAndDelete({ link });
             const pages = await Page.find();
             return response.status(200).send(pages);
         } else {
-            return response.status(404).send('Страница не найдена');
+            throw new Error('Страница не найдена');
         }
     } catch (error) {
-        return response.status(500).send('Ошибка при обработке запроса');
+        return response.status(500).send(error.message);
     }
 };
 
@@ -252,10 +256,10 @@ async function uploadImages(req, res) {
 
         // Извлекаем текущий массив изображений, если есть, и индексы к нему
         const originImages = [...oldImages];
-        const filesIndexes = JSON.parse(req.body.filesIndexes);
+        const imagesIndexes = JSON.parse(req.body.imagesIndexes);
 
         // Заменяем исходные изображения на новые под соответствующими индексами
-        filesIndexes.forEach((el, index) => originImages.splice(el, 1, newImages[index]));
+        imagesIndexes.forEach((el, index) => originImages.splice(el, 1, newImages[index]));
         page.blocks[index].content.images = originImages;
 
         // Удаляем изображения, которые больше не используются

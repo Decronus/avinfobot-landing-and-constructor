@@ -44,14 +44,14 @@ export default defineComponent({
         async handleUpload(): Promise<void> {
             try {
                 const form = new FormData();
-                const filesIndexes: number[] = [];
+                const imagesIndexes: number[] = [];
                 this.images.forEach((image, index) => {
                     if (image) {
                         form.append('images', image);
-                        filesIndexes.push(index);
+                        imagesIndexes.push(index);
                     }
                 });
-                form.append('filesIndexes', JSON.stringify(filesIndexes));
+                form.append('filesIndexes', JSON.stringify(imagesIndexes));
 
                 const res = await uploadImage(this.pageLink, this.currentBlockIndex, form);
                 this.$store.commit('pages/updateBlockContent', {
