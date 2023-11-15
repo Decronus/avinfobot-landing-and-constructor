@@ -19,7 +19,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px;
+    padding: 10px;
     width: 100%;
     cursor: pointer;
     color: $primary-color;

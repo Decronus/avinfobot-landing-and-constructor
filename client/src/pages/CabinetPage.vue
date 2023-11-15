@@ -3,7 +3,12 @@
         <h1>Страницы</h1>
 
         <AddPageButton @click="openCreatePageModal" />
-        <PageCard v-for="page in pages" :page="page" />
+
+        <template v-if="pages">
+            <PageCard v-for="page in pages" :page="page" />
+            <p v-if="!pages.length">Еще не создано ни одной страницы.</p>
+        </template>
+        <LoadingUI v-if="!pages" />
 
         <CreatePageModal />
     </div>
@@ -14,11 +19,12 @@ import { defineComponent } from 'vue';
 import PageCard from '@/components/cabinet/PageCard.vue';
 import AddPageButton from '@/components/cabinet/AddPageButton.vue';
 import CreatePageModal from '@/components/modals/CreatePageModal.vue';
+import LoadingUI from '@/components/ui/LoadingUI.vue';
 import { Page } from '@/types/pages';
 
 export default defineComponent({
     name: 'CabinetPage',
-    components: { PageCard, AddPageButton, CreatePageModal },
+    components: { PageCard, AddPageButton, CreatePageModal, LoadingUI },
 
     computed: {
         pages(): Page[] {
