@@ -4,7 +4,7 @@
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             style="margin: auto; background-image: none; display: block; shape-rendering: auto"
-            width="50px"
+            :width="width + 'px'"
             height="50px"
             viewBox="0 0 100 100"
             preserveAspectRatio="xMidYMid"
@@ -13,7 +13,7 @@
                 cx="50"
                 cy="50"
                 fill="none"
-                stroke="#e15b64"
+                :stroke="color"
                 stroke-width="10"
                 r="35"
                 stroke-dasharray="164.93361431346415 56.97787143782138"
@@ -36,6 +36,16 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'LoadingUI',
+    props: {
+        width: {
+            type: Number,
+            default: 50,
+        },
+        color: {
+            type: String,
+            default: '#e15b64',
+        },
+    },
 });
 </script>
 

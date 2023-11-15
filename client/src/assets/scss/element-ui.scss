@@ -9,9 +9,11 @@
 
 .el-message--error {
     background: $primary-color;
+    border: none;
 
     .el-message__content {
         color: #fff;
+        line-height: 140%;
     }
 }
 .el-message .el-message-icon--error {

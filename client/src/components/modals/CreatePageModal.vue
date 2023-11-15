@@ -1,5 +1,11 @@
 <template>
-    <el-dialog v-model="modalVisibility" width="800px" :show-close="false" destroy-on-close>
+    <el-dialog
+        v-model="modalVisibility"
+        width="800px"
+        :show-close="false"
+        destroy-on-close
+        @closed="buttonLoading = false"
+    >
         <template #header>
             <div class="modal-header">
                 <span>{{ isEditMode ? 'Настройки страницы' : 'Создание страницы' }}</span>
@@ -9,21 +15,16 @@
 
         <div class="modal-content">
             <InputUI v-model="page.name" label="Имя страницы" type="textarea" placeholder="Введите имя страницы" />
-            <InputUI
-                v-model="page.link"
-                label="Ссылка на страницу"
-                placeholder="Введите адрес страницы"
-                readonly
-                @inputEdited="isLinkInputEdited = true"
-            />
+            <InputUI v-model="page.link" label="Ссылка на страницу" placeholder="Введите адрес страницы" readonly />
 
             <div class="modal__buttons-wrap">
                 <ButtonUI text="Отменить" medium secondary rounded border @click="toggleModal" />
                 <ButtonUI
-                    text="Создать"
+                    :text="isEditMode ? 'Сохранить' : 'Создать'"
                     medium
                     rounded
-                    :disabled="!page.name"
+                    :disabled="!page.name || buttonLoading || (isEditMode && page.name === initialPageName)"
+                    :loading="buttonLoading"
                     @click="isCurrentPage ? updatePageSettings() : createPage()"
                 />
             </div>
@@ -48,7 +49,8 @@ export default defineComponent({
                 name: '',
                 link: '',
             },
-            isLinkInputEdited: false,
+            initialPageName: '',
+            buttonLoading: false,
         };
     },
 
@@ -83,14 +85,13 @@ export default defineComponent({
 
     watch: {
         'page.name'() {
-            if (!this.isLinkInputEdited) {
-                this.page.link = `${this.apiUrl}/` + this.transliterateToLatin(this.page.name);
-            }
+            this.page.link = `${this.apiUrl}/` + this.transliterateToLatin(this.page.name);
         },
         modalVisibility(value: boolean) {
             if (value) {
                 if (this.isCurrentPage) {
                     this.page.name = this.$store.state.pages.currentPage.name;
+                    this.initialPageName = this.page.name;
                 } else {
                     this.clearForm();
                 }
@@ -154,14 +155,17 @@ export default defineComponent({
         },
         async createPage() {
             try {
+                this.buttonLoading = true;
                 await this.$store.dispatch('pages/createPage', { ...this.page, link: this.clearLink });
                 this.toggleModal();
             } catch (err: any) {
                 ElMessage.error(err.message);
+                this.buttonLoading = false;
             }
         },
         async updatePageSettings() {
             try {
+                this.buttonLoading = true;
                 await this.$store.dispatch('pages/updatePageSettings', {
                     pageLink: this.currentPageLink,
                     settings: { ...this.page, link: this.clearLink },
@@ -170,6 +174,7 @@ export default defineComponent({
                 this.toggleModal();
             } catch (err: any) {
                 ElMessage.error(err.message);
+                this.buttonLoading = false;
             }
         },
         toggleModal(): void {

@@ -1,7 +1,8 @@
 <template>
     <button class="button" :class="classList" :disabled="disabled">
         <div class="button-inner">
-            <slot v-if="icon || !text"></slot>
+            <slot v-if="!loading && (icon || !text)"></slot>
+            <LoadingUI v-if="loading" :width="20" color="#ffffff" />
             <span v-if="text">{{ text }}</span>
         </div>
     </button>
@@ -9,9 +10,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import LoadingUI from '@/components/ui/LoadingUI.vue';
 
 export default defineComponent({
     name: 'ButtonUI',
+    components: { LoadingUI },
     props: {
         rounded: {
             type: Boolean,
@@ -42,6 +45,10 @@ export default defineComponent({
             default: false,
         },
         disabled: {
+            type: Boolean,
+            default: false,
+        },
+        loading: {
             type: Boolean,
             default: false,
         },
