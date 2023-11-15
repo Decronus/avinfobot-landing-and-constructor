@@ -23,7 +23,7 @@
                     :text="isEditMode ? 'Сохранить' : 'Создать'"
                     medium
                     rounded
-                    :disabled="!page.name || buttonLoading || (isEditMode && page.name === initialPageName)"
+                    :disabled="buttonDisabled"
                     :loading="buttonLoading"
                     @click="isCurrentPage ? updatePageSettings() : createPage()"
                 />
@@ -55,8 +55,14 @@ export default defineComponent({
     },
 
     computed: {
+        buttonDisabled(): boolean {
+            return !this.page.name || this.buttonLoading || this.buttonDisabledInEditMode;
+        },
+        buttonDisabledInEditMode(): boolean {
+            return this.isEditMode && this.page.name === this.initialPageName;
+        },
         apiUrl(): string {
-            return process.env.VUE_APP_API_URL;
+            return process.env.VUE_APP_URL;
         },
         clearLink(): string {
             return this.page.link.replace(`${this.apiUrl}/`, '');
