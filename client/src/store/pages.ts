@@ -102,47 +102,47 @@ const actions: ActionTree<State, any> = {
         try {
             const { data } = await getPages();
             commit('setPages', data);
-        } catch (error) {
-            console.log('Ошибка при получении страниц');
+        } catch (err: any) {
+            console.error('Ошибка при получении страниц');
         }
     },
     async createPage({ dispatch }, { name, link }: { name: string; link: string }) {
         try {
             await createPage({ name, link });
             dispatch('getPages');
-        } catch (error) {
-            console.log('Ошибка при добавлении блока');
+        } catch (err: any) {
+            throw new Error(err.response.data);
         }
     },
     async deletePage({ dispatch }, link: string) {
         try {
             await deletePage(link);
             dispatch('getPages');
-        } catch (error) {
-            console.log('Ошибка при удалении блока');
+        } catch (err: any) {
+            console.error('Ошибка при удалении страницы');
         }
     },
     async addBlock({ commit }, { pageLink, blockType, blockIndex }: AddBlockToPagePayload) {
         try {
             const { data } = await addBlockToPage(pageLink, blockType, blockIndex + 1);
             commit('setCurrentPage', data);
-        } catch (error: any) {
-            console.log(error.reponse.data);
+        } catch (err: any) {
+            console.error(err.response.data);
         }
     },
     async deleteBlockFromPage({ commit }, { pageLink, blockId }: { pageLink: string; blockId: string }) {
         try {
             const { data } = await deleteBlockFromPage(pageLink, blockId);
             commit('setCurrentPage', data);
-        } catch (error: any) {
-            console.log(error.reponse.data);
+        } catch (err: any) {
+            console.log(err.response.data);
         }
     },
     async getCurrentPage({ commit }, pageLink: string) {
         try {
             const { data } = await getPageByLink(pageLink);
             commit('setCurrentPage', data);
-        } catch (error) {
+        } catch (err) {
             console.error('Ошибка при получении текущей страницы');
         }
     },
@@ -150,7 +150,7 @@ const actions: ActionTree<State, any> = {
         try {
             const { data } = await replaceBlocks(pageLink, prevIndex, nextIndex);
             commit('setCurrentPage', data);
-        } catch (error) {
+        } catch (err: any) {
             console.error('Ошибка при перемещении блока');
         }
     },
@@ -158,25 +158,24 @@ const actions: ActionTree<State, any> = {
         try {
             await updateBlockContent(pageLink, blockIndex, content);
             commit('updateBlockContent', { blockIndex, content });
-        } catch (error: any) {
-            console.error(error.response.data);
+        } catch (err: any) {
+            console.error(err.response.data);
         }
     },
     async updateBlockSettings({ commit }, { pageLink, blockIndex, settings }: UpdateBlockSettingsPayload) {
         try {
             await updateBlockSettings(pageLink, blockIndex, settings);
             commit('updateBlockSettings', { blockIndex, settings });
-        } catch (error: any) {
-            console.error(error.response.data);
+        } catch (err: any) {
+            console.error(err.response.data);
         }
     },
     async updatePageSettings({ commit }, { pageLink, settings }: UpdatePageSettingsPayload) {
         try {
-            console.log('body', settings);
             await updatePageSettings(pageLink, settings);
             commit('updatePageSettings', settings);
-        } catch (error: any) {
-            console.error(error.response.data);
+        } catch (err: any) {
+            throw new Error(err.response.data);
         }
     },
 };

@@ -4,7 +4,7 @@ const path = require('path');
 
 async function checkPageLinkExists(link) {
     const linkExists = await Page.findOne({ link });
-    return !!linkExists;
+    if (!!linkExists) throw new Error('Ссылка должна быть уникальной, задайте другое имя страницы');
 }
 
 function deleteImagesFromFolder(images) {
@@ -100,15 +100,14 @@ async function getPages(request, response) {
 }
 
 async function createPage(request, response) {
-    const { body } = request;
-    if (await checkPageLinkExists(body.link)) {
-        return response.status(500).send('Ссылка должна быть уникальной, задайте другое имя');
-    }
     try {
+        const { body } = request;
+        await checkPageLinkExists(body.link);
+
         const page = await Page.create({ ...body, blocks: [mainBlockConstructor(body)] });
         return response.status(201).send(page);
     } catch (error) {
-        return response.status(500).send('Ошибка при обработке запроса');
+        return response.status(500).send(error.message);
     }
 }
 
@@ -287,6 +286,7 @@ async function updatePageSettings(req, res) {
         const { link: pageLink } = req.params;
         const { body } = req;
         const { name, link } = body;
+        await checkPageLinkExists(link);
 
         function handleErrors() {
             if (!name) {
@@ -306,7 +306,7 @@ async function updatePageSettings(req, res) {
             await page.save();
             return res.status(200).send(body);
         } else {
-            return res.status(404).send(`Страница со ссылкой "${pageLink}" не найдена`);
+            throw new Error(`Страница со ссылкой "${pageLink}" не найдена`);
         }
     } catch (error) {
         return res.status(500).send(error.message);

@@ -36,6 +36,7 @@ import InputUI from '@/components/ui/InputUI.vue';
 import CloseIcon from '@/components/icons/CloseIcon.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { defineComponent } from 'vue';
+import { ElMessage } from 'element-plus';
 
 export default defineComponent({
     name: 'CreatePageModal',
@@ -153,10 +154,10 @@ export default defineComponent({
         },
         async createPage() {
             try {
-                this.$store.dispatch('pages/createPage', { ...this.page, link: this.clearLink });
+                await this.$store.dispatch('pages/createPage', { ...this.page, link: this.clearLink });
                 this.toggleModal();
-            } catch (err) {
-                console.error(err);
+            } catch (err: any) {
+                ElMessage.error(err.message);
             }
         },
         async updatePageSettings() {
@@ -167,8 +168,8 @@ export default defineComponent({
                 });
                 this.$router.replace({ name: 'landing-page-edit', params: { pageLink: this.clearLink } });
                 this.toggleModal();
-            } catch (err) {
-                console.error(err);
+            } catch (err: any) {
+                ElMessage.error(err.message);
             }
         },
         toggleModal(): void {

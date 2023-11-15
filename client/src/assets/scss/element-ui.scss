@@ -1,6 +1,19 @@
+@import 'variables';
+
 .el-dialog__header,
 .el-dialog__body,
 .el-drawer__body {
     padding: 0;
     margin: 0;
+}
+
+.el-message--error {
+    background: $primary-color;
+
+    .el-message__content {
+        color: #fff;
+    }
+}
+.el-message .el-message-icon--error {
+    display: none;
 }
