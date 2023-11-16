@@ -31,16 +31,13 @@
 <script lang="ts">
 import EditRow from '@/components/blocks/edit-elements/EditRow.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
-import FourSquares from '@/components/decorative-elements/FourSquares.vue';
-import AngleElement from '@/components/decorative-elements/AngleElement.vue';
-import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { TextWithImageBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'TextWithImageBlock',
-    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockButton },
+    components: { ButtonUI, EditRow, AddBlockButton },
     props: {
         isEditMode: {
             type: Boolean,
@@ -120,8 +117,10 @@ export default defineComponent({
 .text-with-image__block-inverted {
     background: $dark-bg-color;
 
-    p {
-        color: $dark-text-color;
+    .content {
+        p {
+            color: $dark-text-color;
+        }
     }
 }
 </style>

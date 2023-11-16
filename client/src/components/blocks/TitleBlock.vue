@@ -23,16 +23,14 @@
 <script lang="ts">
 import EditRow from '@/components/blocks/edit-elements/EditRow.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
-import FourSquares from '@/components/decorative-elements/FourSquares.vue';
-import AngleElement from '@/components/decorative-elements/AngleElement.vue';
-import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
+
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { TitleBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'TitleBlock',
-    components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockButton },
+    components: { ButtonUI, EditRow, AddBlockButton },
     props: {
         isEditMode: {
             type: Boolean,
@@ -78,8 +76,10 @@ export default defineComponent({
 .title-block__inverted {
     background: $dark-bg-color;
 
-    h1 {
-        color: $dark-text-color;
+    .content {
+        h1 {
+            color: $dark-text-color;
+        }
     }
 }
 </style>

@@ -66,6 +66,10 @@ const state: State = {
             text: 'Текст с изображением',
             type: 'textWithImage',
         },
+        {
+            text: 'Буллеты',
+            type: 'bullets',
+        },
     ],
     pages: undefined,
     currentPage: undefined,

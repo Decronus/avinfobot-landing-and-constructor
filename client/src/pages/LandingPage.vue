@@ -39,6 +39,7 @@ import MainBlock from '@/components/blocks/MainBlock.vue';
 import TwoColumnsBlock from '@/components/blocks/TwoColumnsBlock.vue';
 import TitleBlock from '@/components/blocks/TitleBlock.vue';
 import TextWithImageBlock from '@/components/blocks/TextWithImageBlock.vue';
+import BulletsBlock from '@/components/blocks/BulletsBlock.vue';
 import EditModeHeader from '@/components/EditModeHeader.vue';
 import EditContentDrawer from '@/components/drawers/EditContentDrawer.vue';
 import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
@@ -86,6 +87,7 @@ export default defineComponent({
                 twoColumns: TwoColumnsBlock,
                 title: TitleBlock,
                 textWithImage: TextWithImageBlock,
+                bullets: BulletsBlock,
             };
             return blocksMap[blockType];
         },
@@ -106,16 +108,31 @@ export default defineComponent({
 
 .all-blocks-button__wrap {
     width: 100%;
+    max-width: 964px;
+    margin: 0 auto;
     padding: 48px 20px;
     display: flex;
     justify-content: center;
     gap: 24px;
 
+    @media (max-width: 620px) {
+        flex-direction: column;
+    }
+
+    span {
+        white-space: nowrap;
+    }
+
     .merged-buttons {
         display: flex;
+        flex-wrap: wrap;
 
         .button {
             box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 620px) {
+            flex-direction: column;
         }
     }
 }

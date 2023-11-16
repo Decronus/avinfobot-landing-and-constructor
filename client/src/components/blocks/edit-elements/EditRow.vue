@@ -57,6 +57,7 @@ export default defineComponent({
                 twoColumns: 'Две колонки: заголовок, подзаголовок, два абзаца',
                 title: 'Одиночный заголовок',
                 textWithImage: 'Текст и изображение',
+                bullets: 'Буллеты',
             };
             return blockNames[this.blockType];
         },

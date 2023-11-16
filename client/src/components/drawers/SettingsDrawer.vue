@@ -44,6 +44,7 @@ export default defineComponent({
                 title: DefaultSettingsDrawerBody,
                 twoColumns: DefaultSettingsDrawerBody,
                 textWithImage: DefaultSettingsDrawerBody,
+                bullets: DefaultSettingsDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

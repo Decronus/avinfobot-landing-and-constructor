@@ -169,9 +169,11 @@ export default defineComponent({
 .main-block__inverted {
     background-color: rgba(13, 2, 2, 0.5);
 
-    h1,
-    p {
-        color: $dark-text-color;
+    .content {
+        h1,
+        p {
+            color: $dark-text-color;
+        }
     }
 
     .read-next__wrap {

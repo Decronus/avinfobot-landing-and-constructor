@@ -1,4 +1,4 @@
-export type BlockType = 'main' | 'twoColumns' | 'title' | 'textWithImage';
+export type BlockType = 'main' | 'twoColumns' | 'title' | 'textWithImage' | 'bullets';
 
 export interface PageSettings {
     name: string;
@@ -58,6 +58,13 @@ export interface TextWithImageBlockContent {
 }
 export interface TextWithImageBlock extends BaseBlock {
     content: TextWithImageBlockContent;
+}
+
+export interface BulletsBlockContent {
+    bullets: string[];
+}
+export interface BulletsBlock extends BaseBlock {
+    content: BulletsBlockContent;
 }
 
 export type Block = MainBlock | TwoColumnsBlock | TitleBlock;

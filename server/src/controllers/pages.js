@@ -83,11 +83,28 @@ function textWithImageBlockConstructor() {
     };
 }
 
+function BulletsBlockConstructor() {
+    return {
+        type: 'bullets',
+        settings: {
+            inverted: false,
+        },
+        content: {
+            bullets: [
+                'Lorem ipsum dolor sit amet consectetur. Enim ipsum mollis est vel hendrerit arcu dignissim feugiat mauris.',
+                'Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra.',
+                'Lacinia eu vestibulum amet sagittis eu integer nibh.',
+            ],
+        },
+    };
+}
+
 const blocksMap = {
     main: mainBlockConstructor(),
     twoColumns: twoColumnsBlockConstructor(),
     title: titleBlockConstructor(),
     textWithImage: textWithImageBlockConstructor(),
+    bullets: BulletsBlockConstructor(),
 };
 
 async function getPages(request, response) {
