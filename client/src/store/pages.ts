@@ -70,6 +70,10 @@ const state: State = {
             text: 'Буллеты',
             type: 'bullets',
         },
+        {
+            text: 'Заголовок и текст',
+            type: 'titleWithText',
+        },
     ],
     pages: undefined,
     currentPage: undefined,

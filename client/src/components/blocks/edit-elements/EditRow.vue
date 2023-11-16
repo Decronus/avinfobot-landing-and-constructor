@@ -58,6 +58,7 @@ export default defineComponent({
                 title: 'Одиночный заголовок',
                 textWithImage: 'Текст и изображение',
                 bullets: 'Буллеты',
+                titleWithText: 'Заголовок и текст',
             };
             return blockNames[this.blockType];
         },

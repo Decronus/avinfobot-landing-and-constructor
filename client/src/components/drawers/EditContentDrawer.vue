@@ -20,24 +20,20 @@
 </template>
 
 <script lang="ts">
-import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import MainBlockEditContentDrawerBody from './edit-content-drawer-bodies/MainBlockEditContentDrawerBody.vue';
 import TitleBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleBlockEditContentDrawerBody.vue';
 import TwoColumnsBlockEditContentDrawerBody from './edit-content-drawer-bodies/TwoColumnsBlockEditContentDrawerBody.vue';
 import TextWithImageBlockEditContentDrawerBody from './edit-content-drawer-bodies/TextWithImageBlockEditContentDrawerBody.vue';
 import BulletsBlockEditContentDrawerBody from './edit-content-drawer-bodies/BulletsBlockEditContentDrawerBody.vue';
+import TitleWithTextBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleWithTextBlockEditContentDrawerBody.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
 export default defineComponent({
     name: 'EditContentDrawer',
     components: {
-        InputUI,
         ButtonUI,
-        MainBlockEditContentDrawerBody,
-        TitleBlockEditContentDrawerBody,
-        TextWithImageBlockEditContentDrawerBody,
     },
 
     computed: {
@@ -54,6 +50,7 @@ export default defineComponent({
                 twoColumns: TwoColumnsBlockEditContentDrawerBody,
                 textWithImage: TextWithImageBlockEditContentDrawerBody,
                 bullets: BulletsBlockEditContentDrawerBody,
+                titleWithText: TitleWithTextBlockEditContentDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

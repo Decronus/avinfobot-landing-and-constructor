@@ -40,6 +40,7 @@ import TwoColumnsBlock from '@/components/blocks/TwoColumnsBlock.vue';
 import TitleBlock from '@/components/blocks/TitleBlock.vue';
 import TextWithImageBlock from '@/components/blocks/TextWithImageBlock.vue';
 import BulletsBlock from '@/components/blocks/BulletsBlock.vue';
+import TitleWithTextBlock from '@/components/blocks/TitleWithTextBlock.vue';
 import EditModeHeader from '@/components/EditModeHeader.vue';
 import EditContentDrawer from '@/components/drawers/EditContentDrawer.vue';
 import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
@@ -88,6 +89,7 @@ export default defineComponent({
                 title: TitleBlock,
                 textWithImage: TextWithImageBlock,
                 bullets: BulletsBlock,
+                titleWithText: TitleWithTextBlock,
             };
             return blocksMap[blockType];
         },
