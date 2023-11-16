@@ -34,6 +34,7 @@ export default defineComponent({
     },
 
     methods: {
+        prepareBlockContent(): void {},
         async updateBlockContent(): Promise<void> {
             await this.$store.dispatch('pages/updateBlockContent', {
                 pageLink: this.pageLink,
@@ -63,6 +64,7 @@ export default defineComponent({
             }
         },
         async updateBlockContentAndImages(): Promise<void> {
+            this.prepareBlockContent();
             await this.updateBlockContent();
             this.imagesChanged && this.handleUpload();
         },

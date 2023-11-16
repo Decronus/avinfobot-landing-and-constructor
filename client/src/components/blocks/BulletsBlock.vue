@@ -74,7 +74,7 @@ export default defineComponent({
         gap: 16px;
 
         .bullet-number {
-            font-size: 72px;
+            font-size: 64px;
             font-family: RoadRadio;
             text-align: center;
             line-height: 70%;
