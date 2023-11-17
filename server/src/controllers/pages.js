@@ -10,12 +10,14 @@ async function checkPageLinkExists(link) {
 function deleteImagesFromFolder(images) {
     if (images) {
         images.forEach((image) => {
-            const imagePathToDelete = path.join(process.cwd(), image);
-            if (fs.existsSync(imagePathToDelete)) {
-                fs.unlinkSync(imagePathToDelete);
-                console.log('Изображение удалено:', image);
-            } else {
-                console.log('Изображение не найдено.');
+            if (image) {
+                const imagePathToDelete = path.join(process.cwd(), image);
+                if (fs.existsSync(imagePathToDelete)) {
+                    fs.unlinkSync(imagePathToDelete);
+                    console.log('Изображение удалено:', image);
+                } else {
+                    console.log('Изображение не найдено.');
+                }
             }
         });
     }
@@ -124,7 +126,7 @@ function galleryWithTextBlockConstructor() {
                 'Lacinia eu vestibulum amet sagittis eu integer nibh.',
                 'Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra.',
             ],
-            images: [],
+            images: Array(3).fill(undefined),
         },
     };
 }
@@ -305,12 +307,11 @@ async function uploadImages(req, res) {
 
         // Извлекаем текущий массив изображений, если есть, и индексы к нему
         const originImages = [...oldImages];
-        console.log('req.body.imagesIndexes', req.body.imagesIndexes);
-        console.log('req.body', req.body);
         const imagesIndexes = JSON.parse(req.body.imagesIndexes);
 
         // Заменяем исходные изображения на новые под соответствующими индексами
         imagesIndexes.forEach((el, index) => originImages.splice(el, 1, newImages[index]));
+        console.log('originImages', originImages);
         page.blocks[index].content.images = originImages;
 
         // Удаляем изображения, которые больше не используются
