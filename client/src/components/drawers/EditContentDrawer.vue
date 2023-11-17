@@ -27,6 +27,7 @@ import TwoColumnsBlockEditContentDrawerBody from './edit-content-drawer-bodies/T
 import TextWithImageBlockEditContentDrawerBody from './edit-content-drawer-bodies/TextWithImageBlockEditContentDrawerBody.vue';
 import BulletsBlockEditContentDrawerBody from './edit-content-drawer-bodies/BulletsBlockEditContentDrawerBody.vue';
 import TitleWithTextBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleWithTextBlockEditContentDrawerBody.vue';
+import GalleryWithTextBlockEditContentDrawerBody from './edit-content-drawer-bodies/GalleryWithTextBlockEditContentDrawerBody.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
@@ -51,7 +52,7 @@ export default defineComponent({
                 textWithImage: TextWithImageBlockEditContentDrawerBody,
                 bullets: BulletsBlockEditContentDrawerBody,
                 titleWithText: TitleWithTextBlockEditContentDrawerBody,
-                galleryWithText: TitleWithTextBlockEditContentDrawerBody,
+                galleryWithText: GalleryWithTextBlockEditContentDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

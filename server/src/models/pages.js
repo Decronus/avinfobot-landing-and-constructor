@@ -47,6 +47,7 @@ const blockSchema = new mongoose.Schema({
         texts: {
             type: Array,
             required: false,
+            default: undefined,
         },
         action: {
             active: {
@@ -61,10 +62,12 @@ const blockSchema = new mongoose.Schema({
         images: {
             type: Array,
             required: false,
+            default: undefined,
         },
         bullets: {
             type: Array,
             required: false,
+            default: undefined,
         },
     },
 });

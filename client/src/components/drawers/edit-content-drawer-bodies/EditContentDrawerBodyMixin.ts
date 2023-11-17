@@ -52,7 +52,7 @@ export default defineComponent({
                         imagesIndexes.push(index);
                     }
                 });
-                form.append('filesIndexes', JSON.stringify(imagesIndexes));
+                form.append('imagesIndexes', JSON.stringify(imagesIndexes));
 
                 const res = await uploadImage(this.pageLink, this.currentBlockIndex, form);
                 this.$store.commit('pages/updateBlockContent', {

@@ -230,9 +230,10 @@ async function deleteBlockFromPage(req, res) {
     try {
         const { link, id } = req.params;
         let page = await Page.findOne({ link });
-        const targetBlock = page.blocks.find((block) => (block._id = id));
-        deleteImagesFromFolder(targetBlock.content.images);
-
+        const targetBlock = page.blocks.find((block) => JSON.stringify(block._id).includes(id));
+        if (targetBlock) {
+            deleteImagesFromFolder(targetBlock.content.images);
+        }
         page = await Page.findOneAndUpdate({ link }, { $pull: { blocks: { _id: id } } }, { new: true });
         return res.status(200).send(page);
     } catch (error) {
@@ -304,6 +305,8 @@ async function uploadImages(req, res) {
 
         // Извлекаем текущий массив изображений, если есть, и индексы к нему
         const originImages = [...oldImages];
+        console.log('req.body.imagesIndexes', req.body.imagesIndexes);
+        console.log('req.body', req.body);
         const imagesIndexes = JSON.parse(req.body.imagesIndexes);
 
         // Заменяем исходные изображения на новые под соответствующими индексами

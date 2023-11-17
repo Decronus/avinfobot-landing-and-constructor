@@ -13,13 +13,15 @@
         />
 
         <div class="content">
-            <div v-for="(text, index) in texts" :key="index" class="gallery-card">
-                <div
-                    class="image"
-                    :style="images[index] ? { 'background-image': `url(${apiUrl}/${images[index]})` } : {}"
-                />
-                <p>{{ text }}</p>
-            </div>
+            <template v-for="(text, index) in texts" :key="index">
+                <div class="gallery-card" v-if="text">
+                    <div
+                        class="image"
+                        :style="images[index] ? { 'background-image': `url(${apiUrl}/${images[index]})` } : {}"
+                    />
+                    <p>{{ text }}</p>
+                </div>
+            </template>
         </div>
 
         <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />
@@ -84,23 +86,31 @@ export default defineComponent({
     .content {
         width: 100%;
         max-width: 964px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        display: flex;
+        justify-content: center;
         flex-wrap: wrap;
         column-gap: 14px;
         row-gap: 32px;
 
-        @media (max-width: 767.99px) {
-            grid-template-columns: 1fr;
+        @media (max-width: 680px) {
+            flex-direction: column;
         }
 
-        .image {
+        .gallery-card {
+            max-width: 312px;
             width: 100%;
-            height: 322px;
-            margin-bottom: 16px;
-            background-size: cover;
-            background-position: center;
-            background-image: url('https://a.d-cd.net/6f3caees-1920.jpg');
+
+            @media (max-width: 680px) {
+                max-width: 100%;
+            }
+
+            .image {
+                height: 322px;
+                margin-bottom: 16px;
+                background-size: cover;
+                background-position: center;
+                background-image: url('https://a.d-cd.net/6f3caees-1920.jpg');
+            }
         }
     }
 }
