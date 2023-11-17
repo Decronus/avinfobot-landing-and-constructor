@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import CabinetPage from '@/pages/CabinetPage.vue';
 import LandingPage from '@/pages/LandingPage.vue';
+import NotFoundPage from '@/pages/NotFoundPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -10,15 +11,27 @@ const routes: Array<RouteRecordRaw> = [
     },
 
     {
-        path: '/:pageLink',
+        path: '/page/:pageLink',
         name: 'landing-page',
         component: LandingPage,
     },
 
     {
-        path: '/:pageLink/edit',
+        path: '/page/:pageLink/edit',
         name: 'landing-page-edit',
         component: LandingPage,
+    },
+
+    {
+        path: '/404',
+        name: 'not-found',
+        component: NotFoundPage,
+    },
+
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
+        component: NotFoundPage,
     },
 ];
 

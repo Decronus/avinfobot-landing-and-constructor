@@ -26,7 +26,7 @@
                 v-if="block?.content?.action.active"
                 :text="block?.content?.action.text"
                 style="margin-bottom: 80px"
-                @click="openExternalLink('google.com')"
+                @click="openExternalLink(block?.content?.action?.link as string)"
             />
 
             <div class="squares-wrap">
@@ -91,11 +91,9 @@ export default defineComponent({
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
         },
         openExternalLink(link: string): void {
+            if (!link) return;
             window.open(link, '_blank');
         },
-    },
-    mounted() {
-        console.log(process.env);
     },
 });
 </script>

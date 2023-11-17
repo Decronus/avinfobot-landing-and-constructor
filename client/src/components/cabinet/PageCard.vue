@@ -1,5 +1,5 @@
 <template>
-    <div class="page-card" @click="$router.push(`${page.link}/edit`)">
+    <div class="page-card" @click="$router.push(`/page/${page.link}/edit`)">
         <div class="page-card__header">
             <span class="page-card__date">{{ formatDateTime(page.createdAt as string) }}</span>
             <span class="page-card__delete" @click.stop="handleDeletePage(page.link)">Удалить</span>
