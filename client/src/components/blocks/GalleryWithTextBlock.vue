@@ -1,26 +1,24 @@
 <template>
     <div
-        class="block text-with-image__block"
-        :class="{ 'text-with-image__block-inverted': block?.settings.inverted, 'block-hover': isEditMode }"
+        class="block gallery-with-text__block"
+        :class="{ 'gallery-with-text__block-inverted': block?.settings.inverted, 'block-hover': isEditMode }"
         :id="block?._id"
     >
         <EditRow
             v-if="isEditMode"
-            blockType="textWithImage"
+            blockType="galleryWithText"
             :blockIndex="blockIndex"
             :blocksAmount="blocksAmount"
             :blockId="(block?._id as string)"
         />
 
         <div class="content">
-            <div class="column left-column">
-                <p>{{ block?.content?.text }}</p>
-            </div>
-            <div class="column right-column">
+            <div v-for="(text, index) in texts" :key="index" class="gallery-card">
                 <div
                     class="image"
-                    :style="image ? { 'background-image': `url(${apiUrl}/${block?.content?.images?.[0]})` } : {}"
+                    :style="images[index] ? { 'background-image': `url(${apiUrl}/${images[index]})` } : {}"
                 />
+                <p>{{ text }}</p>
             </div>
         </div>
 
@@ -32,11 +30,11 @@
 import EditRow from '@/components/blocks/edit-elements/EditRow.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
-import { TextWithImageBlock } from '@/types/pages';
+import { GalleryWithTextBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'TextWithImageBlock',
+    name: 'GalleryWithTextBlock',
     components: { ButtonUI, EditRow, AddBlockButton },
     props: {
         isEditMode: {
@@ -45,7 +43,7 @@ export default defineComponent({
             default: false,
         },
         block: {
-            type: Object as PropType<TextWithImageBlock>,
+            type: Object as PropType<GalleryWithTextBlock>,
         },
         blockIndex: {
             type: Number,
@@ -61,8 +59,11 @@ export default defineComponent({
         apiUrl(): string {
             return process.env.VUE_APP_API_URL;
         },
-        image() {
-            return this.block?.content?.images?.[0];
+        texts(): string[] {
+            return this.block?.content.texts as string[];
+        },
+        images(): string[] {
+            return this.block?.content?.images as string[];
         },
     },
 });
@@ -71,7 +72,7 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/scss/variables';
 
-.text-with-image__block {
+.gallery-with-text__block {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -83,36 +84,23 @@ export default defineComponent({
     .content {
         width: 100%;
         max-width: 964px;
-        display: flex;
-        gap: 14px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        flex-wrap: wrap;
+        column-gap: 14px;
+        row-gap: 32px;
 
-        @media (max-width: 619.99px) {
-            flex-direction: column-reverse;
+        @media (max-width: 767.99px) {
+            grid-template-columns: 1fr;
         }
 
-        .column {
+        .image {
             width: 100%;
-
-            p {
-                font-size: 20px;
-
-                &:after {
-                    content: '';
-                    display: block;
-                    width: 60%;
-                    height: 8px;
-                    background-color: $primary-color;
-                    margin-top: 24px;
-                }
-            }
-
-            .image {
-                width: 100%;
-                min-height: 240px;
-                background-size: cover;
-                background-position: center;
-                background-image: url('https://a.d-cd.net/6f3caees-1920.jpg');
-            }
+            height: 322px;
+            margin-bottom: 16px;
+            background-size: cover;
+            background-position: center;
+            background-image: url('https://a.d-cd.net/6f3caees-1920.jpg');
         }
     }
 }

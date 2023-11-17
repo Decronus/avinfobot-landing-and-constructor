@@ -4,7 +4,7 @@
             <img src="@/assets/img/cat-not-found.webp" alt="" />
             <h1>404</h1>
             <p>Страница не найдена</p>
-            <ButtonUI text="Назад" @click="$router.go(-1)" />
+            <!-- <ButtonUI text="Назад" @click="$router.go(-1)" /> -->
         </div>
     </div>
 </template>

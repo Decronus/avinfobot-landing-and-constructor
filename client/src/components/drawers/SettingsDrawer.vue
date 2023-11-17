@@ -46,6 +46,7 @@ export default defineComponent({
                 textWithImage: DefaultSettingsDrawerBody,
                 bullets: DefaultSettingsDrawerBody,
                 titleWithText: DefaultSettingsDrawerBody,
+                galleryWithText: DefaultSettingsDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

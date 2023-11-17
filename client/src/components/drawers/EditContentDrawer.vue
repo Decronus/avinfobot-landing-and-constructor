@@ -51,6 +51,7 @@ export default defineComponent({
                 textWithImage: TextWithImageBlockEditContentDrawerBody,
                 bullets: BulletsBlockEditContentDrawerBody,
                 titleWithText: TitleWithTextBlockEditContentDrawerBody,
+                galleryWithText: TitleWithTextBlockEditContentDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

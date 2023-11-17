@@ -122,6 +122,7 @@ export default defineComponent({
         h1 {
             font-size: 72px;
             margin-bottom: 24px;
+            word-break: break-word;
 
             @media (max-width: 768px) {
                 font-size: 48px;

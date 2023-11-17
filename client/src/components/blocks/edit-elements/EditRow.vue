@@ -59,6 +59,7 @@ export default defineComponent({
                 textWithImage: 'Текст и изображение',
                 bullets: 'Буллеты',
                 titleWithText: 'Заголовок и текст',
+                galleryWithText: 'Галерея с текстом',
             };
             return blockNames[this.blockType];
         },

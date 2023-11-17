@@ -41,6 +41,7 @@ import TitleBlock from '@/components/blocks/TitleBlock.vue';
 import TextWithImageBlock from '@/components/blocks/TextWithImageBlock.vue';
 import BulletsBlock from '@/components/blocks/BulletsBlock.vue';
 import TitleWithTextBlock from '@/components/blocks/TitleWithTextBlock.vue';
+import GalleryWithTextBlock from '@/components/blocks/GalleryWithTextBlock.vue';
 import EditModeHeader from '@/components/EditModeHeader.vue';
 import EditContentDrawer from '@/components/drawers/EditContentDrawer.vue';
 import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
@@ -90,6 +91,7 @@ export default defineComponent({
                 textWithImage: TextWithImageBlock,
                 bullets: BulletsBlock,
                 titleWithText: TitleWithTextBlock,
+                galleryWithText: GalleryWithTextBlock,
             };
             return blocksMap[blockType];
         },
@@ -97,8 +99,9 @@ export default defineComponent({
             try {
                 const pageLink = this.$route.params.pageLink as string;
                 await this.$store.dispatch('pages/getCurrentPage', pageLink);
-            } catch (error: any) {
-                console.error(error.response.data);
+            } catch (err: any) {
+                console.error(err.message);
+                this.$router.push('/404');
             }
         },
     },

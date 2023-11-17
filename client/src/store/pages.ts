@@ -74,6 +74,10 @@ const state: State = {
             text: 'Заголовок и текст',
             type: 'titleWithText',
         },
+        {
+            text: 'Галерея с текстом',
+            type: 'galleryWithText',
+        },
     ],
     pages: undefined,
     currentPage: undefined,
@@ -150,8 +154,8 @@ const actions: ActionTree<State, any> = {
         try {
             const { data } = await getPageByLink(pageLink);
             commit('setCurrentPage', data);
-        } catch (err) {
-            console.error('Ошибка при получении текущей страницы');
+        } catch (err: any) {
+            throw new Error(err.response.data);
         }
     },
     async replaceBlocks({ commit }, { pageLink, prevIndex, nextIndex }: ReplaceBlocksPayload) {

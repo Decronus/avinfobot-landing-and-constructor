@@ -83,7 +83,7 @@ function textWithImageBlockConstructor() {
     };
 }
 
-function BulletsBlockConstructor() {
+function bulletsBlockConstructor() {
     return {
         type: 'bullets',
         settings: {
@@ -99,7 +99,7 @@ function BulletsBlockConstructor() {
     };
 }
 
-function TitleWithTextBlockConstructor() {
+function titleWithTextBlockConstructor() {
     return {
         type: 'titleWithText',
         settings: {
@@ -112,13 +112,31 @@ function TitleWithTextBlockConstructor() {
     };
 }
 
+function galleryWithTextBlockConstructor() {
+    return {
+        type: 'galleryWithText',
+        settings: {
+            inverted: false,
+        },
+        content: {
+            texts: [
+                'Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra.',
+                'Lacinia eu vestibulum amet sagittis eu integer nibh.',
+                'Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra.',
+            ],
+            images: [],
+        },
+    };
+}
+
 const blocksMap = {
     main: mainBlockConstructor(),
     twoColumns: twoColumnsBlockConstructor(),
     title: titleBlockConstructor(),
     textWithImage: textWithImageBlockConstructor(),
-    bullets: BulletsBlockConstructor(),
-    titleWithText: TitleWithTextBlockConstructor(),
+    bullets: bulletsBlockConstructor(),
+    titleWithText: titleWithTextBlockConstructor(),
+    galleryWithText: galleryWithTextBlockConstructor(),
 };
 
 async function getPages(request, response) {
