@@ -9,8 +9,8 @@
         </div>
 
         <div class="edit-row__right" :class="{ 'merged-buttons': blocksAmount !== 1 }">
-            <MoveBlockUpButton v-if="blockIndex !== 0" @click="moveBlockUp" />
-            <MoveBlockDownButton v-if="blockIndex !== blocksAmount - 1" @click="moveBlockDown" />
+            <MoveBlockUpButton v-if="blockIndex !== 0" @click="moveBlock('up')" />
+            <MoveBlockDownButton v-if="blockIndex !== blocksAmount - 1" @click="moveBlock('down')" />
             <DeleteBlockButton @click="deleteBlock" />
         </div>
     </div>
@@ -80,13 +80,12 @@ export default defineComponent({
             }
             window.addEventListener('scrollend', scrollHandler);
         },
-        async moveBlockUp(): Promise<void> {
-            const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex: this.blockIndex - 1 };
-            await this.$store.dispatch('pages/replaceBlocks', payload);
-            this.scrollToBlock();
-        },
-        async moveBlockDown(): Promise<void> {
-            const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex: this.blockIndex + 1 };
+        async moveBlock(direction: 'up' | 'down'): Promise<void> {
+            let targetIndex;
+            if (direction === 'up') targetIndex = this.blockIndex - 1;
+            if (direction === 'down') targetIndex = this.blockIndex + 1;
+
+            const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex: targetIndex };
             await this.$store.dispatch('pages/replaceBlocks', payload);
             this.scrollToBlock();
         },

@@ -126,7 +126,7 @@ function galleryWithTextBlockConstructor() {
                 'Lacinia eu vestibulum amet sagittis eu integer nibh.',
                 'Faucibus dolor mauris urna vel etiam metus vestibulum porttitor aliquet. Nunc aliquet quisque morbi eu mattis egestas viverra.',
             ],
-            images: Array(3).fill(undefined),
+            images: Array(3),
         },
     };
 }

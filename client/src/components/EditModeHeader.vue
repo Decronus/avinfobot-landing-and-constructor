@@ -7,11 +7,21 @@
         <div class="header-group">
             <span class="header-element" @click="$router.push('/pages')">Страницы</span>
             <span class="header-element" @click="openCreatePageModal">Настройки</span>
-            <span class="header-element semibold" @click="openPage"> Предпросмотр </span>
+            <span class="header-element semibold" @click="openPage">Предпросмотр</span>
         </div>
 
         <div class="header__dropdown">
-            <ThreeDotsIcon />
+            <el-dropdown size="large" trigger="click">
+                <ThreeDotsIcon />
+
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item @click="$router.push('/pages')">Страницы</el-dropdown-item>
+                        <el-dropdown-item @click="openCreatePageModal">Настройки</el-dropdown-item>
+                        <el-dropdown-item @click="openPage">Предпросмотр</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
         </div>
     </div>
 

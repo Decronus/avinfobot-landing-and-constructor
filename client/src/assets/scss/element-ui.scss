@@ -19,3 +19,18 @@
 .el-message .el-message-icon--error {
     display: none;
 }
+
+.el-dropdown-menu__item {
+    font-size: 16px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+
+    &:hover {
+        color: $primary-color !important;
+        background: $primary-light-color !important;
+    }
+}
+
+.el-popper__arrow {
+    display: none !important;
+}
