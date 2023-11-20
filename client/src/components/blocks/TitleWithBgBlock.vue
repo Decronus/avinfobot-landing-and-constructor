@@ -115,10 +115,6 @@ export default defineComponent({
             }
         }
 
-        p {
-            margin-bottom: 80px;
-        }
-
         .squares-wrap {
             display: flex;
             justify-content: space-between;
@@ -130,18 +126,8 @@ export default defineComponent({
     background-color: rgba(13, 2, 2, 0.5);
 
     .content {
-        h1,
-        p {
+        h1 {
             color: $dark-text-color;
-        }
-    }
-
-    .read-next__wrap {
-        span {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        svg path {
-            fill: rgba(255, 255, 255, 0.7);
         }
     }
 }

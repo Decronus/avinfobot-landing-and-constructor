@@ -77,6 +77,10 @@ export default defineComponent({
         grid-template-columns: 1fr 1fr;
         gap: 16px;
 
+        @media (max-width: 619.99px) {
+            grid-template-columns: 1fr;
+        }
+
         .column {
             width: 100%;
 
