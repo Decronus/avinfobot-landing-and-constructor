@@ -81,11 +81,11 @@ export default defineComponent({
             window.addEventListener('scrollend', scrollHandler);
         },
         async moveBlock(direction: 'up' | 'down'): Promise<void> {
-            let targetIndex;
-            if (direction === 'up') targetIndex = this.blockIndex - 1;
-            if (direction === 'down') targetIndex = this.blockIndex + 1;
+            let nextIndex;
+            if (direction === 'up') nextIndex = this.blockIndex - 1;
+            if (direction === 'down') nextIndex = this.blockIndex + 1;
 
-            const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex: targetIndex };
+            const payload = { pageLink: this.pageLink, prevIndex: this.blockIndex, nextIndex };
             await this.$store.dispatch('pages/replaceBlocks', payload);
             this.scrollToBlock();
         },
