@@ -116,4 +116,4 @@ const blocksMap = {
     galleryWithText: galleryWithTextBlockConstructor(),
 };
 
-module.exports = blocksMap;
+module.exports = { blocksMap, mainBlockConstructor };

@@ -67,18 +67,11 @@ export default defineComponent({
 
     methods: {
         scrollToBlock(): void {
-            const element = document.getElementById(this.blockId);
-            const options: ScrollIntoViewOptions = {
+            const element = document.getElementById(this.blockId) as HTMLElement;
+            window.scrollTo({
+                top: element.offsetTop - 100,
                 behavior: 'smooth',
-                block: 'start',
-                inline: 'nearest',
-            };
-            element && element.scrollIntoView(options);
-            function scrollHandler(): void {
-                window.scrollBy({ top: -100, behavior: 'smooth' });
-                window.removeEventListener('scrollend', scrollHandler);
-            }
-            window.addEventListener('scrollend', scrollHandler);
+            });
         },
         async moveBlock(direction: 'up' | 'down'): Promise<void> {
             let nextIndex;

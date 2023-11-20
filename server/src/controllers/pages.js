@@ -1,7 +1,7 @@
 const Page = require('../models/pages');
 const fs = require('fs');
 const path = require('path');
-const blocksMap = require('../utils/blocks');
+const { blocksMap, mainBlockConstructor } = require('../utils/blocks');
 
 async function checkPageLinkExists(link) {
     const linkExists = await Page.findOne({ link });
