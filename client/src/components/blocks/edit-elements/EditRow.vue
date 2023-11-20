@@ -60,6 +60,7 @@ export default defineComponent({
                 bullets: 'Буллеты',
                 titleWithText: 'Заголовок и текст',
                 galleryWithText: 'Галерея с текстом',
+                titleWithBg: 'Заголовок с фоновым изображением',
             };
             return blockNames[this.blockType];
         },

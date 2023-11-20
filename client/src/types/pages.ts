@@ -5,7 +5,8 @@ export type BlockType =
     | 'textWithImage'
     | 'bullets'
     | 'titleWithText'
-    | 'galleryWithText';
+    | 'galleryWithText'
+    | 'titleWithBg';
 
 export interface PageSettings {
     name: string;
@@ -88,6 +89,14 @@ export interface GalleryWithTextBlockContent {
 }
 export interface GalleryWithTextBlock extends BaseBlock {
     content: GalleryWithTextBlockContent;
+}
+
+export interface TitleWithBgBlockContent {
+    title: string;
+    images?: string[];
+}
+export interface TitleWithBgBlock extends BaseBlock {
+    content: TitleWithBgBlockContent;
 }
 
 export type Block = MainBlock | TwoColumnsBlock | TitleBlock;

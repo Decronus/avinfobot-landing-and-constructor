@@ -28,6 +28,7 @@ import TextWithImageBlockEditContentDrawerBody from './edit-content-drawer-bodie
 import BulletsBlockEditContentDrawerBody from './edit-content-drawer-bodies/BulletsBlockEditContentDrawerBody.vue';
 import TitleWithTextBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleWithTextBlockEditContentDrawerBody.vue';
 import GalleryWithTextBlockEditContentDrawerBody from './edit-content-drawer-bodies/GalleryWithTextBlockEditContentDrawerBody.vue';
+import TitleWithBgBlockEditContentDrawerBody from './edit-content-drawer-bodies/TitleWithBgBlockEditContentDrawerBody.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
@@ -53,6 +54,7 @@ export default defineComponent({
                 bullets: BulletsBlockEditContentDrawerBody,
                 titleWithText: TitleWithTextBlockEditContentDrawerBody,
                 galleryWithText: GalleryWithTextBlockEditContentDrawerBody,
+                titleWithBg: TitleWithBgBlockEditContentDrawerBody,
             };
             return drawerBodies[this.currentBlockType];
         },

@@ -42,6 +42,7 @@ import TextWithImageBlock from '@/components/blocks/TextWithImageBlock.vue';
 import BulletsBlock from '@/components/blocks/BulletsBlock.vue';
 import TitleWithTextBlock from '@/components/blocks/TitleWithTextBlock.vue';
 import GalleryWithTextBlock from '@/components/blocks/GalleryWithTextBlock.vue';
+import TitleWithBgBlock from '@/components/blocks/TitleWithBgBlock.vue';
 import EditModeHeader from '@/components/EditModeHeader.vue';
 import EditContentDrawer from '@/components/drawers/EditContentDrawer.vue';
 import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
@@ -92,6 +93,7 @@ export default defineComponent({
                 bullets: BulletsBlock,
                 titleWithText: TitleWithTextBlock,
                 galleryWithText: GalleryWithTextBlock,
+                titleWithBg: TitleWithBgBlock,
             };
             return blocksMap[blockType];
         },

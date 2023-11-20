@@ -106,6 +106,19 @@ function galleryWithTextBlockConstructor() {
     };
 }
 
+function titleWithBgBlockConstructor() {
+    return {
+        type: 'titleWithBg',
+        settings: {
+            inverted: false,
+        },
+        content: {
+            title: 'Faucibus dolor mauris',
+            images: [],
+        },
+    };
+}
+
 const blocksMap = {
     main: mainBlockConstructor(),
     twoColumns: twoColumnsBlockConstructor(),
@@ -114,6 +127,7 @@ const blocksMap = {
     bullets: bulletsBlockConstructor(),
     titleWithText: titleWithTextBlockConstructor(),
     galleryWithText: galleryWithTextBlockConstructor(),
+    titleWithBg: titleWithBgBlockConstructor(),
 };
 
 module.exports = { blocksMap, mainBlockConstructor };

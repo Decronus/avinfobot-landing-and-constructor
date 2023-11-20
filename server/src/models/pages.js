@@ -3,7 +3,16 @@ const mongoose = require('mongoose');
 const blockSchema = new mongoose.Schema({
     type: {
         type: String,
-        enum: ['main', 'twoColumns', 'title', 'textWithImage', 'bullets', 'titleWithText', 'galleryWithText'],
+        enum: [
+            'main',
+            'twoColumns',
+            'title',
+            'textWithImage',
+            'bullets',
+            'titleWithText',
+            'galleryWithText',
+            'titleWithBg',
+        ],
         required: true,
     },
 

@@ -78,6 +78,10 @@ const state: State = {
             text: 'Галерея с текстом',
             type: 'galleryWithText',
         },
+        {
+            text: 'Заголовок с фоном',
+            type: 'titleWithBg',
+        },
     ],
     pages: undefined,
     currentPage: undefined,
