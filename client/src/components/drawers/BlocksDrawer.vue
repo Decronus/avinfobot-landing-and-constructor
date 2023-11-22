@@ -24,13 +24,16 @@
 import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import { defineComponent } from 'vue';
-import { BlockType, BlockTypeWithName } from '@/types/pages';
+import { BlockType, BlockTypeWithName, Page } from '@/types/pages';
 
 export default defineComponent({
     name: 'BlocksDrawer',
     components: { InputUI, ButtonUI },
 
     computed: {
+        currentPage(): Page {
+            return this.$store.state.pages.currentPage;
+        },
         blocks(): BlockTypeWithName[] {
             return this.$store.state.pages.blocks;
         },
@@ -54,9 +57,21 @@ export default defineComponent({
     },
 
     methods: {
+        scrollToBlock(): void {
+            const blockId = this.currentPage.blocks?.[this.blockIndex]?._id;
+            console.log('blockId', blockId);
+            if (blockId) {
+                const element = document.getElementById(blockId) as HTMLElement;
+                window.scrollTo({
+                    top: element.offsetTop - 100,
+                    behavior: 'smooth',
+                });
+            }
+        },
         async addBlock(blockType: BlockType): Promise<void> {
             const payload = { pageLink: this.pageLink, blockType, blockIndex: this.blockIndex };
             await this.$store.dispatch('pages/addBlock', payload);
+            this.scrollToBlock();
             this.toggleDrawer();
         },
         toggleDrawer(): void {

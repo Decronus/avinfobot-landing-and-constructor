@@ -81,7 +81,7 @@ export default defineComponent({
             window.scrollBy({ left: 0, top: window.innerHeight, behavior: 'smooth' });
         },
         openBlocksDrawer(): void {
-            this.$store.commit('drawers/setCurrentBlockIndex', this.currentPage?.blocks?.length);
+            this.$store.commit('drawers/setCurrentBlockIndex', this.currentPage?.blocks?.length as number);
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
         },
         getCurrentBlock(blockType: BlockType): Component {

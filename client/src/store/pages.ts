@@ -159,7 +159,7 @@ const actions: ActionTree<State, any> = {
     },
     async addBlock({ commit }, { pageLink, blockType, blockIndex }: AddBlockToPagePayload) {
         try {
-            const { data } = await addBlockToPage(pageLink, blockType, blockIndex + 1);
+            const { data } = await addBlockToPage(pageLink, blockType, blockIndex);
             commit('setCurrentPage', data);
         } catch (err: any) {
             console.error(err.response.data);

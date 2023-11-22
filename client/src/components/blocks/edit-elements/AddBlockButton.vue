@@ -26,7 +26,7 @@ export default defineComponent({
     },
     methods: {
         openBlocksDrawer(): void {
-            this.$store.commit('drawers/setCurrentBlockIndex', this.blockIndex);
+            this.$store.commit('drawers/setCurrentBlockIndex', (this.blockIndex as number) + 1);
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
         },
     },
