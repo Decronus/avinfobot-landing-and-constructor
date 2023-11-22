@@ -11,12 +11,12 @@
         :is="getCurrentBlock(block.type)"
     />
 
-    <div v-if="isEditMode" class="all-blocks-button__wrap">
+    <div v-if="isEditMode" class="fast-access-blocks-buttons__wrap">
         <ButtonUI text="ВСЕ БЛОКИ" medium rounded @click="openBlocksDrawer" />
 
         <div class="merged-buttons">
             <ButtonUI
-                v-for="(block, index) in blocks"
+                v-for="(block, index) in fastAccessBlocks"
                 :key="index"
                 medium
                 secondary
@@ -56,8 +56,8 @@ export default defineComponent({
     components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, BlocksDrawer, ButtonUI },
 
     computed: {
-        blocks(): BlockTypeWithName[] {
-            return this.$store.state.pages.blocks;
+        fastAccessBlocks(): BlockTypeWithName[] {
+            return this.$store.state.pages.fastAccessBlocks;
         },
         currentPage(): Page {
             return this.$store.state.pages.currentPage;
@@ -113,9 +113,9 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/scss/variables';
 
-.all-blocks-button__wrap {
+.fast-access-blocks-buttons__wrap {
     width: 100%;
-    max-width: 964px;
+    max-width: 1160px;
     margin: 0 auto;
     padding: 48px 20px;
     display: flex;
