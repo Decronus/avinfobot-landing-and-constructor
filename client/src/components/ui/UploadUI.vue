@@ -1,6 +1,12 @@
 <template>
     <div class="input-wrap">
-        <input class="native-file-input" type="file" @change="handleFileChange" ref="fileInput" />
+        <input
+            class="native-file-input"
+            type="file"
+            accept="image/jpeg, image/jpg, image/png, image/webp"
+            @change="handleFileChange"
+            ref="fileInput"
+        />
 
         <span class="input-label">{{ label }}</span>
         <img :src="imageSrc" />
@@ -11,6 +17,7 @@
 <script lang="ts">
 import ButtonUI from './ButtonUI.vue';
 import { defineComponent } from 'vue';
+import { ElMessage } from 'element-plus';
 
 export default defineComponent({
     name: 'UploadUI',
@@ -46,10 +53,21 @@ export default defineComponent({
         setPreviewUrl(file: File): void {
             this.previewUrl = URL.createObjectURL(file);
         },
+        checkFileSize(file: File, fileInput: HTMLInputElement): boolean {
+            const acceptableSize = 1; // Мбайт
+            const fileIsOk = file.size / (1024 * 1024) <= acceptableSize;
+            if (!fileIsOk) {
+                fileInput.value = '';
+                ElMessage.error(`Изображение превышает допустимый размер в ${acceptableSize} Мбайт`);
+            }
+            return fileIsOk;
+        },
         handleFileChange(event: Event): void {
             const fileInput = event.target as HTMLInputElement;
             const file = fileInput.files?.[0];
             if (file) {
+                if (!this.checkFileSize(file, fileInput)) return;
+
                 this.$emit('upload', file);
                 this.setPreviewUrl(file);
             }
