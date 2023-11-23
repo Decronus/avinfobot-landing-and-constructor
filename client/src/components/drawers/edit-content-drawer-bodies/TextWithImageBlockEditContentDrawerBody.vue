@@ -1,7 +1,7 @@
 <template>
     <InputUI v-model="form.text" label="АБЗАЦ" type="textarea" placeholder="Введите текст" />
 
-    <UploadUI label="ИЗОБРАЖЕНИЕ" @upload="handleFileChange($event)" />
+    <UploadUI label="ИЗОБРАЖЕНИЕ" :image="currentBlockContent.images?.[0]" @upload="handleFileChange($event)" />
 </template>
 
 <script lang="ts">

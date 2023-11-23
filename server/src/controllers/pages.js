@@ -294,7 +294,7 @@ async function uploadImages(req, res) {
                         fs.unlinkSync(imagePathToDelete);
                         console.log('Изображение удалено:', image);
                     } else {
-                        console.log('Изображение не найдено.');
+                        console.log('Изображение не найдено:', image);
                     }
                 }
             }
