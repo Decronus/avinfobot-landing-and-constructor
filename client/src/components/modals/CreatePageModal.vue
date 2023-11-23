@@ -18,7 +18,7 @@
             <InputUI v-model="page.link" label="Ссылка на страницу" placeholder="Введите адрес страницы" readonly />
 
             <div class="modal__buttons-wrap">
-                <ButtonUI text="Отменить" medium secondary rounded border @click="toggleModal" />
+                <ButtonUI text="Отменить" medium secondary rounded @click="toggleModal" />
                 <ButtonUI
                     :text="isEditMode ? 'Сохранить' : 'Создать'"
                     medium

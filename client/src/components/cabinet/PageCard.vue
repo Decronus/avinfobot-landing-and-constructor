@@ -1,11 +1,13 @@
 <template>
-    <div class="page-card" @click="$router.push(`/page/${page.link}/edit`)">
+    <div class="page-card" :class="{ 'page-card__disabled': loading }" @click="$router.push(`/page/${page.link}/edit`)">
         <div class="page-card__header">
             <span class="page-card__date">{{ formatDateTime(page.createdAt as string) }}</span>
             <span class="page-card__delete" @click.stop="handleDeletePage(page.link)">Удалить</span>
         </div>
 
         <p class="page-card__name">{{ page.name }}</p>
+
+        <LoadingWrap v-if="loading" />
     </div>
 </template>
 
@@ -13,14 +15,22 @@
 import { defineComponent } from 'vue';
 import { PropType } from 'vue';
 import { Page } from '@/types/pages';
+import LoadingWrap from '@/components/LoadingWrap.vue';
 
 export default defineComponent({
     name: 'PageCard',
+    components: { LoadingWrap },
     props: {
         page: {
             type: Object as PropType<Page>,
             required: true,
         },
+    },
+
+    data() {
+        return {
+            loading: false,
+        };
     },
 
     methods: {
@@ -36,8 +46,11 @@ export default defineComponent({
         },
         async handleDeletePage(pageLink: string): Promise<void> {
             try {
+                this.loading = true;
                 await this.$store.dispatch('pages/deletePage', pageLink);
+                this.loading = false;
             } catch (error: any) {
+                this.loading = false;
                 console.error(error.response.data);
             }
         },
@@ -49,6 +62,7 @@ export default defineComponent({
 @import '@/assets/scss/variables';
 
 .page-card {
+    position: relative;
     padding: 16px;
     cursor: pointer;
     position: relative;
@@ -86,5 +100,17 @@ export default defineComponent({
         font-weight: 500;
         color: $primary-color;
     }
+
+    .loading-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+    }
+}
+
+.page-card__disabled {
+    pointer-events: none;
+    
 }
 </style>

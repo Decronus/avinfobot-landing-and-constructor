@@ -26,7 +26,7 @@ function deleteImagesFromFolder(images) {
 
 async function getPages(request, response) {
     try {
-        const pages = await Page.find();
+        const pages = await Page.find().sort({ createdAt: -1 });
         return response.status(200).send(pages);
     } catch (error) {
         return response.status(500).send(error);
