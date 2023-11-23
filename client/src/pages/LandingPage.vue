@@ -1,37 +1,41 @@
 <template>
-    <EditModeHeader v-if="isEditMode" :pageName="currentPage?.name" />
+    <LoadingWrap v-if="!currentPage" />
 
-    <component
-        v-for="(block, index) in currentPage?.blocks"
-        :blockIndex="index"
-        :key="block._id"
-        :block="block"
-        :blocksAmount="blocksAmount"
-        :isEditMode="isEditMode"
-        :is="getCurrentBlock(block.type)"
-    />
+    <template v-else>
+        <EditModeHeader v-if="isEditMode" :pageName="currentPage?.name" />
 
-    <div v-if="isEditMode" class="fast-access-blocks-buttons__wrap">
-        <ButtonUI text="ВСЕ БЛОКИ" medium rounded @click="openBlocksDrawer" />
+        <component
+            v-for="(block, index) in currentPage?.blocks"
+            :blockIndex="index"
+            :key="block._id"
+            :block="block"
+            :blocksAmount="blocksAmount"
+            :isEditMode="isEditMode"
+            :is="getCurrentBlock(block.type)"
+        />
 
-        <div class="merged-buttons">
-            <ButtonUI
-                v-for="(block, index) in fastAccessBlocks"
-                :key="index"
-                medium
-                secondary
-                rounded
-                :text="block.text"
-                @click="addBlock(block.type)"
-            />
+        <div v-if="isEditMode" class="fast-access-blocks-buttons__wrap">
+            <ButtonUI text="ВСЕ БЛОКИ" medium rounded @click="openBlocksDrawer" />
+
+            <div class="merged-buttons">
+                <ButtonUI
+                    v-for="(block, index) in fastAccessBlocks"
+                    :key="index"
+                    medium
+                    secondary
+                    rounded
+                    :text="block.text"
+                    @click="addBlock(block.type)"
+                />
+            </div>
         </div>
-    </div>
 
-    <div v-if="isEditMode">
-        <EditContentDrawer />
-        <SettingsDrawer />
-        <BlocksDrawer />
-    </div>
+        <div v-if="isEditMode">
+            <EditContentDrawer />
+            <SettingsDrawer />
+            <BlocksDrawer />
+        </div>
+    </template>
 </template>
 
 <script lang="ts">
@@ -48,12 +52,13 @@ import EditContentDrawer from '@/components/drawers/EditContentDrawer.vue';
 import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
 import BlocksDrawer from '@/components/drawers/BlocksDrawer.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
+import LoadingWrap from '@/components/LoadingWrap.vue';
 import { Component, defineComponent } from 'vue';
 import { BlockType, BlockTypeWithName, Page } from '@/types/pages';
 
 export default defineComponent({
     name: 'LandingPage',
-    components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, BlocksDrawer, ButtonUI },
+    components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, BlocksDrawer, ButtonUI, LoadingWrap },
 
     computed: {
         fastAccessBlocks(): BlockTypeWithName[] {
@@ -70,8 +75,8 @@ export default defineComponent({
         },
     },
 
-    mounted() {
-        this.initPageData();
+    async mounted() {
+        await this.initPageData();
     },
 
     methods: {
