@@ -4,6 +4,7 @@
         width="800px"
         :show-close="false"
         destroy-on-close
+        @opened="focusFirstInput"
         @closed="buttonLoading = false"
     >
         <template #header>
@@ -13,8 +14,14 @@
             </div>
         </template>
 
-        <div class="modal-content">
-            <InputUI v-model="page.name" label="Имя страницы" type="textarea" placeholder="Введите имя страницы" />
+        <div class="modal-content" ref="content">
+            <InputUI
+                v-model="page.name"
+                ref="firstInput"
+                label="Имя страницы"
+                type="textarea"
+                placeholder="Введите имя страницы"
+            />
             <InputUI v-model="page.link" label="Ссылка на страницу" placeholder="Введите адрес страницы" readonly />
 
             <div class="modal__buttons-wrap">
@@ -106,6 +113,11 @@ export default defineComponent({
     },
 
     methods: {
+        focusFirstInput(): void {
+            const content = this.$refs.content as HTMLDivElement;
+            const firstInput = content.querySelector('textarea');
+            firstInput && (this.isEditMode ? firstInput.select() : firstInput.focus());
+        },
         clearForm(): void {
             this.page.name = '';
             this.page.link = this.apiUrl;
