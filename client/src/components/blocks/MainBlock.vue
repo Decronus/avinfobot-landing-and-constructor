@@ -39,8 +39,6 @@
             <span>Читать далее</span>
             <ArrowInCircleIcon />
         </div>
-
-        <!-- <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" /> -->
     </div>
 </template>
 
@@ -119,6 +117,7 @@ export default defineComponent({
         max-width: 964px;
         width: 100%;
         z-index: 5;
+
         h1 {
             font-size: 72px;
             margin-bottom: 24px;

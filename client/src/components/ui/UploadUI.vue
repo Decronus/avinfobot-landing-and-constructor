@@ -3,8 +3,8 @@
         <input class="native-file-input" type="file" @change="handleFileChange" ref="fileInput" />
 
         <span class="input-label">{{ label }}</span>
-        <ButtonUI text="Загрузить" medium rounded @click="handleClick" />
-        <span class="file-name">{{ fileName }}</span>
+        <img :src="imageSrc" />
+        <ButtonUI text="Заменить" medium rounded @click="handleClick" />
     </div>
 </template>
 
@@ -21,21 +21,37 @@ export default defineComponent({
         label: {
             type: String,
         },
+        image: {
+            type: String,
+        },
     },
 
     data() {
         return {
-            fileName: '',
+            previewUrl: '',
+            defaultPreviewUrl: 'https://a.d-cd.net/6f3caees-1920.jpg',
         };
     },
 
+    computed: {
+        apiUrl(): string {
+            return process.env.VUE_APP_API_URL;
+        },
+        imageSrc(): string {
+            return this.previewUrl || `${this.apiUrl}/${this.image}` || this.defaultPreviewUrl;
+        },
+    },
+
     methods: {
+        setPreviewUrl(file: File): void {
+            this.previewUrl = URL.createObjectURL(file);
+        },
         handleFileChange(event: Event): void {
             const fileInput = event.target as HTMLInputElement;
             const file = fileInput.files?.[0];
             if (file) {
                 this.$emit('upload', file);
-                this.fileName = file.name;
+                this.setPreviewUrl(file);
             }
         },
         handleClick(): void {
@@ -60,6 +76,11 @@ export default defineComponent({
     .file-name {
         font-size: 12px;
         font-weight: 600;
+    }
+
+    img {
+        width: 150px;
+        border-radius: 6px;
     }
 }
 </style>

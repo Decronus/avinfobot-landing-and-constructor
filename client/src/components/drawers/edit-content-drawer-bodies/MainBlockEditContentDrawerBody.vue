@@ -18,7 +18,7 @@
         placeholder="Введите ссылку"
     />
 
-    <UploadUI label="ФОНОВОЕ ИЗОБРАЖЕНИЕ" @upload="handleFileChange($event)" />
+    <UploadUI label="ФОНОВОЕ ИЗОБРАЖЕНИЕ" :image="currentBlockContent.images?.[0]" @upload="handleFileChange($event)" />
 </template>
 
 <script lang="ts">

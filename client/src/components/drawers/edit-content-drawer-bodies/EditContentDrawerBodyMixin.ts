@@ -35,6 +35,7 @@ export default defineComponent({
 
     methods: {
         prepareBlockContent(): void {},
+
         async updateBlockContent(): Promise<void> {
             await this.$store.dispatch('pages/updateBlockContent', {
                 pageLink: this.pageLink,
