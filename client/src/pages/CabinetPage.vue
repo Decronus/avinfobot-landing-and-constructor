@@ -5,10 +5,20 @@
         <AddPageButton @click="openCreatePageModal" />
 
         <template v-if="pages">
-            <PageCard v-for="page in pages" :page="page" />
+            <PageCard v-for="page in pagesSlice" :page="page" />
             <p v-if="!pages.length">Еще не создано ни одной страницы.</p>
         </template>
         <LoadingUI v-if="!pages" />
+
+        <el-pagination
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            :page-sizes="[5, 10, 30, 50]"
+            small
+            background
+            layout="sizes, prev, pager, next"
+            :total="pages?.length"
+        />
 
         <CreatePageModal />
     </div>
@@ -26,9 +36,19 @@ export default defineComponent({
     name: 'CabinetPage',
     components: { PageCard, AddPageButton, CreatePageModal, LoadingUI },
 
+    data() {
+        return {
+            currentPage: 1,
+            pageSize: 5,
+        };
+    },
+
     computed: {
         pages(): Page[] {
             return this.$store.state.pages.pages;
+        },
+        pagesSlice(): Page[] {
+            return this.pages.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
         },
     },
 
