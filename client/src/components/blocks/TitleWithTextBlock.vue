@@ -16,8 +16,6 @@
             <h3>{{ block?.content?.title }}</h3>
             <p>{{ block?.content?.text }}</p>
         </div>
-
-        <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />
     </div>
 </template>
 

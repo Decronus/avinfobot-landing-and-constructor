@@ -38,7 +38,8 @@ export default defineComponent({
 
 .add-block-button {
     position: absolute;
-    bottom: -15px;
+    bottom: 0px;
+    left: calc(50% - 15px);
     opacity: 0;
     z-index: 20;
     cursor: pointer;

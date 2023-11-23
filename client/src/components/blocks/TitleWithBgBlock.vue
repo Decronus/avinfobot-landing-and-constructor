@@ -24,8 +24,6 @@
                 <AngleElement style="transform: rotate(180deg)" />
             </div>
         </div>
-
-        <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />
     </div>
 </template>
 

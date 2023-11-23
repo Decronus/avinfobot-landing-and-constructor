@@ -23,8 +23,6 @@
                 </div>
             </template>
         </div>
-
-        <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />
     </div>
 </template>
 

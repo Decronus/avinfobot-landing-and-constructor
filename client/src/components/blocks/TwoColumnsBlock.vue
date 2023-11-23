@@ -22,8 +22,6 @@
                 <p>{{ block?.content?.secondColumnText }}</p>
             </div>
         </div>
-
-        <AddBlockButton v-if="isEditMode" :blockIndex="blockIndex" />
     </div>
 </template>
 

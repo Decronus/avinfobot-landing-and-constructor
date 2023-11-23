@@ -13,6 +13,8 @@
             <MoveBlockDownButton v-if="blockIndex !== blocksAmount - 1" @click="moveBlock('down')" />
             <DeleteBlockButton @click="deleteBlock" />
         </div>
+
+        <AddBlockButton :blockIndex="blockIndex" />
     </div>
 </template>
 
@@ -22,12 +24,20 @@ import EditContentButton from '@/components/blocks/edit-elements/EditContentButt
 import DeleteBlockButton from '@/components/blocks/edit-elements/DeleteBlockButton.vue';
 import MoveBlockDownButton from './MoveBlockDownButton.vue';
 import MoveBlockUpButton from './MoveBlockUpButton.vue';
+import AddBlockButton from './AddBlockButton.vue';
 import { PropType, defineComponent } from 'vue';
 import { BlockType } from '@/types/pages';
 
 export default defineComponent({
     name: 'EditRow',
-    components: { SettingsButton, EditContentButton, DeleteBlockButton, MoveBlockDownButton, MoveBlockUpButton },
+    components: {
+        SettingsButton,
+        EditContentButton,
+        DeleteBlockButton,
+        MoveBlockDownButton,
+        MoveBlockUpButton,
+        AddBlockButton,
+    },
     props: {
         blockType: {
             type: String as PropType<BlockType>,
@@ -109,6 +119,7 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     width: 100%;
+    height: 100%;
     top: 15px;
     padding: 0 15px;
     opacity: 0;
