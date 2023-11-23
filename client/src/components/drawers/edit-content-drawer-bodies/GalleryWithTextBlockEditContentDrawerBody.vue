@@ -1,6 +1,10 @@
 <template>
     <template v-for="(input, index) in 3" :key="index">
-        <UploadUI :label="`ИЗОБРАЖЕНИЕ #${index + 1}`" @upload="handleFileChange($event, index)" />
+        <UploadUI
+            :label="`ИЗОБРАЖЕНИЕ #${index + 1}`"
+            :image="currentBlockContent.images?.[index]"
+            @upload="handleFileChange($event, index)"
+        />
         <InputUI
             v-model="form.texts[index]"
             :label="`ТЕКСТ К ИЗОБРАЖЕНИЮ #${index + 1}`"

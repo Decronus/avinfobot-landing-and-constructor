@@ -38,7 +38,7 @@ export default defineComponent({
             return process.env.VUE_APP_API_URL;
         },
         imageSrc(): string {
-            return this.previewUrl || `${this.apiUrl}/${this.image}` || this.defaultPreviewUrl;
+            return this.previewUrl || (this.image && `${this.apiUrl}/${this.image}`) || this.defaultPreviewUrl;
         },
     },
 

@@ -253,6 +253,7 @@ async function uploadImages(req, res) {
     try {
         const { link, index } = req.params;
         const { files } = req;
+        console.log('files', files);
 
         function handleErrors(req) {
             if (link === 'undefined') {
@@ -286,13 +287,15 @@ async function uploadImages(req, res) {
 
         // Удаляем изображения, которые больше не используются
         oldImages.forEach((image) => {
-            if (!originImages.includes(image)) {
-                const imagePathToDelete = path.join(process.cwd(), image);
-                if (fs.existsSync(imagePathToDelete)) {
-                    fs.unlinkSync(imagePathToDelete);
-                    console.log('Изображение удалено:', image);
-                } else {
-                    console.log('Изображение не найдено.');
+            if (image) {
+                if (!originImages.includes(image)) {
+                    const imagePathToDelete = path.join(process.cwd(), image);
+                    if (fs.existsSync(imagePathToDelete)) {
+                        fs.unlinkSync(imagePathToDelete);
+                        console.log('Изображение удалено:', image);
+                    } else {
+                        console.log('Изображение не найдено.');
+                    }
                 }
             }
         });
