@@ -10,7 +10,7 @@
     >
         <div class="drawer__buttons-wrap">
             <ButtonUI text="Отмена" drawer secondary @click="toggleDrawer" />
-            <ButtonUI text="Сохранить и закрыть" drawer @click="saveAndClose" />
+            <ButtonUI text="Сохранить и закрыть" :loading="saveButtonLoading" drawer @click="saveAndClose" />
         </div>
 
         <div class="edit-drawer__body">
@@ -36,6 +36,12 @@ export default defineComponent({
     name: 'EditContentDrawer',
     components: {
         ButtonUI,
+    },
+
+    data() {
+        return {
+            saveButtonLoading: false,
+        };
     },
 
     computed: {
@@ -70,11 +76,16 @@ export default defineComponent({
 
     methods: {
         async saveAndClose(): Promise<void> {
+            this.saveButtonLoading = true;
             const drawerBody = this.$refs.drawerBody as Component & {
                 updateBlockContentAndImages: () => Promise<boolean | undefined>;
             };
-            if (!(drawerBody && (await drawerBody.updateBlockContentAndImages()))) return;
+            if (!(drawerBody && (await drawerBody.updateBlockContentAndImages()))) {
+                this.saveButtonLoading = false;
+                return;
+            }
             this.toggleDrawer();
+            this.saveButtonLoading = false;
         },
         toggleDrawer(): void {
             this.$store.commit('drawers/toggleDrawer', this.drawerName);

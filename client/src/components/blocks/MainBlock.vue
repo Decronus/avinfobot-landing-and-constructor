@@ -38,7 +38,7 @@
         <div class="read-next__wrap" v-if="readNextVisibility" @click="scrollToSecondBlock">
             <span>Читать далее</span>
             <ArrowInCircleIcon />
-        </div>
+        </div>  
     </div>
 </template>
 

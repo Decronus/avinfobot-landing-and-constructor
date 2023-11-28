@@ -25,8 +25,8 @@ export default defineComponent({
     },
 
     methods: {
-        updateBlockSettings(): void {
-            this.$store.dispatch('pages/updateBlockSettings', {
+        async updateBlockSettings(): Promise<void> {
+            await this.$store.dispatch('pages/updateBlockSettings', {
                 pageLink: this.pageLink,
                 blockIndex: this.currentBlockIndex,
                 settings: this.form,

@@ -69,13 +69,12 @@ export default defineComponent({
             }
         },
         async updateBlockContentAndImages(): Promise<boolean> {
-            this.prepareBlockContent();
-
             if (Object.keys(this.errors).length) {
                 ElMessage.error('Исправьте все ошибки ввода');
                 return false;
             }
 
+            this.prepareBlockContent();
             await this.updateBlockContent();
             this.imagesChanged && this.handleUpload();
             return true;

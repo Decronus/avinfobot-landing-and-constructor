@@ -10,7 +10,7 @@
     >
         <div class="drawer__buttons-wrap">
             <ButtonUI text="Отмена" drawer secondary @click="toggleDrawer" />
-            <ButtonUI text="Сохранить и закрыть" drawer @click="saveAndClose" />
+            <ButtonUI text="Сохранить и закрыть" :loading="saveButtonLoading" drawer @click="saveAndClose" />
         </div>
 
         <div class="edit-drawer__body">
@@ -31,6 +31,11 @@ export default defineComponent({
     name: 'SettingsDrawer',
     components: { InputUI, ButtonUI, MainBlockSettingsDrawerBody },
 
+    data() {
+        return {
+            saveButtonLoading: false,
+        };
+    },
     computed: {
         currentBlockType(): BlockType {
             return this.$store.state.drawers.currentBlock.type;
@@ -62,10 +67,12 @@ export default defineComponent({
     },
 
     methods: {
-        saveAndClose(): void {
+        async saveAndClose(): Promise<void> {
+            this.saveButtonLoading = true;
             const drawerBody = this.$refs.drawerBody as Component & { updateBlockSettings: () => void };
-            drawerBody && drawerBody.updateBlockSettings();
+            drawerBody && (await drawerBody.updateBlockSettings());
             this.toggleDrawer();
+            this.saveButtonLoading = false;
         },
         toggleDrawer(): void {
             this.$store.commit('drawers/toggleDrawer', this.drawerName);
@@ -77,7 +84,7 @@ export default defineComponent({
 <style lang="scss">
 .edit-settings__drawer {
     .edit-drawer__body {
-        max-width: 620px;
+        /* max-width: 620px; */
         margin: 0 auto;
         padding: 48px 20px;
         display: flex;

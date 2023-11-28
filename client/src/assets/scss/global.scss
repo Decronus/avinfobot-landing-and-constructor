@@ -19,7 +19,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
-    color: #222222;
+    // color: #222222;
 }
 
 body {
@@ -102,5 +102,15 @@ p {
 
     .button:last-child {
         border-radius: 0 4px 4px 0;
+    }
+}
+
+.switch-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .icon-wrap {
+        cursor: pointer;
     }
 }
