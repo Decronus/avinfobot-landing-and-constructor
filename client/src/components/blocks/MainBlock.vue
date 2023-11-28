@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="read-next__wrap" v-if="block?.settings.readNext">
+        <div class="read-next__wrap" v-if="readNextVisibility" @click="scrollToSecondBlock">
             <span>Читать далее</span>
             <ArrowInCircleIcon />
         </div>
@@ -75,6 +75,15 @@ export default defineComponent({
     },
 
     computed: {
+        readNextVisibility(): boolean {
+            if (this.blockIndex > 0) {
+                return false;
+            }
+            return this.block?.settings.readNext as boolean;
+        },
+        secondBlockId(): string {
+            return this.$store.state.pages.currentPage.blocks?.[1]._id;
+        },
         apiUrl(): string {
             return process.env.VUE_APP_API_URL;
         },
@@ -91,6 +100,15 @@ export default defineComponent({
         openExternalLink(link: string): void {
             if (!link) return;
             window.open(link, '_blank');
+        },
+        scrollToSecondBlock(): void {
+            const secondBlock = document.getElementById(this.secondBlockId) as HTMLElement;
+            if (secondBlock) {
+                window.scrollTo({
+                    top: secondBlock.offsetTop - 64,
+                    behavior: 'smooth',
+                });
+            }
         },
     },
 });

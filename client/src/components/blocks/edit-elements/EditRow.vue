@@ -78,11 +78,13 @@ export default defineComponent({
 
     methods: {
         scrollToBlock(): void {
-            const element = document.getElementById(this.blockId) as HTMLElement;
-            window.scrollTo({
-                top: element.offsetTop - 100,
-                behavior: 'smooth',
-            });
+            const block = document.getElementById(this.blockId) as HTMLElement;
+            if (block) {
+                window.scrollTo({
+                    top: block.offsetTop - 100,
+                    behavior: 'smooth',
+                });
+            }
         },
         async moveBlock(direction: 'up' | 'down'): Promise<void> {
             let nextIndex;
