@@ -15,7 +15,12 @@
         </template>
 
         <div class="modal-content" ref="content">
-            <InputUI v-model="page.name" ref="firstInput" label="Имя страницы" placeholder="Введите имя страницы" />
+            <InputUI
+                v-model="page.name"
+                label="Имя страницы"
+                placeholder="Введите имя страницы"
+                @keyup.enter="currentApplyFunction"
+            />
             <InputUI v-model="page.link" label="Ссылка на страницу" placeholder="Введите адрес страницы" readonly />
 
             <div class="modal__buttons-wrap">
@@ -26,7 +31,7 @@
                     rounded
                     :disabled="buttonDisabled"
                     :loading="buttonLoading"
-                    @click="isCurrentPage ? updatePageSettings() : createPage()"
+                    @click="currentApplyFunction"
                 />
             </div>
         </div>
@@ -56,6 +61,9 @@ export default defineComponent({
     },
 
     computed: {
+        currentApplyFunction(): () => void {
+            return this.isCurrentPage ? this.updatePageSettings : this.createPage;
+        },
         buttonDisabled(): boolean {
             return !this.page.name || this.buttonLoading || this.buttonDisabledInEditMode;
         },
@@ -109,7 +117,7 @@ export default defineComponent({
     methods: {
         focusFirstInput(): void {
             const content = this.$refs.content as HTMLDivElement;
-            const firstInput = content.querySelector('textarea');
+            const firstInput = content.querySelector('input');
             firstInput && (this.isEditMode ? firstInput.select() : firstInput.focus());
         },
         clearForm(): void {
