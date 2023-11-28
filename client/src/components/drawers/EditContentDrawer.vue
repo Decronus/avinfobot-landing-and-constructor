@@ -69,11 +69,11 @@ export default defineComponent({
     },
 
     methods: {
-        saveAndClose(): void {
+        async saveAndClose(): Promise<void> {
             const drawerBody = this.$refs.drawerBody as Component & {
-                updateBlockContentAndImages: () => void;
+                updateBlockContentAndImages: () => Promise<boolean | undefined>;
             };
-            drawerBody && drawerBody.updateBlockContentAndImages();
+            if (!(drawerBody && (await drawerBody.updateBlockContentAndImages()))) return;
             this.toggleDrawer();
         },
         toggleDrawer(): void {

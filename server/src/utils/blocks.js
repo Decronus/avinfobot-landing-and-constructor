@@ -12,6 +12,7 @@ function mainBlockConstructor(body) {
             action: {
                 active: true,
                 text: 'Призыв к действию',
+                link: '',
             },
             images: [],
         },

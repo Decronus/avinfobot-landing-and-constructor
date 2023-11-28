@@ -1,22 +1,26 @@
 import { uploadImage } from '@/axios/api';
 import { MainBlockContent } from '@/types/pages';
 import { defineComponent } from 'vue';
+import { ElMessage } from 'element-plus';
 
 declare function structuredClone<T>(obj: T): T;
 
 interface Data {
     form: any;
     images: File[];
+    errors: Record<any, any>;
     imagesChanged: boolean;
 }
 
 export default defineComponent({
     name: 'EditContentDrawerBodyMixin',
+    emits: ['error'],
 
     data(): Data {
         return {
             form: {},
             images: [],
+            errors: {},
             imagesChanged: false,
         };
     },
@@ -64,10 +68,15 @@ export default defineComponent({
                 console.error(error.response.data);
             }
         },
-        async updateBlockContentAndImages(): Promise<void> {
+        async updateBlockContentAndImages(): Promise<boolean> {
             this.prepareBlockContent();
+            if (Object.keys(this.errors).length) {
+                ElMessage.error('Исправьте все ошибки ввода');
+                return false;
+            }
             await this.updateBlockContent();
             this.imagesChanged && this.handleUpload();
+            return true;
         },
     },
 

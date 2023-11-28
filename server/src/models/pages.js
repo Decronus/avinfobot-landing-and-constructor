@@ -67,6 +67,10 @@ const blockSchema = new mongoose.Schema({
                 type: String,
                 required: false,
             },
+            link: {
+                type: String,
+                required: false,
+            },
         },
         images: {
             type: Array,

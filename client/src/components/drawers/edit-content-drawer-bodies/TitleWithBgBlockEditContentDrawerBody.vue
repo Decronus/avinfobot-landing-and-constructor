@@ -19,7 +19,6 @@ export default defineComponent({
     name: 'TitleWithBgBlockEditContentDrawerBody',
     components: { InputUI, UploadUI },
     mixins: [EditContentDrawerBodyMixin],
-    emits: ['imagesChanged'],
 
     data(): Data {
         return {

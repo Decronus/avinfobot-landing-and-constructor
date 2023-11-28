@@ -15,13 +15,7 @@
         </template>
 
         <div class="modal-content" ref="content">
-            <InputUI
-                v-model="page.name"
-                ref="firstInput"
-                label="Имя страницы"
-                type="textarea"
-                placeholder="Введите имя страницы"
-            />
+            <InputUI v-model="page.name" ref="firstInput" label="Имя страницы" placeholder="Введите имя страницы" />
             <InputUI v-model="page.link" label="Ссылка на страницу" placeholder="Введите адрес страницы" readonly />
 
             <div class="modal__buttons-wrap">

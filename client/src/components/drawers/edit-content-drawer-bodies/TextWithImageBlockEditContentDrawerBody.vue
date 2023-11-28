@@ -20,7 +20,6 @@ export default defineComponent({
     name: 'TextWithImageBlockEditContentDrawerBody',
     components: { InputUI, SwitchUI, UploadUI },
     mixins: [EditContentDrawerBodyMixin],
-    emits: ['imageChanged'],
 
     data(): Data {
         return {

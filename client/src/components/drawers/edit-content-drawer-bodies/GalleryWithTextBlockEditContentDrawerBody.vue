@@ -30,7 +30,6 @@ export default defineComponent({
     name: 'GalleryWithTextBlockEditContentDrawerBody',
     components: { InputUI, SwitchUI, UploadUI },
     mixins: [EditContentDrawerBodyMixin],
-    emits: ['imageChanged'],
 
     data(): Data {
         return {

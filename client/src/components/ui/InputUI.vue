@@ -10,6 +10,8 @@
             autosize
             :readonly="readonly"
         />
+
+        <span class="input-error">{{ error }}</span>
     </div>
 </template>
 
@@ -37,6 +39,9 @@ export default defineComponent({
             type: String,
             required: false,
             default: 'Placeholder',
+        },
+        error: {
+            type: String,
         },
         readonly: {
             type: Boolean,
@@ -84,6 +89,14 @@ export default defineComponent({
         input {
             color: $primary-text-color;
         }
+    }
+    .el-input__wrapper.is-focus {
+        box-shadow: 0 0 0 0px $primary-color inset !important;
+    }
+
+    .input-error {
+        font-size: 14px;
+        color: $primary-color;
     }
 }
 </style>
