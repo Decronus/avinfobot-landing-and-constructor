@@ -139,9 +139,9 @@ export default defineComponent({
         display: flex;
         flex-wrap: wrap;
 
-        .button {
+        /* .button {
             box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-        }
+        } */
 
         @media (max-width: 620px) {
             flex-direction: column;

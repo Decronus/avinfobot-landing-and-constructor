@@ -120,6 +120,7 @@ export default defineComponent({
     position: absolute;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
     height: 100%;
     top: 15px;
@@ -149,6 +150,12 @@ export default defineComponent({
 
     .edit-row__right {
         display: flex;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+
+        .button-edit {
+            box-shadow: none;
+        }
     }
 }
 </style>

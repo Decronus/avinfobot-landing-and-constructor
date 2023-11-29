@@ -103,6 +103,10 @@ p {
     .button:last-child {
         border-radius: 0 4px 4px 0;
     }
+
+    .button:not(:last-child) {
+        border-right: 1px solid rgb(232, 232, 232);
+    }
 }
 
 .switch-with-icon {
