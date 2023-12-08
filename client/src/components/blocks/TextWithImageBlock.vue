@@ -14,12 +14,17 @@
 
         <div class="content">
             <div class="column left-column">
-                <p>{{ block?.content?.text }}</p>
+                <p
+                    v-html="content?.text"
+                    contenteditable
+                    @input="handleEditableContentInput($event, 'text')"
+                    @blur="updateBlockContent($event, 'text')"
+                ></p>
             </div>
             <div class="column right-column">
                 <div
                     class="image"
-                    :style="image ? { 'background-image': `url(${apiUrl}/${block?.content?.images?.[0]})` } : {}"
+                    :style="image ? { 'background-image': `url(${apiUrl}/${content?.images?.[0]})` } : {}"
                 />
             </div>
         </div>
@@ -32,26 +37,15 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { TextWithImageBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
+import BlockMixin from './BlockMixin';
 
 export default defineComponent({
     name: 'TextWithImageBlock',
+    mixins: [BlockMixin],
     components: { ButtonUI, EditRow, AddBlockButton },
     props: {
-        isEditMode: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
         block: {
             type: Object as PropType<TextWithImageBlock>,
-        },
-        blockIndex: {
-            type: Number,
-            required: true,
-        },
-        blocksAmount: {
-            type: Number,
-            required: true,
         },
     },
 
@@ -83,6 +77,7 @@ export default defineComponent({
         max-width: 964px;
         display: flex;
         gap: 14px;
+        z-index: 5;
 
         @media (max-width: 619.99px) {
             flex-direction: column-reverse;

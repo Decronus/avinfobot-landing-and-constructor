@@ -25,26 +25,15 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { TitleWithTextBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
+import BlockMixin from './BlockMixin';
 
 export default defineComponent({
     name: 'BulletsBlock',
+    mixins: [BlockMixin],
     components: { ButtonUI, EditRow, AddBlockButton },
     props: {
-        isEditMode: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
         block: {
             type: Object as PropType<TitleWithTextBlock>,
-        },
-        blockIndex: {
-            type: Number,
-            required: true,
-        },
-        blocksAmount: {
-            type: Number,
-            required: true,
         },
     },
 });
@@ -65,6 +54,7 @@ export default defineComponent({
     .content {
         width: 100%;
         max-width: 768px;
+        z-index: 5;
 
         h3 {
             font-size: 32px;

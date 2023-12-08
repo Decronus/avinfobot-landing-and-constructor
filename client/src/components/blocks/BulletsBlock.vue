@@ -13,9 +13,15 @@
         />
 
         <div class="content">
-            <template v-for="(bullet, index) in block?.content?.bullets" class="bullet">
+            <template v-for="(bullet, index) in content?.bullets" class="bullet">
                 <h3 class="bullet-number">{{ index + 1 }}</h3>
-                <p class="bullet-text">{{ bullet }}</p>
+                <p
+                    class="bullet-text"
+                    v-html="bullet"
+                    contenteditable
+                    @input="handleEditableContentInput($event, 'bullets', index)"
+                    @blur="updateBlockContent($event, 'bullets')"
+                ></p>
             </template>
         </div>
     </div>
@@ -27,26 +33,15 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { BulletsBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
+import BlockMixin from './BlockMixin';
 
 export default defineComponent({
     name: 'BulletsBlock',
+    mixins: [BlockMixin],
     components: { ButtonUI, EditRow, AddBlockButton },
     props: {
-        isEditMode: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
         block: {
             type: Object as PropType<BulletsBlock>,
-        },
-        blockIndex: {
-            type: Number,
-            required: true,
-        },
-        blocksAmount: {
-            type: Number,
-            required: true,
         },
     },
 });
@@ -70,6 +65,7 @@ export default defineComponent({
         display: grid;
         grid-template-columns: 50px 1fr;
         gap: 16px;
+        z-index: 5;
 
         .bullet-number {
             font-size: 64px;

@@ -41,7 +41,19 @@ export default defineComponent({
     },
 
     methods: {
-        async updateBlockContent(key: string): Promise<void> {
+        handleEditableContentInput(event: Event, key: string, index: number = -1): void {
+            const target = event.target as HTMLElement;
+            if (!target) return;
+
+            if (index !== -1) {
+                this.content[key][index] = target.innerHTML ?? '';
+            } else {
+                this.content[key] = target.innerHTML ?? '';
+            }
+        },
+        async updateBlockContent(event: Event, key: string, index: number = -1): Promise<void> {
+            this.handleEditableContentInput(event, key, index);
+
             const value = this.content[key];
             await this.$store.dispatch('pages/updateBlockContent', {
                 pageLink: this.pageLink,

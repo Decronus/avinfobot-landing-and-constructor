@@ -18,26 +18,18 @@
                 <AngleElement style="margin-left: auto" />
             </div>
 
-            <h1
-                contenteditable
-                @input="handleEditableContentInput($event, 'title')"
-                @blur="updateBlockContent('title')"
-            >
-                {{ content?.title }}
-            </h1>
+            <h1 v-html="content?.title" contenteditable @blur="updateBlockContent($event, 'title')" />
 
-            <p>
-                {{ content?.description }}
-            </p>
+            <p v-html="content?.description" contenteditable @blur="updateBlockContent($event, 'description')" />
             <ButtonUI
-                v-if="block?.content?.action?.active"
-                :text="block?.content?.action?.text"
+                v-if="content?.action?.active"
+                :text="content?.action?.text"
                 style="margin-bottom: 80px"
-                @click="openExternalLink(block?.content?.action?.link as string)"
+                @click="openExternalLink(content?.action?.link as string)"
             />
 
             <div class="squares-wrap">
-                <FourSquares v-if="!block?.content?.action?.active" />
+                <FourSquares v-if="!content?.action?.active" />
                 <FourSquares style="margin-left: auto" />
             </div>
         </div>
@@ -88,12 +80,6 @@ export default defineComponent({
     },
 
     methods: {
-        handleEditableContentInput(event: Event, key: string): void {
-            const target = event.target as HTMLElement;
-            if (target) {
-                this.content[key] = target.textContent ?? '';
-            }
-        },
         openBlocksDrawer(): void {
             this.$store.commit('drawers/setCurrentBlock', this.block?.type);
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
@@ -139,29 +125,17 @@ export default defineComponent({
         width: 100%;
         z-index: 5;
 
-        h1,
-        textarea {
+        h1 {
             font-family: RoadRadio;
             font-size: 72px;
             font-weight: 600;
             margin-bottom: 24px;
             word-break: break-word;
             white-space: pre-line;
-            outline: none;
 
             @media (max-width: 768px) {
                 font-size: 48px;
             }
-        }
-
-        textarea {
-            color: $primary-text-color;
-            border: none;
-            background: rgba(188, 153, 153, 0.2);
-            padding: 0;
-            outline: none;
-            appearance: none;
-            resize: none;
         }
 
         p {

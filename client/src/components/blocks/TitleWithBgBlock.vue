@@ -36,26 +36,15 @@ import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { MainBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
+import BlockMixin from './BlockMixin';
 
 export default defineComponent({
     name: 'TitleWithBgBlock',
+    mixins: [BlockMixin],
     components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockButton },
     props: {
-        isEditMode: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
         block: {
             type: Object as PropType<MainBlock>,
-        },
-        blockIndex: {
-            type: Number,
-            required: true,
-        },
-        blocksAmount: {
-            type: Number,
-            required: true,
         },
     },
 
@@ -101,6 +90,7 @@ export default defineComponent({
     .content {
         max-width: 964px;
         width: 100%;
+        z-index: 5;
 
         h1 {
             font-size: 72px;

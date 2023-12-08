@@ -173,7 +173,6 @@ async function updateBlockContent(req, res) {
         const page = await Page.findOne({ link });
         const content = JSON.parse(JSON.stringify(page.blocks[index].content));
         page.blocks[index].content = { ...content, ...body };
-        console.log('page', page.blocks[index].content);
         await page.save();
         return res.status(200).send(body);
     } catch (error) {

@@ -31,26 +31,15 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { TwoColumnsBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
+import BlockMixin from './BlockMixin';
 
 export default defineComponent({
     name: 'TwoColumnsBlock',
+    mixins: [BlockMixin],
     components: { ButtonUI, EditRow, AddBlockButton },
     props: {
-        isEditMode: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
         block: {
             type: Object as PropType<TwoColumnsBlock>,
-        },
-        blockIndex: {
-            type: Number,
-            required: true,
-        },
-        blocksAmount: {
-            type: Number,
-            required: true,
         },
     },
 });
@@ -74,6 +63,7 @@ export default defineComponent({
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 16px;
+        z-index: 5;
 
         @media (max-width: 619.99px) {
             grid-template-columns: 1fr;

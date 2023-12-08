@@ -19,7 +19,12 @@
                         class="image"
                         :style="images[index] ? { 'background-image': `url(${apiUrl}/${images[index]})` } : {}"
                     />
-                    <p>{{ text }}</p>
+                    <p
+                        v-html="text"
+                        contenteditable
+                        @input="handleEditableContentInput($event, 'texts', index)"
+                        @blur="updateBlockContent($event, 'texts')"
+                    />
                 </div>
             </template>
         </div>
@@ -32,26 +37,15 @@ import ButtonUI from '@/components/ui/ButtonUI.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { GalleryWithTextBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
+import BlockMixin from './BlockMixin';
 
 export default defineComponent({
     name: 'GalleryWithTextBlock',
+    mixins: [BlockMixin],
     components: { ButtonUI, EditRow, AddBlockButton },
     props: {
-        isEditMode: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
         block: {
             type: Object as PropType<GalleryWithTextBlock>,
-        },
-        blockIndex: {
-            type: Number,
-            required: true,
-        },
-        blocksAmount: {
-            type: Number,
-            required: true,
         },
     },
 
@@ -89,6 +83,7 @@ export default defineComponent({
         flex-wrap: wrap;
         column-gap: 14px;
         row-gap: 32px;
+        z-index: 5;
 
         @media (max-width: 680px) {
             flex-direction: column;
@@ -108,6 +103,10 @@ export default defineComponent({
                 background-size: cover;
                 background-position: center;
                 background-image: url('https://a.d-cd.net/6f3caees-1920.jpg');
+            }
+
+            p {
+                white-space: pre-line;
             }
         }
     }
