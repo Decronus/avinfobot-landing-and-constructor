@@ -13,8 +13,8 @@
         />
 
         <div class="content">
-            <h3>{{ block?.content?.title }}</h3>
-            <p>{{ block?.content?.text }}</p>
+            <h3 v-html="content?.title" contenteditable @blur="updateBlockContent($event, 'title')" />
+            <p v-html="content?.text" contenteditable @blur="updateBlockContent($event, 'text')" />
         </div>
     </div>
 </template>

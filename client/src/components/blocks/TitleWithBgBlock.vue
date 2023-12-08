@@ -2,7 +2,7 @@
     <div
         class="block title-with-bg__block"
         :class="{ 'title-with-bg__block-inverted': block?.settings.inverted, 'block-hover': isEditMode }"
-        :style="customBg ? { 'background-image': `url(${apiUrl}/${block?.content?.images?.[0]})` } : {}"
+        :style="customBg"
         :id="block?._id"
     >
         <EditRow
@@ -18,7 +18,7 @@
                 <AngleElement style="margin-left: auto" />
             </div>
 
-            <h1>{{ block?.content?.title }}</h1>
+            <h1 v-html="content?.title" contenteditable @blur="updateBlockContent($event, 'title')" />
 
             <div class="squares-wrap">
                 <AngleElement style="transform: rotate(180deg)" />
@@ -52,8 +52,9 @@ export default defineComponent({
         apiUrl(): string {
             return process.env.VUE_APP_API_URL;
         },
-        customBg() {
-            return this.block?.content?.images?.[0];
+        customBg(): {} {
+            const image = this.block?.content?.images?.[0];
+            return image ? { 'background-image': `url(${this.apiUrl}/${image})` } : {};
         },
     },
 

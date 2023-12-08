@@ -14,12 +14,26 @@
 
         <div class="content">
             <div class="column left-column">
-                <h3>{{ block?.content.title }}</h3>
-                <p class="subtitle">{{ block?.content?.subtitle }}</p>
-                <p class="paragraph">{{ block?.content?.firstColumnText }}</p>
+                <h3 v-html="content?.title" contenteditable @blur="updateBlockContent($event, 'title')" />
+                <p
+                    class="subtitle"
+                    v-html="content?.subtitle"
+                    contenteditable
+                    @blur="updateBlockContent($event, 'subtitle')"
+                />
+                <p
+                    class="paragraph"
+                    v-html="content?.firstColumnText"
+                    contenteditable
+                    @blur="updateBlockContent($event, 'firstColumnText')"
+                />
             </div>
             <div class="column right-column">
-                <p>{{ block?.content?.secondColumnText }}</p>
+                <p
+                    v-html="content?.secondColumnText"
+                    contenteditable
+                    @blur="updateBlockContent($event, 'secondColumnText')"
+                />
             </div>
         </div>
     </div>

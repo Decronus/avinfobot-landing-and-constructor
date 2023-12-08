@@ -125,7 +125,8 @@ export default defineComponent({
         width: 100%;
         z-index: 5;
 
-        h1 {
+        h1,
+        h1 div {
             font-family: RoadRadio;
             font-size: 72px;
             font-weight: 600;

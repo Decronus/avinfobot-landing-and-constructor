@@ -14,12 +14,7 @@
 
         <div class="content">
             <div class="column left-column">
-                <p
-                    v-html="content?.text"
-                    contenteditable
-                    @input="handleEditableContentInput($event, 'text')"
-                    @blur="updateBlockContent($event, 'text')"
-                ></p>
+                <p v-html="content?.text" contenteditable @blur="updateBlockContent($event, 'text')" />
             </div>
             <div class="column right-column">
                 <div

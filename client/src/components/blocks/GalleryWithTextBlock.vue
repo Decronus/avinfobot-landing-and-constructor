@@ -19,12 +19,7 @@
                         class="image"
                         :style="images[index] ? { 'background-image': `url(${apiUrl}/${images[index]})` } : {}"
                     />
-                    <p
-                        v-html="text"
-                        contenteditable
-                        @input="handleEditableContentInput($event, 'texts', index)"
-                        @blur="updateBlockContent($event, 'texts')"
-                    />
+                    <p v-html="text" contenteditable @blur="updateBlockContent($event, 'texts', index)" />
                 </div>
             </template>
         </div>

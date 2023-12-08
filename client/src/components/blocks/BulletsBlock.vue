@@ -19,9 +19,8 @@
                     class="bullet-text"
                     v-html="bullet"
                     contenteditable
-                    @input="handleEditableContentInput($event, 'bullets', index)"
-                    @blur="updateBlockContent($event, 'bullets')"
-                ></p>
+                    @blur="updateBlockContent($event, 'bullets', index)"
+                />
             </template>
         </div>
     </div>
