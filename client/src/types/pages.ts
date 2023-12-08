@@ -99,8 +99,25 @@ export interface TitleWithBgBlock extends BaseBlock {
     content: TitleWithBgBlockContent;
 }
 
-export type Block = MainBlock | TwoColumnsBlock | TitleBlock;
-export type BlockContent = MainBlockContent | TwoColumnsBlockContent | TitleBlockContent;
+export type Block =
+    | MainBlock
+    | TwoColumnsBlock
+    | TitleBlock
+    | TextWithImageBlock
+    | BulletsBlock
+    | TitleWithTextBlock
+    | GalleryWithTextBlock
+    | TitleWithBgBlock;
+
+export type BlockContent =
+    | MainBlockContent
+    | TwoColumnsBlockContent
+    | TitleBlockContent
+    | TextWithImageBlockContent
+    | BulletsBlockContent
+    | TitleWithTextBlockContent
+    | GalleryWithTextBlockContent
+    | TitleWithBgBlockContent;
 
 export interface Page {
     _id?: string;

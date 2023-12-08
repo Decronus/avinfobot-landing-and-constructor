@@ -56,3 +56,16 @@
 .el-popper {
     max-width: 180px !important;
 }
+
+.el-textarea__inner {
+    line-height: unset;
+    border-radius: 0;
+    box-shadow: none;
+
+    &:hover {
+        box-shadow: none;
+    }
+}
+.el-textarea__inner:focus {
+    box-shadow: none;
+}

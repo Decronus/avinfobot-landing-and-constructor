@@ -1,5 +1,5 @@
 import { uploadImage } from '@/axios/api';
-import { MainBlockContent } from '@/types/pages';
+import { BlockContent } from '@/types/pages';
 import { defineComponent } from 'vue';
 import { ElMessage } from 'element-plus';
 
@@ -32,7 +32,7 @@ export default defineComponent({
         currentBlockIndex(): number {
             return this.$store.state.drawers.currentBlock.index;
         },
-        currentBlockContent(): MainBlockContent {
+        currentBlockContent(): BlockContent {
             return this.$store.getters['drawers/getCurrentBlockContent'];
         },
     },

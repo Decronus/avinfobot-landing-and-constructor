@@ -2,7 +2,7 @@
     <div
         class="block main-block"
         :class="{ 'main-block__inverted': block?.settings.inverted, 'block-hover': isEditMode }"
-        :style="customBg ? { 'background-image': `url(${apiUrl}/${block?.content?.images?.[0]})` } : {}"
+        :style="customBg"
         :id="block?._id"
     >
         <EditRow
@@ -18,13 +18,20 @@
                 <AngleElement style="margin-left: auto" />
             </div>
 
-            <h1>{{ block?.content?.title }}</h1>
+            <h1
+                contenteditable
+                @input="handleEditableContentInput($event, 'title')"
+                @blur="updateBlockContent('title')"
+            >
+                {{ content?.title }}
+            </h1>
+
             <p>
-                {{ block?.content?.description }}
+                {{ content?.description }}
             </p>
             <ButtonUI
-                v-if="block?.content?.action.active"
-                :text="block?.content?.action.text"
+                v-if="block?.content?.action?.active"
+                :text="block?.content?.action?.text"
                 style="margin-bottom: 80px"
                 @click="openExternalLink(block?.content?.action?.link as string)"
             />
@@ -38,7 +45,7 @@
         <div class="read-next__wrap" v-if="readNextVisibility" @click="scrollToSecondBlock">
             <span>Читать далее</span>
             <ArrowInCircleIcon />
-        </div>  
+        </div>
     </div>
 </template>
 
@@ -51,48 +58,42 @@ import ArrowInCircleIcon from '@/components/icons/ArrowInCircleIcon.vue';
 import AddBlockButton from '@/components/blocks/edit-elements/AddBlockButton.vue';
 import { MainBlock } from '@/types/pages';
 import { PropType, defineComponent } from 'vue';
+import BlockMixin from './BlockMixin';
 
 export default defineComponent({
     name: 'MainBlock',
+    mixins: [BlockMixin],
     components: { ButtonUI, FourSquares, AngleElement, ArrowInCircleIcon, EditRow, AddBlockButton },
     props: {
-        isEditMode: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
         block: {
             type: Object as PropType<MainBlock>,
-        },
-        blockIndex: {
-            type: Number,
-            required: true,
-        },
-        blocksAmount: {
-            type: Number,
-            required: true,
         },
     },
 
     computed: {
         readNextVisibility(): boolean {
-            if (this.blockIndex > 0) {
-                return false;
-            }
+            if (this.blockIndex > 0) return false;
             return this.block?.settings.readNext as boolean;
         },
         secondBlockId(): string {
-            return this.$store.state.pages.currentPage.blocks?.[1]._id;
+            return this.$store.state.pages.currentPage.blocks?.[1]?._id;
         },
         apiUrl(): string {
             return process.env.VUE_APP_API_URL;
         },
-        customBg() {
-            return this.block?.content?.images?.[0];
+        customBg(): {} {
+            const image = this.block?.content?.images?.[0];
+            return image ? { 'background-image': `url(${this.apiUrl}/${image})` } : {};
         },
     },
 
     methods: {
+        handleEditableContentInput(event: Event, key: string): void {
+            const target = event.target as HTMLElement;
+            if (target) {
+                this.content[key] = target.textContent ?? '';
+            }
+        },
         openBlocksDrawer(): void {
             this.$store.commit('drawers/setCurrentBlock', this.block?.type);
             this.$store.commit('drawers/toggleDrawer', 'BlocksDrawer');
@@ -102,12 +103,14 @@ export default defineComponent({
             window.open(link, '_blank');
         },
         scrollToSecondBlock(): void {
-            const secondBlock = document.getElementById(this.secondBlockId) as HTMLElement;
-            if (secondBlock) {
-                window.scrollTo({
-                    top: secondBlock.offsetTop - 64,
-                    behavior: 'smooth',
-                });
+            if (this.secondBlockId) {
+                const secondBlock = document.getElementById(this.secondBlockId) as HTMLElement;
+                if (secondBlock) {
+                    window.scrollTo({
+                        top: secondBlock.offsetTop - 64,
+                        behavior: 'smooth',
+                    });
+                }
             }
         },
     },
@@ -136,15 +139,29 @@ export default defineComponent({
         width: 100%;
         z-index: 5;
 
-        h1 {
+        h1,
+        textarea {
+            font-family: RoadRadio;
             font-size: 72px;
+            font-weight: 600;
             margin-bottom: 24px;
             word-break: break-word;
             white-space: pre-line;
+            outline: none;
 
             @media (max-width: 768px) {
                 font-size: 48px;
             }
+        }
+
+        textarea {
+            color: $primary-text-color;
+            border: none;
+            background: rgba(188, 153, 153, 0.2);
+            padding: 0;
+            outline: none;
+            appearance: none;
+            resize: none;
         }
 
         p {
@@ -189,7 +206,8 @@ export default defineComponent({
 
     .content {
         h1,
-        p {
+        p,
+        textarea {
             color: $dark-text-color;
         }
     }

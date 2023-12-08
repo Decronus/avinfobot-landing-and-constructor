@@ -2,7 +2,7 @@
     <template v-for="(input, index) in 3" :key="index">
         <UploadUI
             :label="`ИЗОБРАЖЕНИЕ #${index + 1}`"
-            :image="currentBlockContent.images?.[index]"
+            :image="(currentBlockContent as GalleryWithTextBlockContent).images?.[index]"
             @upload="handleFileChange($event, index)"
         />
         <InputUI
