@@ -101,7 +101,7 @@ export default defineComponent({
             }
 
             p {
-                white-space: pre-line;
+                white-space: pre-wrap;
             }
         }
     }

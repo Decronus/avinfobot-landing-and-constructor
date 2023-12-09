@@ -79,9 +79,33 @@ export default defineComponent({
             this.imagesChanged && this.handleUpload();
             return true;
         },
+        formatContent(): BlockContent {
+            const contentCopy = structuredClone(this.currentBlockContent);
+            for (const key in contentCopy) {
+                const el = contentCopy[key as keyof BlockContent] as string | Array<string>;
+
+                if (typeof el === 'string') {
+                    (contentCopy[key as keyof BlockContent] as string) = el
+                        .replace(/<div><br><\/div>/g, '\n')
+                        .replace(/<div>/g, '\n')
+                        .replace(/<\/div>/g, '')
+                        .replace(/<br>/g, '\n')
+                        .replace(/&nbsp;/g, ' ');
+                } else if (el instanceof Array) {
+                    el.forEach((str: string, index: number) => {
+                        el[index] = str
+                            .replace(/<div>/g, '\n')
+                            .replace(/<\/div>/g, '')
+                            .replace(/<br>/g, '\n')
+                            .replace(/&nbsp;/g, ' ');
+                    });
+                }
+            }
+            return contentCopy;
+        },
     },
 
     mounted() {
-        this.form = structuredClone(this.currentBlockContent);
+        this.form = this.formatContent();
     },
 });

@@ -17,7 +17,11 @@
         :error="errors.link"
     />
 
-    <UploadUI label="ФОНОВОЕ ИЗОБРАЖЕНИЕ" :image="currentBlockContent.images?.[0]" @upload="handleFileChange($event)" />
+    <UploadUI
+        label="ФОНОВОЕ ИЗОБРАЖЕНИЕ"
+        :image="(currentBlockContent as MainBlockContent).images?.[0]"
+        @upload="handleFileChange($event)"
+    />
 </template>
 
 <script lang="ts">

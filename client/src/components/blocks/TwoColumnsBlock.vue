@@ -89,6 +89,8 @@ export default defineComponent({
             h3 {
                 font-size: 32px;
                 margin-bottom: 8px;
+                word-break: break-word;
+                white-space: pre-wrap;
 
                 @media (max-width: 768px) {
                     font-size: 24px;
@@ -99,10 +101,14 @@ export default defineComponent({
                 font-size: 14px;
                 color: $secondary-text-color;
                 margin-bottom: 24px;
+                word-break: break-word;
+                white-space: pre-wrap;
             }
 
             p {
                 font-size: 20px;
+                word-break: break-word;
+                white-space: pre-wrap;
             }
         }
 

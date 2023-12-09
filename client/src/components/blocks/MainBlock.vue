@@ -132,7 +132,7 @@ export default defineComponent({
             font-weight: 600;
             margin-bottom: 24px;
             word-break: break-word;
-            white-space: pre-line;
+            white-space: pre-wrap;
 
             @media (max-width: 768px) {
                 font-size: 48px;
@@ -140,7 +140,7 @@ export default defineComponent({
         }
 
         p {
-            white-space: pre-line;
+            white-space: pre-wrap;
             margin-bottom: 80px;
         }
 

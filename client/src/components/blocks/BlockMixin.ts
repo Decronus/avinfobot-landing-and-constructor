@@ -41,6 +41,27 @@ export default defineComponent({
     },
 
     methods: {
+        // handleKeyDownEnter(event: KeyboardEvent, key: string, index: number = -1): void {
+        //     event.preventDefault();
+
+        //     const target = event.target as HTMLElement;
+        //     console.log('target', target);
+
+        //     const selection = window.getSelection();
+        //     if (selection) {
+        //         const cursorPosition = selection.focusOffset;
+
+        //         const stringArray = (target.textContent as string).split('');
+        //         stringArray.splice(cursorPosition, 0, '\n');
+        //         const newString = stringArray.join('');
+
+        //         if (index !== -1) {
+        //             this.content[key][index] = newString ?? '';
+        //         } else {
+        //             this.content[key] = newString ?? '';
+        //         }
+        //     }
+        // },
         handleEditableContentInput(event: Event, key: string, index: number = -1): void {
             const target = event.target as HTMLElement;
             if (!target) return;
@@ -60,6 +81,12 @@ export default defineComponent({
                 blockIndex: this.blockIndex,
                 content: { [key]: value },
             });
+        },
+    },
+
+    watch: {
+        'block.content'() {
+            this.content = structuredClone(this.block?.content);
         },
     },
 

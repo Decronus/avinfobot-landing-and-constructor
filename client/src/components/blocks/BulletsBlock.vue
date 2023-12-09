@@ -73,8 +73,12 @@ export default defineComponent({
             line-height: 70%;
         }
 
-        .bullet-text:not(:last-child) {
-            margin-bottom: 32px;
+        .bullet-text {
+            white-space: pre-wrap;
+
+            &:not(:last-child) {
+                margin-bottom: 32px;
+            }
         }
     }
 }

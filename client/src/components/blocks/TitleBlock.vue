@@ -67,6 +67,7 @@ export default defineComponent({
     .content {
         h1 {
             color: $dark-text-color;
+            white-space: pre-wrap;
         }
     }
 }

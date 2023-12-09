@@ -83,6 +83,7 @@ export default defineComponent({
 
             p {
                 font-size: 20px;
+                white-space: pre-wrap;
 
                 &:after {
                     content: '';

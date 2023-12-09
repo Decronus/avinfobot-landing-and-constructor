@@ -1,7 +1,11 @@
 <template>
     <InputUI v-model="form.title" label="ЗАГОЛОВОК" type="textarea" placeholder="Введите заголовок" />
 
-    <UploadUI label="ФОНОВОЕ ИЗОБРАЖЕНИЕ" :image="currentBlockContent.images?.[0]" @upload="handleFileChange($event)" />
+    <UploadUI
+        label="ФОНОВОЕ ИЗОБРАЖЕНИЕ"
+        :image="(currentBlockContent as TitleWithBgBlockContent).images?.[0]"
+        @upload="handleFileChange($event)"
+    />
 </template>
 
 <script lang="ts">

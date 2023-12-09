@@ -60,6 +60,13 @@ export default defineComponent({
             font-size: 32px;
             font-weight: 600;
             margin-bottom: 24px;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+        p {
+            word-break: break-word;
+            white-space: pre-wrap;
         }
     }
 }

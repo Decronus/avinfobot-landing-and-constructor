@@ -95,9 +95,10 @@ export default defineComponent({
 
         h1 {
             font-size: 72px;
-            word-break: break-word;
             text-align: center;
             padding: 64px 12px;
+            word-break: break-word;
+            white-space: pre-wrap;
 
             @media (max-width: 768px) {
                 font-size: 48px;

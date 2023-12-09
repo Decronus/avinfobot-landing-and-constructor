@@ -118,6 +118,7 @@ const mutations: MutationTree<State> = {
     updateBlockContent(state, { blockIndex, content }: { blockIndex: number; content: BlockContent }) {
         const blocks = state.currentPage?.blocks as Block[];
         const oldContent = blocks[blockIndex].content;
+        console.log('update');
         blocks[blockIndex].content = { ...oldContent, ...content };
     },
     updateBlockSettings(state, { blockIndex, settings }: { blockIndex: number; settings: BlockSettings }) {
