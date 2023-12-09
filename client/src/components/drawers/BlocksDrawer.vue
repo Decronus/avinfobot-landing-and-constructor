@@ -5,6 +5,7 @@
         size="320px"
         :with-header="false"
         direction="ltr"
+        destroy-on-close
         :close-on-click-modal="false"
         @closed="$store.commit('drawers/setCurrentBlockIndex', -1)"
     >
@@ -13,9 +14,11 @@
         </div>
 
         <div class="blocks-drawer__body">
-            <p v-for="(block, index) in blocks" :key="index" @click="addBlock(block.type)">
-                {{ block.text }}
-            </p>
+            <BlocksDetailsTemplate v-for="(block, index) in blocks" :key="index" :blockType="block.type">
+                <p @click="addBlock(block.type)">
+                    {{ block.text }}
+                </p>
+            </BlocksDetailsTemplate>
         </div>
     </el-drawer>
 </template>
@@ -23,12 +26,13 @@
 <script lang="ts">
 import InputUI from '@/components/ui/InputUI.vue';
 import ButtonUI from '@/components/ui/ButtonUI.vue';
+import BlocksDetailsTemplate from './block-details/BlockDetailsTemplate.vue';
 import { defineComponent } from 'vue';
 import { BlockType, BlockTypeWithName, Page } from '@/types/pages';
 
 export default defineComponent({
     name: 'BlocksDrawer',
-    components: { InputUI, ButtonUI },
+    components: { InputUI, ButtonUI, BlocksDetailsTemplate },
 
     computed: {
         currentPage(): Page {

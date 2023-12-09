@@ -44,6 +44,7 @@ interface UpdatePageSettingsPayload {
 
 interface State {
     blocks: BlockTypeWithName[];
+    blockDetails: Record<BlockType, string>;
     fastAccessBlocks: BlockTypeWithName[];
     pages: Page[] | undefined;
     currentPage: Page | undefined;
@@ -84,6 +85,16 @@ const state: State = {
             type: 'titleWithBg',
         },
     ],
+    blockDetails: {
+        main: 'Главная страница: заголовок, описание, призыв к действию',
+        twoColumns: 'Две колонки: заголовок, подзаголовок, два абзаца',
+        title: 'Одиночный заголовок',
+        textWithImage: 'Текст и изображение',
+        bullets: 'Буллеты',
+        titleWithText: 'Заголовок и текст',
+        galleryWithText: 'Галерея с текстом',
+        titleWithBg: 'Заголовок с фоновым изображением',
+    },
     fastAccessBlocks: [
         {
             text: 'Две колонки',

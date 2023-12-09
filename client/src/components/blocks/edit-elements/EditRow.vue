@@ -5,7 +5,7 @@
                 <SettingsButton @click="openSettingsDrawer" />
                 <EditContentButton @click="openEditContentDrawer" />
             </div>
-            <p class="edit-row__block-name">{{ blockName }}</p>
+            <p class="edit-row__block-name">{{ blockDetails }}</p>
         </div>
 
         <div class="edit-row__right" :class="{ 'merged-buttons': blocksAmount !== 1 }">
@@ -61,18 +61,11 @@ export default defineComponent({
         pageLink(): string {
             return this.$store.state.pages.currentPage.link;
         },
-        blockName(): string {
-            const blockNames: Record<BlockType, string> = {
-                main: 'Главная страница: заголовок, описание, призыв к действию',
-                twoColumns: 'Две колонки: заголовок, подзаголовок, два абзаца',
-                title: 'Одиночный заголовок',
-                textWithImage: 'Текст и изображение',
-                bullets: 'Буллеты',
-                titleWithText: 'Заголовок и текст',
-                galleryWithText: 'Галерея с текстом',
-                titleWithBg: 'Заголовок с фоновым изображением',
-            };
-            return blockNames[this.blockType];
+        blockDetails(): string {
+            return this.blockDetailsMap[this.blockType];
+        },
+        blockDetailsMap(): Record<BlockType, string> {
+            return this.$store.state.pages.blockDetails;
         },
     },
 
