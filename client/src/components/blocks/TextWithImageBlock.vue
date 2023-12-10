@@ -14,7 +14,7 @@
 
         <div class="content">
             <div class="column left-column">
-                <p v-html="content?.text" contenteditable @blur="updateBlockContent($event, 'text')" />
+                <p v-html="content?.text" :contenteditable="isEditMode" @blur="updateBlockContent($event, 'text')" />
             </div>
             <div class="column right-column">
                 <div

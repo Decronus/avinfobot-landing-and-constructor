@@ -52,6 +52,7 @@ export default defineComponent({
             }
         },
         async updateBlockContent(event: Event, key: string, index: number = -1): Promise<void> {
+            if (!this.isEditMode) return;
             this.handleEditableContentInput(event, key, index);
 
             const value = this.content[key];

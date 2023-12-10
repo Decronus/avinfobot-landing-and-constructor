@@ -13,7 +13,7 @@
         />
 
         <div class="content">
-            <h1 v-html="content?.title" contenteditable @blur="updateBlockContent($event, 'title')" />
+            <h1 v-html="content?.title" :contenteditable="isEditMode" @blur="updateBlockContent($event, 'title')" />
         </div>
     </div>
 </template>

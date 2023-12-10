@@ -14,24 +14,24 @@
 
         <div class="content">
             <div class="column left-column">
-                <h3 v-html="content?.title" contenteditable @blur="updateBlockContent($event, 'title')" />
+                <h3 v-html="content?.title" :contenteditable="isEditMode" @blur="updateBlockContent($event, 'title')" />
                 <p
                     class="subtitle"
                     v-html="content?.subtitle"
-                    contenteditable
+                    :contenteditable="isEditMode"
                     @blur="updateBlockContent($event, 'subtitle')"
                 />
                 <p
                     class="paragraph"
                     v-html="content?.firstColumnText"
-                    contenteditable
+                    :contenteditable="isEditMode"
                     @blur="updateBlockContent($event, 'firstColumnText')"
                 />
             </div>
             <div class="column right-column">
                 <p
                     v-html="content?.secondColumnText"
-                    contenteditable
+                    :contenteditable="isEditMode"
                     @blur="updateBlockContent($event, 'secondColumnText')"
                 />
             </div>

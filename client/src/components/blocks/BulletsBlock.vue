@@ -18,7 +18,7 @@
                 <p
                     class="bullet-text"
                     v-html="bullet"
-                    contenteditable
+                    :contenteditable="isEditMode"
                     @blur="updateBlockContent($event, 'bullets', index)"
                 />
             </template>

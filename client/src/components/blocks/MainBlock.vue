@@ -18,9 +18,13 @@
                 <AngleElement style="margin-left: auto" />
             </div>
 
-            <h1 v-html="content?.title" contenteditable @blur="updateBlockContent($event, 'title')" />
+            <h1 v-html="content?.title" :contenteditable="isEditMode" @blur="updateBlockContent($event, 'title')" />
 
-            <p v-html="content?.description" contenteditable @blur="updateBlockContent($event, 'description')" />
+            <p
+                v-html="content?.description"
+                :contenteditable="isEditMode"
+                @blur="updateBlockContent($event, 'description')"
+            />
             <ButtonUI
                 v-if="content?.action?.active"
                 :text="content?.action?.text"

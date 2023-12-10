@@ -18,7 +18,7 @@
                 <AngleElement style="margin-left: auto" />
             </div>
 
-            <h1 v-html="content?.title" contenteditable @blur="updateBlockContent($event, 'title')" />
+            <h1 v-html="content?.title" :contenteditable="isEditMode" @blur="updateBlockContent($event, 'title')" />
 
             <div class="squares-wrap">
                 <AngleElement style="transform: rotate(180deg)" />
