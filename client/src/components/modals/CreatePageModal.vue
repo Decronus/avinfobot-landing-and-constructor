@@ -21,6 +21,12 @@
                 placeholder="Введите имя страницы"
                 @keyup.enter="currentApplyFunction"
             />
+            <InputUI
+                v-model="page.title"
+                label="Заголовок страницы"
+                placeholder="Введите заголовок страницы"
+                @keyup.enter="currentApplyFunction"
+            />
             <InputUI v-model="page.link" label="Ссылка на страницу" placeholder="Введите адрес страницы" readonly />
 
             <div class="modal__buttons-wrap">
@@ -53,9 +59,13 @@ export default defineComponent({
         return {
             page: {
                 name: '',
+                title: '',
                 link: '',
             },
-            initialPageName: '',
+            initialPage: {
+                name: '',
+                title: '',
+            },
             buttonLoading: false,
         };
     },
@@ -65,10 +75,16 @@ export default defineComponent({
             return this.isCurrentPage ? this.updatePageSettings : this.createPage;
         },
         buttonDisabled(): boolean {
-            return !this.page.name || this.buttonLoading || this.buttonDisabledInEditMode;
+            return this.formNotFilled || this.buttonLoading || this.buttonDisabledInEditMode;
         },
         buttonDisabledInEditMode(): boolean {
-            return this.isEditMode && this.page.name === this.initialPageName;
+            return this.isEditMode && !this.formChanged;
+        },
+        formChanged(): boolean {
+            return this.page.name !== this.initialPage.name || this.page.title !== this.initialPage.title;
+        },
+        formNotFilled(): boolean {
+            return !this.page.name || !this.page.title;
         },
         apiUrl(): string {
             return process.env.VUE_APP_URL;
@@ -105,8 +121,11 @@ export default defineComponent({
         modalVisibility(value: boolean) {
             if (value) {
                 if (this.isCurrentPage) {
-                    this.page.name = this.$store.state.pages.currentPage.name;
-                    this.initialPageName = this.page.name;
+                    const page = this.$store.state.pages.currentPage;
+                    this.page.name = page.name;
+                    this.page.title = page.title;
+                    this.initialPage.name = page.name;
+                    this.initialPage.title = page.title;
                 } else {
                     this.clearForm();
                 }
@@ -122,6 +141,7 @@ export default defineComponent({
         },
         clearForm(): void {
             this.page.name = '';
+            this.page.title = '';
             this.page.link = this.apiUrl;
         },
         transliterateToLatin(text: string): string {

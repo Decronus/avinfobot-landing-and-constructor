@@ -154,9 +154,9 @@ const actions: ActionTree<State, any> = {
             console.error('Ошибка при получении страниц');
         }
     },
-    async createPage({ dispatch }, { name, link }: { name: string; link: string }) {
+    async createPage({ dispatch }, { name, title, link }: PageSettings) {
         try {
-            await createPage({ name, link });
+            await createPage({ name, title, link });
             dispatch('getPages');
         } catch (err: any) {
             throw new Error(err.response.data);

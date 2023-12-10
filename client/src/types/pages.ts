@@ -10,6 +10,7 @@ export type BlockType =
 
 export interface PageSettings {
     name: string;
+    title: string;
     link: string;
 }
 
@@ -123,6 +124,7 @@ export interface Page {
     _id?: string;
     createdAt?: string;
     name: string;
+    title: string;
     link: string;
     image?: string;
     blocks?: Block[];
