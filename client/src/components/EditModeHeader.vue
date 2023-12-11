@@ -1,7 +1,7 @@
 <template>
     <div class="edit-mode__header">
         <p class="header-element">
-            <span class="header-element__link" @click="$router.push('/pages')">СТРАНИЦЫ</span> /
+            <span class="header-element__link" @click="$router.push('/constructor/pages')">СТРАНИЦЫ</span> /
             <span class="header-element__page-name">{{ pageName }}</span>
         </p>
         <div class="header-group">
@@ -47,7 +47,7 @@ export default defineComponent({
             this.$store.commit('modals/toggleModal', 'CreatePageModal');
         },
         openPage(): void {
-            window.open('/page/' + this.$route.params.pageLink, '_blank');
+            window.open('/pages/' + this.$route.params.pageLink, '_blank');
         },
     },
 });

@@ -1,5 +1,9 @@
 <template>
-    <div class="page-card" :class="{ 'page-card__disabled': loading }" @click="$router.push(`/page/${page.link}/edit`)">
+    <div
+        class="page-card"
+        :class="{ 'page-card__disabled': loading }"
+        @click="$router.push(`/constructor/pages/${page.link}/edit`)"
+    >
         <div class="page-card__header">
             <span class="page-card__date">{{ formatDateTime(page.createdAt as string) }}</span>
             <span class="page-card__delete" @click.stop="handleDeletePage(page.link)">Удалить</span>
@@ -111,6 +115,5 @@ export default defineComponent({
 
 .page-card__disabled {
     pointer-events: none;
-    
 }
 </style>

@@ -5,20 +5,20 @@ import NotFoundPage from '@/pages/NotFoundPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/pages',
+        path: '/constructor/pages',
         name: 'pages',
         component: CabinetPage,
     },
 
     {
-        path: '/page/:pageLink',
-        name: 'landing-page',
+        path: '/constructor/pages/:pageLink',
+        name: 'landing-page-edit',
         component: LandingPage,
     },
 
     {
-        path: '/page/:pageLink/edit',
-        name: 'landing-page-edit',
+        path: '/pages/:pageLink',
+        name: 'landing-page',
         component: LandingPage,
     },
 
