@@ -3,6 +3,7 @@
 
     <template v-else>
         <EditModeHeader v-if="isEditMode" :pageName="currentPage?.name" />
+        <LandingHeader v-else />
 
         <component
             v-for="(block, index) in currentPage?.blocks"
@@ -48,6 +49,7 @@ import TitleWithTextBlock from '@/components/blocks/TitleWithTextBlock.vue';
 import GalleryWithTextBlock from '@/components/blocks/GalleryWithTextBlock.vue';
 import TitleWithBgBlock from '@/components/blocks/TitleWithBgBlock.vue';
 import EditModeHeader from '@/components/EditModeHeader.vue';
+import LandingHeader from '@/components/LandingHeader.vue';
 import EditContentDrawer from '@/components/drawers/EditContentDrawer.vue';
 import SettingsDrawer from '@/components/drawers/SettingsDrawer.vue';
 import BlocksDrawer from '@/components/drawers/BlocksDrawer.vue';
@@ -58,7 +60,16 @@ import { BlockType, BlockTypeWithName, Page } from '@/types/pages';
 
 export default defineComponent({
     name: 'LandingPage',
-    components: { MainBlock, EditModeHeader, EditContentDrawer, SettingsDrawer, BlocksDrawer, ButtonUI, LoadingWrap },
+    components: {
+        MainBlock,
+        EditModeHeader,
+        LandingHeader,
+        EditContentDrawer,
+        SettingsDrawer,
+        BlocksDrawer,
+        ButtonUI,
+        LoadingWrap,
+    },
 
     computed: {
         fastAccessBlocks(): BlockTypeWithName[] {
@@ -91,9 +102,8 @@ export default defineComponent({
 
     methods: {
         updateDocumentTitle(): void {
-            document.title = `AVinfoBot - ${
-                this.currentPage.title === '' ? this.currentPage.name : this.currentPage.title
-            }`;
+            const title = this.currentPage.title === '' ? this.currentPage.name : this.currentPage.title;
+            document.title = `AVinfoBot - ${title}`;
         },
         async addBlock(blockType: BlockType): Promise<void> {
             const payload = { pageLink: this.currentPage.link, blockType, blockIndex: this.blocksAmount };
