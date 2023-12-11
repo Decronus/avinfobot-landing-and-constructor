@@ -23,7 +23,7 @@
                     @click="openModal('https://www.youtube.com/embed/7Q5T5VdYRuw')"
                 >
                     <!-- Уголовка или ... -->
-                    <img src="@/assets/img/feedback_3_3.jpg" alt="" />
+                    <img src="@/assets/img/main-page/feedback_3_3.jpg" alt="" />
                     <div class="feedback__play"></div>
                 </div>
             </swiper-slide>
@@ -35,7 +35,7 @@
                     @click="openModal('https://www.youtube.com/embed/S8MZKMdg4Rw')"
                 >
                     <!-- Следи за нами ... -->
-                    <img src="@/assets/img/feedback_2_3.jpg" alt="" />
+                    <img src="@/assets/img/main-page/feedback_2_3.jpg" alt="" />
                     <div class="feedback__play"></div>
                 </div>
             </swiper-slide>
@@ -47,7 +47,7 @@
                     @click="openModal('https://www.youtube.com/embed/AbUul0u-xrw')"
                 >
                     <!-- Функции и возможности ... -->
-                    <img src="@/assets/img/feedback_1_3.jpg" alt="" />
+                    <img src="@/assets/img/main-page/feedback_1_3.jpg" alt="" />
                     <div class="feedback__play"></div>
                 </div>
             </swiper-slide>
@@ -59,7 +59,7 @@
                     @click="openModal('https://www.youtube.com/embed/YN-JUXYf2GE')"
                 >
                     <!-- Функции бота ... -->
-                    <img src="@/assets/img/feedback_4_3.jpg" alt="" />
+                    <img src="@/assets/img/main-page/feedback_4_3.jpg" alt="" />
                     <div class="feedback__play"></div>
                 </div>
             </swiper-slide>
@@ -71,31 +71,7 @@
                     @click="openModal('https://www.youtube.com/embed/7Q5T5VdYRuw')"
                 >
                     <!-- Уголовка или ... -->
-                    <img src="@/assets/img/feedback_3_3.jpg" alt="" />
-                    <div class="feedback__play"></div>
-                </div>
-            </swiper-slide>
-
-            <swiper-slide>
-                <div
-                    class="feedback__item"
-                    href="#feedback2"
-                    @click="openModal('https://www.youtube.com/embed/S8MZKMdg4Rw')"
-                >
-                    <!-- Следи за нами ... -->
-                    <img src="@/assets/img/feedback_2_3.jpg" alt="" />
-                    <div class="feedback__play"></div>
-                </div>
-            </swiper-slide>
-
-            <swiper-slide>
-                <div
-                    class="feedback__item"
-                    href="#feedback1"
-                    @click="openModal('https://www.youtube.com/embed/YN-JUXYf2GE')"
-                >
-                    <!-- Функции бота ... -->
-                    <img src="@/assets/img/feedback_1_3.jpg" alt="" />
+                    <img src="@/assets/img/main-page/feedback_3_3.jpg" alt="" />
                     <div class="feedback__play"></div>
                 </div>
             </swiper-slide>
@@ -103,16 +79,21 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+import { register } from 'swiper/element/bundle';
+register();
+
+export default defineComponent({
     name: 'FeedbackBlock',
     methods: {
-        openModal(url) {
+        openModal(url: string): void {
             this.$emit('setVideoUrl', url);
             this.$emit('openFeedbackModal');
         },
     },
-};
+});
 </script>
 
 <style>

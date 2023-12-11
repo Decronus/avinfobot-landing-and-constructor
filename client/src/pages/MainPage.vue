@@ -1,20 +1,24 @@
 <template>
-    <HeaderVue />
-    <OfferBlock />
-    <PartnersBlock />
-    <AdvantagesBlock />
-    <TrustBlock />
-    <AutoInfoBlock />
-    <ReportBlock />
-    <PriceBlock @openWaitingModal="waitingModalVisible = true" />
-    <PayBlock />
-    <FeedbackBlock @openFeedbackModal="feedbackModalVisible = true" @setVideoUrl="videoUrl = $event" />
+    <div class="main-page">
+        <HeaderVue />
+        <OfferBlock />
+        <PartnersBlock />
+        <AdvantagesBlock />
+        <TrustBlock />
+        <AutoInfoBlock />
+        <ReportBlock />
+        <PriceBlock @openWaitingModal="waitingModalVisible = true" />
+        <PayBlock />
+        <FeedbackBlock @openFeedbackModal="feedbackModalVisible = true" @setVideoUrl="videoUrl = $event" />
+        <FooterVue />
+    </div>
 
     <WaitingModal v-if="waitingModalVisible" @closeModal="waitingModalVisible = false" />
     <FeedbackModal v-if="feedbackModalVisible" @closeModal="feedbackModalVisible = false" :videoUrl="videoUrl" />
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import HeaderVue from '@/components/main-page/HeaderVue.vue';
 import OfferBlock from '@/components/main-page/OfferBlock.vue';
 import PartnersBlock from '@/components/main-page/PartnersBlock.vue';
@@ -29,7 +33,7 @@ import FooterVue from '@/components/main-page/FooterVue.vue';
 import WaitingModal from '@/components/main-page/WaitingModal.vue';
 import FeedbackModal from '@/components/main-page/FeedbackModal.vue';
 
-export default {
+export default defineComponent({
     name: 'MainPage',
     components: {
         HeaderVue,
@@ -53,7 +57,9 @@ export default {
             videoUrl: '',
         };
     },
-};
+});
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import '@/assets/scss/main-page';
+</style>

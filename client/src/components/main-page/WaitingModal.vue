@@ -72,7 +72,11 @@
                     <div class="waiting-modal__landing">
                         <div class="authorize-popup__row">
                             <div class="authorize-popup__item">
-                                <img class="authorize-popup__img" src="@/assets/img/advantages/adv_1.png" alt="" />
+                                <img
+                                    class="authorize-popup__img"
+                                    src="@/assets/img/main-page/advantages/adv_1.png"
+                                    alt=""
+                                />
                                 <div class="authorize-popup__text">
                                     Полная и проверка автомобилей.<br />
                                     Без ограничений История<br />
@@ -81,7 +85,11 @@
                                 </div>
                             </div>
                             <div class="authorize-popup__item">
-                                <img class="authorize-popup__img" src="@/assets/img/advantages/adv_7.png" alt="" />
+                                <img
+                                    class="authorize-popup__img"
+                                    src="@/assets/img/main-page/advantages/adv_7.png"
+                                    alt=""
+                                />
                                 <div class="authorize-popup__text">
                                     Поиск странички ВКонтакте по<br />
                                     фотографии или по номеру<br />
@@ -89,7 +97,11 @@
                                 </div>
                             </div>
                             <div class="authorize-popup__item">
-                                <img class="authorize-popup__img" src="@/assets/img/advantages/adv_4.png" alt="" />
+                                <img
+                                    class="authorize-popup__img"
+                                    src="@/assets/img/main-page/advantages/adv_4.png"
+                                    alt=""
+                                />
                                 <div class="authorize-popup__text">
                                     Проверка физических лиц.<br />
                                     Задолженности,<br />
@@ -98,7 +110,11 @@
                                 </div>
                             </div>
                             <div class="authorize-popup__item">
-                                <img class="authorize-popup__img" src="@/assets/img/advantages/adv_9.png" alt="" />
+                                <img
+                                    class="authorize-popup__img"
+                                    src="@/assets/img/main-page/advantages/adv_9.png"
+                                    alt=""
+                                />
                                 <div class="authorize-popup__text">
                                     Мгновенное отображение<br />
                                     объявлений со всех<br />
@@ -106,7 +122,11 @@
                                 </div>
                             </div>
                             <div class="authorize-popup__item">
-                                <img class="authorize-popup__img" src="@/assets/img/advantages/adv_8.png" alt="" />
+                                <img
+                                    class="authorize-popup__img"
+                                    src="@/assets/img/main-page/advantages/adv_8.png"
+                                    alt=""
+                                />
                                 <div class="authorize-popup__text">
                                     Уведомления о появлении<br />
                                     автомобилей в продаже на любом<br />
@@ -115,7 +135,11 @@
                                 </div>
                             </div>
                             <div class="authorize-popup__item">
-                                <img class="authorize-popup__img" src="@/assets/img/advantages/adv_6.png" alt="" />
+                                <img
+                                    class="authorize-popup__img"
+                                    src="@/assets/img/main-page/advantages/adv_6.png"
+                                    alt=""
+                                />
                                 <div class="authorize-popup__text">
                                     Проверка телефона продавца.<br />
                                     телефонные розыгрыши,<br />
@@ -130,11 +154,35 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { load } from 'recaptcha-v3';
+
+type FormKeys = 'NAME' | 'PHONE' | 'EMAIL' | 'SOGLASIE' | 'form';
+
+interface Form {
+    NAME: string;
+    PHONE: string;
+    EMAIL: string;
+    SOGLASIE: 1;
+    form: string;
+}
+
+interface Data {
+    recaptchaToken: string;
+    phoneInput: HTMLElement | null;
+    phoneMask: HTMLElement | null;
+    sendButton: HTMLElement | null;
+    errorContainer: HTMLElement | null;
+    sendButtonLoading: boolean;
+    form: Form;
+}
+
+export default defineComponent({
     name: 'WaitngModal',
-    data() {
+    data(): Data {
         return {
+            recaptchaToken: '',
             phoneInput: null,
             phoneMask: null,
             sendButton: null,
@@ -151,13 +199,18 @@ export default {
     },
 
     computed: {
-        phoneUnmasked() {
+        phoneUnmasked(): string {
             return this.form.PHONE.replace(/[^0-9]/g, '');
         },
     },
 
+    mounted() {
+        this.initRefs();
+        this.setNewRecaptchaToken();
+    },
+
     methods: {
-        async send(e) {
+        async send() {
             if (this.validateForm(true)) {
                 const form = this.prepareForm();
 
@@ -193,9 +246,10 @@ export default {
                     formData.append('PHONE', this.phoneUnmasked);
                     continue;
                 }
+                //@ts-ignore
                 formData.append(key, this.form[key]);
             }
-            formData.append('recaptha', recaptchaResponse);
+            formData.append('recaptha', this.recaptchaToken);
 
             this.sendButtonLoading = true;
             return formData;
@@ -232,6 +286,8 @@ export default {
         },
 
         showSuccess(message = '', sending = false) {
+            if (!this.errorContainer) return;
+
             this.errorContainer.removeAttribute('view');
             this.errorContainer.classList.remove('error');
 
@@ -243,6 +299,8 @@ export default {
         },
 
         showError(message = '', sending = false) {
+            if (!this.errorContainer) return;
+
             this.errorContainer.removeAttribute('view');
             this.errorContainer.classList.remove('error');
 
@@ -261,22 +319,25 @@ export default {
             PHONE = '+7(9';
         },
 
-        setNewRecaptchaToken() {
-            grecaptcha
-                .execute('6LfK_B0kAAAAAB6hyw613kziUGHZql2a-7jEDKZD', { action: 'contact' })
-                .then(function (token) {
-                    recaptchaResponse = token;
-                });
+        async setNewRecaptchaToken() {
+            // grecaptcha
+            //     .execute('6LfK_B0kAAAAAB6hyw613kziUGHZql2a-7jEDKZD', { action: 'contact' })
+            //     .then(function (token) {
+            //         recaptchaResponse = token;
+            //     });
+            const recaptcha = await load('6LfK_B0kAAAAAB6hyw613kziUGHZql2a-7jEDKZD');
+            this.recaptchaToken = await recaptcha.execute('contact');
         },
 
         initRefs() {
-            this.errorContainer = this.$refs.errorContainer;
-            this.sendButton = this.$refs.sendButton;
-            this.phoneInput = this.$refs.phoneInput;
+            this.errorContainer = this.$refs.errorContainer as HTMLElement;
+            this.sendButton = this.$refs.sendButton as HTMLElement;
+            this.phoneInput = this.$refs.phoneInput as HTMLInputElement;
         },
 
-        handlePhoneInput(event) {
-            const value = event.target.value;
+        handlePhoneInput(event: Event) {
+            const target = event.target as HTMLInputElement;
+            const value = target.value;
             // Использование вместе с v-mask запрещает удаление начальных цифр, оставляя текущий номер в инпуте
             if (!value.startsWith('+7(9')) {
                 this.form.PHONE = '+7(9';
@@ -287,9 +348,5 @@ export default {
             this.$emit('closeModal');
         },
     },
-
-    mounted() {
-        this.initRefs();
-    },
-};
+});
 </script>

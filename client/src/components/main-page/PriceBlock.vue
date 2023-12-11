@@ -43,7 +43,7 @@
                             <span
                                 >+ 1 подбор VIN в подарок
                                 <a target="_blank" href="https://vk.com/@av100ru-podbor1">
-                                    <img src="@/assets/img/ask-icon.svg" />
+                                    <img src="@/assets/img/main-page/ask-icon.svg" />
                                 </a>
                             </span>
                         </div>
@@ -65,13 +65,15 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'PriceBlock',
     methods: {
         openModal() {
             this.$emit('openWaitingModal');
         },
     },
-};
+});
 </script>

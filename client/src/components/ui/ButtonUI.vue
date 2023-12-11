@@ -82,7 +82,7 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     padding: 18px 40px;
-    background: $primary-color;
+    background: linear-gradient(87.59deg, #d10101 3.43%, #ff5a5a 99.54%);
     outline: none;
     border: none;
     font-size: 20px;
@@ -102,7 +102,6 @@ export default defineComponent({
 
     &:hover {
         transform: scale(1.025);
-        background: #d13122;
     }
 }
 

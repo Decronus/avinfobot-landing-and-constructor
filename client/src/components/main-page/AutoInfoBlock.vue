@@ -61,15 +61,17 @@
                 </div>
 
                 <div class="auto-info__car">
-                    <img src="@/assets/img/auto-info__car.png" alt="" />
+                    <img src="@/assets/img/main-page/auto-info__car.png" alt="" />
                 </div>
             </div>
         </div>
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'AutoInfoBlock',
-};
+});
 </script>

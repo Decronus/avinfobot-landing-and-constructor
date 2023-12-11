@@ -13,9 +13,9 @@
                 ><span>Проверить авто</span></a
             >
             <div class="offer__car" href="#instruction">
-                <img class="offer__car-img" src="@/assets/img/offer__car.png" alt="" />
+                <img class="offer__car-img" src="@/assets/img/main-page/offer__car.png" alt="" />
                 <div class="offer__play">
-                    <img src="@/assets/img/offer__play.png" alt="" />
+                    <img src="@/assets/img/main-page/offer__play.png" alt="" />
                     <span
                         >Видео по<br />
                         работе бота</span
@@ -58,8 +58,10 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'OfferBlock',
-};
+});
 </script>

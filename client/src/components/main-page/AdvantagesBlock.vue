@@ -10,8 +10,8 @@
             <div class="advantages__title">Преимущества avinfobot</div>
             <div class="advantages__row">
                 <div class="advantages__item">
-                    <img class="desktop" src="@/assets/img/advantages/adv_1.jpg" alt="" />
-                    <img class="mob" src="@/assets/img/advantages/adv_1-mob.jpg" alt="" />
+                    <img class="desktop" src="@/assets/img/main-page/advantages/adv_1.jpg" alt="" />
+                    <img class="mob" src="@/assets/img/main-page/advantages/adv_1-mob.jpg" alt="" />
                     <div class="advantages__text">
                         Есть подписка - можно<br />
                         проверить любое количество<br />
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="advantages__item">
-                    <img src="@/assets/img/advantages/adv_9.jpg" alt="" />
+                    <img src="@/assets/img/main-page/advantages/adv_9.jpg" alt="" />
                     <div class="advantages__text">
                         Скорость работы - полный<br />
                         отчёт формируется менее<br />
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="advantages__item">
-                    <img src="@/assets/img/advantages/adv_3.jpg" alt="" />
+                    <img src="@/assets/img/main-page/advantages/adv_3.jpg" alt="" />
                     <div class="advantages__text">
                         Фотографии 60%<br />
                         автопарка страны -<br />
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="advantages__item">
-                    <img src="@/assets/img/advantages/adv_4.jpg" alt="" />
+                    <img src="@/assets/img/main-page/advantages/adv_4.jpg" alt="" />
                     <div class="advantages__text">
                         Бот проверяет не только<br />
                         автомобиль, но и его<br />
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="advantages__item">
-                    <img src="@/assets/img/advantages/adv_5.jpg" alt="" />
+                    <img src="@/assets/img/main-page/advantages/adv_5.jpg" alt="" />
                     <div class="advantages__text">
                         Доступ к поиску объявлений<br />
                         через AV100.ME входит в<br />
@@ -55,8 +55,10 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'AdvantagesBlock',
-};
+});
 </script>

@@ -52,12 +52,12 @@
                         <div class="report__text">Получите всю информацию об автомобиле</div>
                     </div>
                     <div class="report__promo">
-                        <img class="report__logo" src="@/assets/img/header__logo.png" alt="" />
+                        <img class="report__logo" src="@/assets/img/main-page/header__logo.png" alt="" />
                         <div class="report__promo-text">
                             Можно проверить авто по фото,<br />
                             на котором виден госномер,<br />по номеру двигателя,<br />по номеру ПТС
                         </div>
-                        <img class="report__car" src="@/assets/img/report__car.jpg" alt="" />
+                        <img class="report__car" src="@/assets/img/main-page/report__car.jpg" alt="" />
                     </div>
                 </div>
             </div>
@@ -65,8 +65,10 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'ReportBlock',
     data() {
         return {
@@ -98,7 +100,7 @@ export default {
     },
 
     methods: {
-        random(arr) {
+        random(arr: string[]) {
             return arr[Math.floor(Math.random() * arr.length)];
         },
         initReportLink() {
@@ -109,5 +111,5 @@ export default {
     mounted() {
         this.initReportLink();
     },
-};
+});
 </script>

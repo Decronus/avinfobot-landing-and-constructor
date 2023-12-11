@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="top-footer__column">
-                    <img src="@/assets/img/footer__phone.webp" alt="" />
+                    <img src="@/assets/img/main-page/footer__phone.webp" alt="" />
                     <div class="top-footer__back">avinfobot</div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                         href="http://avclick.me/v/AVinfoBotPro?start=ref1045191"
                         target="_blank"
                     >
-                        <img src="@/assets/img/header__logo.png" alt="" />
+                        <img src="@/assets/img/main-page/header__logo.png" alt="" />
                     </a>
                     <RouterLink class="bottom-footer__link" :to="{ name: 'main', hash: '#how' }">
                         Как работает бот
@@ -52,8 +52,10 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'FooterVue',
-};
+});
 </script>
