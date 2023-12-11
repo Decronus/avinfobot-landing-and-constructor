@@ -1,9 +1,15 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import MainPage from '@/pages/MainPage.vue';
 import CabinetPage from '@/pages/CabinetPage.vue';
 import LandingPage from '@/pages/LandingPage.vue';
 import NotFoundPage from '@/pages/NotFoundPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
+    {
+        path: '/',
+        name: 'main',
+        component: MainPage,
+    },
     {
         path: '/constructor/pages',
         name: 'pages',
