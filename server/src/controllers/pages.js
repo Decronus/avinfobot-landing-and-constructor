@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { blocksMap, mainBlockConstructor } = require('../utils/blocks');
 
-async function checkPageLinkExists(link) {
+async function checkPageLinkExists(link, currentPageLink) {
+    if (link === currentPageLink) return;
     const linkExists = await Page.findOne({ link });
     if (!!linkExists) throw new Error('Ссылка должна быть уникальной, задайте другое имя страницы');
 }
@@ -312,8 +313,8 @@ async function updatePageSettings(req, res) {
     try {
         const { link: pageLink } = req.params;
         const { body } = req;
-        const { name, link } = body;
-        await checkPageLinkExists(link);
+        const { name, title, link } = body;
+        await checkPageLinkExists(link, pageLink);
 
         function handleErrors() {
             if (!name) {
@@ -329,7 +330,9 @@ async function updatePageSettings(req, res) {
 
         if (page) {
             page.name = name;
+            page.title = title;
             page.link = link;
+
             await page.save();
             return res.status(200).send(body);
         } else {

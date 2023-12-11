@@ -77,9 +77,24 @@ export default defineComponent({
 
     async mounted() {
         await this.initPageData();
+        this.updateDocumentTitle();
+    },
+
+    watch: {
+        currentPage: {
+            handler() {
+                this.updateDocumentTitle();
+            },
+            deep: true,
+        },
     },
 
     methods: {
+        updateDocumentTitle(): void {
+            document.title = `AVinfoBot - ${
+                this.currentPage.title === '' ? this.currentPage.name : this.currentPage.title
+            }`;
+        },
         async addBlock(blockType: BlockType): Promise<void> {
             const payload = { pageLink: this.currentPage.link, blockType, blockIndex: this.blocksAmount };
             await this.$store.dispatch('pages/addBlock', payload);

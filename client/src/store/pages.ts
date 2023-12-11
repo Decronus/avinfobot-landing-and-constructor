@@ -139,6 +139,7 @@ const mutations: MutationTree<State> = {
         const page = state.currentPage;
         if (page) {
             page.name = settings.name;
+            page.title = settings.title;
             page.link = settings.link;
         }
     },

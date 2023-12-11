@@ -84,7 +84,7 @@ export default defineComponent({
             return this.page.name !== this.initialPage.name || this.page.title !== this.initialPage.title;
         },
         formNotFilled(): boolean {
-            return !this.page.name || !this.page.title;
+            return !this.page.name;
         },
         apiUrl(): string {
             return process.env.VUE_APP_URL;
