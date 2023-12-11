@@ -27,6 +27,7 @@
 
 * {
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -87,6 +88,7 @@ body {
         font-size: 46px;
         line-height: 120%;
         text-align: center;
+        margin-bottom: 24px;
     }
 
     p {
@@ -94,6 +96,7 @@ body {
         text-align: center;
         line-height: 140%;
         font-weight: 300;
+        margin-bottom: 24px;
         // max-width: 600px;
     }
 
@@ -102,10 +105,16 @@ body {
         font-size: 20px;
         font-weight: 300;
         line-height: 200%;
+        margin-bottom: 24px;
     }
 
     i {
         line-height: 140%;
+        margin-bottom: 24px;
+    }
+
+    img {
+        margin-bottom: 24px;
     }
 }
 

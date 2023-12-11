@@ -1,7 +1,9 @@
 <template>
     <div class="zadatochniki-page__block zadatok__main-block">
         <div class="content">
-            <img src="@/assets/img/main-page/header__logo.png" alt="" />
+            <a href="http://avclick.me/v/AVinfoBotPro?start=ref1045191">
+                <img src="@/assets/img/main-page/header__logo.png" alt="" />
+            </a>
             <h1>
                 <span class="theme__red">ЗАДАТОЧНИКИ.</span> <br />
                 Как не попасть на мошенников?
