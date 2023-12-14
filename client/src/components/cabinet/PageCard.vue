@@ -2,7 +2,7 @@
     <div
         class="page-card"
         :class="{ 'page-card__disabled': loading }"
-        @click="$router.push(`/constructor/pages/${page.link}`)"
+        @click="$router.push(`/constructor/page/${page.link}`)"
     >
         <div class="page-card__header">
             <span class="page-card__date">{{ formatDateTime(page.createdAt as string) }}</span>

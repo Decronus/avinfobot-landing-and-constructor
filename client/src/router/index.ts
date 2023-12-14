@@ -4,6 +4,8 @@ import ZadatochnikiPage from '@/pages/ZadatochnikiPage.vue';
 import CabinetPage from '@/pages/CabinetPage.vue';
 import LandingPage from '@/pages/LandingPage.vue';
 import NotFoundPage from '@/pages/NotFoundPage.vue';
+import AuthPage from '@/pages/AuthPage.vue';
+import { auth } from '@/axios/api';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -20,16 +22,24 @@ const routes: Array<RouteRecordRaw> = [
         path: '/constructor/pages',
         name: 'pages',
         component: CabinetPage,
+        meta: { requiresAuth: true },
     },
 
     {
-        path: '/constructor/pages/:pageLink',
+        path: '/constructor/page/:pageLink',
         name: 'landing-page-edit',
         component: LandingPage,
+        meta: { requiresAuth: true },
     },
 
     {
-        path: '/pages/:pageLink',
+        path: '/constructor/auth',
+        name: 'auth',
+        component: AuthPage,
+    },
+
+    {
+        path: '/page/:pageLink',
         name: 'landing-page',
         component: LandingPage,
     },
@@ -63,5 +73,21 @@ const router = createRouter({
         }
     },
 });
+
+router.beforeEach(async (to, from, next) => {
+    if (to.meta.requiresAuth && !(await checkAuth())) {
+        next({ path: '/constructor/auth', query: { sourceUrl: to.fullPath } });
+    } else {
+        next();
+    }
+});
+
+async function checkAuth(): Promise<boolean> {
+    const code = localStorage.getItem('code');
+    if (!code) return false;
+
+    const { data: isAuth } = await auth({ code });
+    return isAuth;
+}
 
 export default router;

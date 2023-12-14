@@ -38,7 +38,6 @@ export default defineComponent({
         placeholder: {
             type: String,
             required: false,
-            default: 'Placeholder',
         },
         error: {
             type: String,
@@ -85,6 +84,7 @@ export default defineComponent({
         box-shadow: none;
         border-radius: 0;
         display: inline;
+        background: none;
 
         input {
             color: $primary-text-color;

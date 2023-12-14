@@ -3,15 +3,15 @@
         <div class="logo-wrap">
             <img class="logo" src="@/assets/img/main-page/header__logo.png" alt="" @click="openMainPage" />
             <p class="header-element">
-                <span class="header-element__link" @click="$router.push('/constructor/pages')">СТРАНИЦЫ</span> /
+                <span class="header-element__link" @click="openPages">СТРАНИЦЫ</span> /
                 <span class="header-element__page-name">{{ pageName }}</span>
             </p>
         </div>
 
         <div class="header-group">
-            <span class="header-element" @click="$router.push('/pages')">Страницы</span>
+            <span class="header-element" @click="openPages">Страницы</span>
             <span class="header-element" @click="openCreatePageModal">Настройки</span>
-            <span class="header-element semibold" @click="openPage">Предпросмотр</span>
+            <span class="header-element semibold" @click="openPagePreview">Предпросмотр</span>
         </div>
 
         <div class="header__dropdown">
@@ -20,9 +20,9 @@
 
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item @click="$router.push('/constructor/pages')">Страницы</el-dropdown-item>
+                        <el-dropdown-item @click="openPages">Страницы</el-dropdown-item>
                         <el-dropdown-item @click="openCreatePageModal">Настройки</el-dropdown-item>
-                        <el-dropdown-item @click="openPage">Предпросмотр</el-dropdown-item>
+                        <el-dropdown-item @click="openPagePreview">Предпросмотр</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -50,8 +50,11 @@ export default defineComponent({
         openCreatePageModal(): void {
             this.$store.commit('modals/toggleModal', 'CreatePageModal');
         },
-        openPage(): void {
-            window.open('/pages/' + this.$route.params.pageLink, '_blank');
+        openPages(): void {
+            this.$router.push('/constructor/pages');
+        },
+        openPagePreview(): void {
+            window.open('/page/' + this.$route.params.pageLink, '_blank');
         },
         openMainPage(): void {
             window.open('https://avinfobot.me', '_blank');

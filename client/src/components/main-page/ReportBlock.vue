@@ -72,7 +72,7 @@ export default defineComponent({
     name: 'ReportBlock',
     data() {
         return {
-            reportLink: 'https://avinfotelegraph.com/report/256dd215-6b33-48d5-abd8-e73484bc942f',
+            reportLink: 'https://avinforeport.com/report/5d9f900b-0565-428b-b42b-20b2c2522bcf',
             links: [
                 'https://avinfotelegraph.com/report/76e82d52-ece4-457d-8f7c-b812e2d61ce7',
                 'https://avinfotelegraph.com/report/466f7bcf-0f5a-4485-8631-3c444cc1f630',
@@ -108,8 +108,8 @@ export default defineComponent({
         },
     },
 
-    mounted() {
-        this.initReportLink();
-    },
+    // mounted() {
+    //     this.initReportLink();
+    // },
 });
 </script>

@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const pagesRouter = require('./routes/pages');
+const authRouter = require('./routes/auth');
 const mongoose = require('mongoose');
 const loggerUrl = require('./middlewares/loggerUrl');
 
@@ -23,6 +24,7 @@ mongoose
 app.use(bodyParser.json());
 app.use(loggerUrl);
 app.use(pagesRouter);
+app.use(authRouter);
 app.use('/uploads', express.static('uploads'));
 
 app.listen(PORT, (error) => {

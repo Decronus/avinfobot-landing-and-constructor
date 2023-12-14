@@ -2,6 +2,14 @@ import axiosInst from './axios';
 import { AxiosResponse } from 'axios';
 import { PageSettings, BlockContent, BlockSettings, BlockType, Page } from '@/types/pages';
 
+interface AuthBody {
+    code: string;
+}
+
+export function auth(body: AuthBody): Promise<AxiosResponse<boolean, void>> {
+    return axiosInst.post('auth', body);
+}
+
 export function getPages(): Promise<AxiosResponse<Page[], void>> {
     return axiosInst.get('pages');
 }
