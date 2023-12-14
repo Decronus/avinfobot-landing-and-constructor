@@ -26,6 +26,7 @@ app.use(loggerUrl);
 app.use(pagesRouter);
 app.use(authRouter);
 app.use('/uploads', express.static('uploads'));
+app.set('etag', false);
 
 app.listen(PORT, (error) => {
     error ? console.log(error) : console.log(`Server is listening on PORT ${PORT}`);
