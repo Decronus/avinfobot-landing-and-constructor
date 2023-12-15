@@ -31,17 +31,11 @@ export default defineComponent({
                 this.loading = true;
                 const body = { code: this.code };
                 const { data: isAuth } = await auth(body);
-                console.log(isAuth);
 
-                if (!isAuth) {
-                    ElMessage.error('Неправильный код');
-                    return;
-                }
+                if (!isAuth) throw new Error('Неправильный код');
 
                 localStorage.setItem('code', this.code);
-
                 const url = this.$route.query.sourceUrl as string;
-                console.log('url', url);
                 this.$router.push(url ?? '/constructor/pages');
                 this.loading = false;
             } catch (err: any) {
