@@ -90,7 +90,7 @@ export default defineComponent({
             return process.env.VUE_APP_URL;
         },
         clearLink(): string {
-            return this.page.link.replace(`${this.apiUrl}/`, '');
+            return this.page.link.replace(`${this.apiUrl}/page/`, '');
         },
         isEditMode(): boolean {
             return this.$route.name === 'landing-page-edit';
@@ -116,7 +116,7 @@ export default defineComponent({
 
     watch: {
         'page.name'() {
-            this.page.link = `${this.apiUrl}/` + this.transliterateToLatin(this.page.name);
+            this.page.link = `${this.apiUrl}/` + 'page/' + this.transliterateToLatin(this.page.name);
         },
         modalVisibility(value: boolean) {
             if (value) {
